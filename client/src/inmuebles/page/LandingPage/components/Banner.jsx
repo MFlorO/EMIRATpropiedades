@@ -1,12 +1,15 @@
 import { Button, Grid, Typography } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import { useTheme, useMediaQuery } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 
 
 
 
 const Banner = () => {
+
+  const navigate = useNavigate()
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));  //Capto el breakpoints
@@ -19,7 +22,7 @@ const Banner = () => {
       <Grid container direction='column' alignItems='center' justifyContent='center' gap={1}>
         <TypographyLink sx={{ fontSize: isSmallScreen ? '35px' : '50px'}}>Hacemos realidad tu sueño</TypographyLink>
         <Typography2Link sx={{ fontSize: isSmallScreen ? '18px' : '28px'}}>Contactanos para más información</Typography2Link>
-        <ButtonStyle variant="outlined" size={isSmallScreen ? 'medium' : 'large'}>Contactanos</ButtonStyle>
+        <ButtonStyle variant="outlined" size={isSmallScreen ? 'medium' : 'large'} onClick={() => navigate('/contacto')}>Contactanos</ButtonStyle>
       </Grid>
     </Grid>
 

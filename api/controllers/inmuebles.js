@@ -7,34 +7,25 @@ const { Inmueble, Categoria } = require("../database/db");
 // ------------ GET ------------ //
 
 
-
 exports.getInmueble = async (req, res) => {
 
-    const { search = "" } = req.query;     //Si busco algo, trae lo que busco. Sino Todos
-
+    const { q } = req.query;     //Si busco algo, trae lo que busco. Sino Todos
+ 
     try {
         
-        if (search.length > 2) {
+        if (q !== "") {
+            
+            let where = {};
+
+            if (isNaN(q) === false ) { // Si el valor de búsqueda es un número, buscar por id
+                where = { id: parseInt(q) };
+            } else { // De lo contrario, buscar por nombre
+                where = { nombre: { [Op.like]: `%${q}%` } };
+            }
 
             const inmueble = await Inmueble.findAll({
-                order: [['nombre', 'ASC']],
-                where: {
-                    [Op.and]: {
-                      status: "Disponible",
-                      [Op.or]: [
-                        {
-                          nombre: {
-                            [Op.iLike]: `%${search}%`
-                          }
-                        },
-                        {
-                          id: {
-                            [Op.iLike]: `%${search}%`
-                          }
-                        }
-                      ]
-                    }
-                  },
+                order: [['id', 'ASC']],
+                where: where, 
                 include: [{          //##### UNIR LAS DIFERENTES TABLAS #####
                     model: Categoria,
                     attributes: ['id', "nombre"],
@@ -43,23 +34,43 @@ exports.getInmueble = async (req, res) => {
                 ]
             })
 
+            if (inmueble.length > 0) {
+                
+                return res.status(201).json({
+                    ok: true,
+                    status: "Inmuebles segun la busqueda",
+                    inmueble
+                })
 
-            if (inmueble.length > 0) return res.status(201).json({
-                ok: true,
-                status: "Inmuebles segun la busqueda",
-                inmueble
-            })
-    
-            return res.status(400).json({
-                ok: false,
-                status: 'No se encontraron los productos con esos filtros'
-            });
+            } else {
 
+                const inmueble = await Inmueble.findAll({
+                    order: [['id', 'ASC']],
+                    include: [{          //##### UNIR LAS DIFERENTES TABLAS #####
+                        model: Categoria,
+                        attributes: ['id', "nombre"],
+                        through: { attributes: [] }
+                     }
+                    ]
+                });
+        
+                if (inmueble) return res.status(201).json({
+                    ok: true,
+                    status: "Todos los inmuebles",
+                    inmueble
+                })
+        
+                return res.status(400).json({
+                    ok: false,
+                    status: 'No se encontraron inmuebles'
+                });
+            }
 
+            
         } else {
 
             const inmueble = await Inmueble.findAll({
-                order: [['nombre', 'ASC']],
+                order: [['id', 'ASC']],
                 include: [{          //##### UNIR LAS DIFERENTES TABLAS #####
                     model: Categoria,
                     attributes: ['id', "nombre"],
@@ -80,6 +91,9 @@ exports.getInmueble = async (req, res) => {
             });
 
         }
+    
+
+
 
 
     } catch (error) {
@@ -101,7 +115,7 @@ exports.getInmueble = async (req, res) => {
 
 exports.getInmuebleId = async(req, res) => {
 
-    const { id } = req.params  //Código del producto
+    const { id } = req.params  //Código del inmueble
 
     try {
 
@@ -195,6 +209,7 @@ function validaciones( nombre , descripcion, precio, imagen, fechaPublicacion, d
     if (!descripcion || descripcion === undefined || descripcion.length > 5200)
         return false;
     if (!precio || precio < 0 || precio === undefined) return false;
+    // if (!moneda) return false;
     if (!imagen || imagen === undefined) return false;
     if (!fechaPublicacion || fechaPublicacion === undefined) return false;
     if (!direccion || direccion === undefined) return false;
@@ -208,7 +223,7 @@ function validaciones( nombre , descripcion, precio, imagen, fechaPublicacion, d
 
 exports.crearInmueble = async (req, res) => {
 
-    const { id, nombre, descripcion, precio, imagen, fechaPublicacion, direccion } = req.body
+    const { id, nombre, descripcion, precio, moneda, imagen, fechaPublicacion, direccion } = req.body
 
 
     if ( !validaciones( nombre , precio, descripcion, imagen, fechaPublicacion, direccion ) )  
@@ -229,6 +244,7 @@ exports.crearInmueble = async (req, res) => {
             codigo: id,
             nombre: nombre.toLowerCase(),
             precio,
+            moneda,
             descripcion: descripcion.toLowerCase(),
             imagen,
             fechaPublicacion,
@@ -258,11 +274,11 @@ exports.crearInmueble = async (req, res) => {
 
 exports.editProducto = async(req, res) => {
 
-    const { id, nombre , precio, descripcion, imagen, fechaPublicacion, direccion, idCategoria } = req.body
+    const { id, nombre , precio, moneda, descripcion, imagen, fechaPublicacion, direccion, idCategoria } = req.body
 
     const nombreMinuscula = nombre.toLowerCase()
 
-    if ( !validaciones( id, nombre , precio, descripcion, imagen, fechaPublicacion, direccion,idCategoria ) )  
+    if ( !validaciones( id, nombre, precio, descripcion, imagen, fechaPublicacion, direccion, idCategoria ) )  
     return res.status(400).json({ ok: false, status: "Error con las validaciones" });
 
     
@@ -289,6 +305,7 @@ exports.editProducto = async(req, res) => {
         inmueble.nombre = nombreMinuscula;
         inmueble.descripcion = descripcion;
         inmueble.precio = precio;
+        inmueble.moneda = moneda;
         inmueble.imagen = imagen;
         inmueble.fechaPublicacion = fechaPublicacion;
         inmueble.direccion = direccion
@@ -303,7 +320,6 @@ exports.editProducto = async(req, res) => {
 
                 if (categoria) inmueble.addCategoria(categoria)
             }
-
         })
 
 

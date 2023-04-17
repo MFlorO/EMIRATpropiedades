@@ -1,32 +1,74 @@
-import { Grid, Typography } from "@mui/material"
-import { Fragment } from "react";
+import { Button, Grid, Typography } from "@mui/material"
+import { Link, useNavigate } from "react-router-dom";
 import useInmuebles from "../../../Hook/useInmuebles";
+import { IconosItems } from "../../../components";
+import { styled } from '@mui/material/styles';
+
+
 
 
 
 const Productos = () => {
 
-  const { inmueblesCopia } = useInmuebles()
+  const navigate = useNavigate()
 
-  // const cantidadInmuebles = InmueblesCopia?.length
+  const { inmuebleCopia } = useInmuebles()
+
+  const cantidadInmuebles = inmuebleCopia?.length
   
   return (
-    <Grid backgroundColor='white'>
+    <>
 
-    {/* <Typography variant="h4"> {cantidadInmuebles} inmuebles</Typography> */}
+    <Typography variant="h4" fontWeight={600}>  {cantidadInmuebles} Inmuebles totales</Typography>
       
-      <Grid height='15rem'>
-        
-      { inmueblesCopia.inmueble?.map( p => (
-        <Fragment  key={p.codigo}>
-          {p.nombre}
-        </Fragment>
-      ))}
 
-      </Grid>
+    <Grid container direction='column' gap={5} mt={2} >
+      {inmuebleCopia?.map( p => (
+          <Grid container direction={{xs:'column', sm:'row'}} width={'100%'} height='18rem' key={p.id} justifyContent='space-between' backgroundColor='white' gap={2} >
+            <Grid container width={{xs:'90%', sm:'40%'}} height='100%'> 
+              <Link to={`/tienda/${p.id}`}><img src={p.imagen[0]} alt={p.imagen.indexOf()}  style={{width:'100%', height:'100%', objectFit:'cover'}} /></Link>
+            </Grid>
 
+            <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'57%'}} height='100%' >
+              
+              <Grid container width={{xs:'100%', sm:'70%'}} direction='column' justifyContent='space-around' >
+              <Grid item>
+              <TypographyPrecio>$ {p.precio} {p.moneda}</TypographyPrecio>
+              <Typography variant='p' fontWeight={700}>{p.direccion}</Typography>
+              </Grid>
+
+              <Grid item>
+                <IconosItems p={p} />
+              </Grid>
+              </Grid>
+
+              <Grid item width={{xs:'100%', sm:'20%'}} alignSelf='end' p={2}> 
+                <Button variant="contained" size="large" onClick={() => navigate(`/contacto?c=alquilar&id=${p.id}`)}>Contactar</Button>
+              </Grid>
+
+            </Grid>
+           </Grid>
+          )
+        )
+      }
     </Grid>
+    
+
+    </>
   )
 }
 
 export default Productos
+
+
+
+
+
+
+
+const TypographyPrecio = styled(Typography)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+  fontFamily: theme.typography.h1.fontFamily,
+  fontSize: '40px',
+  fontWeight: 600,
+}));

@@ -15,7 +15,7 @@ const Buscador = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate(`/tienda?search=${search}`)
+    navigate(`/tienda?q=${search}`)
     setSearch("");
   };
 

@@ -8,15 +8,22 @@ const baseURL = "http://localhost:3001/api"
 export const GET_All_INMUEBLES = "GET_All_INMUEBLES"
 export const GET_INMUEBLE_ID = "GET_INMUEBLE_ID";
 export const DELETE_COUNTRIES_DETAIL = "DELETE_COUNTRIES_DETAIL";
-export const CREAR_INMUEBLE = "CREAR_INMUEBLE"
+export const CREAR_INMUEBLE = "CREAR_INMUEBLE";
+export const DELETE_INMUEBLE_ID = "DELETE_INMUEBLE_ID"
+
+
+
 
 
 //         ##################       GET_All_INMUEBLES         #################
 
-export function getAllInmuebles() {
+export function getAllInmuebles(query) {
+
+  const { search } = query
+
   return function (dispatch) {
    
-    axios.get(`${baseURL}/inmuebles`)
+    axios.get(`${baseURL}/inmuebles?q=${search}`)
       .then(response => {
         dispatch({
           type: 'GET_All_INMUEBLES',
@@ -37,8 +44,8 @@ export function getAllInmuebles() {
 
 
 export function InmuebleID(id) {
+
   return function (dispatch) {
-    
       axios.get(`${baseURL}/inmuebles/${id}`)
       .then(response => {
         dispatch({
@@ -53,12 +60,20 @@ export function InmuebleID(id) {
 }
 
 
+//         ##################       DELETE_INMUEBLE_ID         #################
+
+export function deleteInmuebleID(id) {  //--> Lo utilizo para desmontar el componente de detalle
+  return {
+    type: DELETE_INMUEBLE_ID,
+    payload: id
+  };
+}
 
 
 
 //         ##################       CREAR_INMUEBLE         #################
 
-export function createActivities(body) {
+export function createInmueble(body) {
   return async function (dispatch) {
     try {
       await axios.post(`${baseURL}/inmuebles/`, body);

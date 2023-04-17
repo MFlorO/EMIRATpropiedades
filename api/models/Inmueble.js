@@ -16,8 +16,13 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      moneda: {
+        type: DataTypes.STRING,
+        defaultValue: 'USD',
+        allowNull: false,
+      },
       imagen: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.ARRAY(DataTypes.STRING(100000)),
         allowNull: false,
       },
       fechaPublicacion: {
@@ -66,8 +71,8 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       pileta:{
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: false,
       }
     },

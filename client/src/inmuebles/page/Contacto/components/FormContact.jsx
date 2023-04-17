@@ -51,7 +51,7 @@ return (
     <Typography variant="p" textAlign='center'>Completá el formulario para comunicarte con nosotros. ¡Te contactaremos a la brevedad!</Typography>
     <Grid container mt='1rem' gap={1} component='form' p={3} onSubmit={onSubmit} ref={form}>
 
-      {query.c === 'alquilar' && <Typography>Uds está averiguando por la propiedad: {query.nombre}, codigo: {query.id} </Typography>}
+      {query.c === 'alquilar' && <Typography textAlign='center'>Uds está averiguando por la propiedad codigo: {query.id} </Typography>}
 
       <TextField label='Nombre y Apellido' fullWidth value={user_name} name='user_name' onChange={onInputChange} />
       {errorFormValid.user_name && <FormHelperText error>{errorFormValid.user_name}</FormHelperText>}
