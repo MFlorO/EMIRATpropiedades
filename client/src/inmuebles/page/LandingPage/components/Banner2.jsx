@@ -1,4 +1,4 @@
-import { IconButton, Grid, useTheme, Typography } from "@mui/material"
+import { IconButton, Grid, Typography } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
@@ -10,12 +10,11 @@ import { useNavigate } from "react-router-dom";
 
 const Banner2 = () => {
 
-  const theme = useTheme();
   const navigate = useNavigate()
 
 
   return (
-    <Grid container backgroundColor={theme.palette.primary.main} width='100%' minHeight='15rem' justifyContent='center' mt={15}>
+    <Grid container width='100%' minHeight='15rem' justifyContent='center' >
     <Grid container width='70%' direction={{xs:'column', sm:'row'}} justifyContent='space-around' alignItems='center' gap={2}>
       <GridIcon>
        <ButtonStyle onClick={() => navigate('/tienda')}><HomeIcon fontSize="large"/></ButtonStyle>
@@ -47,9 +46,9 @@ export default Banner2
 
 const ButtonStyle = styled(IconButton)(({ theme }) => ({
     cursor: 'pointer',
-    border: '2px solid white',
+    border: `2px solid ${theme.palette.primary.main}`,
     BorderRadidus: '90px',
-    color:'white',
+    color: theme.palette.primary.main,
     padding:'3px'
   }));
   
@@ -58,9 +57,9 @@ const ButtonStyle = styled(IconButton)(({ theme }) => ({
 const TypographyStyle = styled(Typography)(({ theme }) => ({
     cursor: 'pointer',
     fontFamily: theme.typography.h3.fontFamily,
-    fontWeight: 200,
+    fontWeight: 400,
     fontSize: '15px',
-    color:'white',
+    color: theme.palette.primary.main,
   }));
 
 

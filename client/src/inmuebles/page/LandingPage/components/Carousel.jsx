@@ -34,7 +34,7 @@ const Carousell = ({ elementos }) => {
         
 
     return (
-      <Grid container direction='column' mt={{xs:30, sm:22}}  sx={{width:'100%', height:'30rem', maxHeight:'max-content'}} justifyContent='center' alignItems='center'>
+      <Grid container direction='column' sx={{width:'100%', height:'30rem', maxHeight:'max-content'}} justifyContent='center' alignItems='center'>
       <Grid container direction='column' justifyContent='center' alignItems='center' mb={2}>
        <Typography variant="h3" fontWeight={600}>Inmuebles Destacados</Typography>
       </Grid>
