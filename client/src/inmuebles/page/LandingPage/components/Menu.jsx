@@ -48,5 +48,5 @@ const ButtonStyles = styled(Button)(({ theme }) => ({
   const GridBorder = styled(Grid)(({ theme }) => ({
     border:'1px solid #C5C5C5',
     alignSelf: 'center',
-    height: '50%'
+    height: '40%'
   }));
