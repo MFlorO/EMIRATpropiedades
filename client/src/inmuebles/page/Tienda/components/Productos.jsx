@@ -22,15 +22,15 @@ const Productos = () => {
     <Typography variant="h4" fontWeight={600}>  {cantidadInmuebles} Inmuebles totales</Typography>
       
 
-    <Grid container direction='column' gap={5} mt={2} >
+    <Grid container direction='column' gap={2} mt={2} >
       {inmuebleCopia?.map( p => (
-          <Grid container direction={{xs:'column', sm:'row'}} width={'100%'} height='18rem' key={p.id} justifyContent='space-between' backgroundColor='white' gap={2} >
-            <Grid container width={{xs:'90%', sm:'40%'}} height='100%'> 
+          <Grid container direction={{xs:'column', sm:'row'}} width='95%' height='18rem' key={p.id} justifyContent='space-between' backgroundColor='white'>
+
+            <Grid container width={{xs:'90%', sm:'35%'}} height='100%' backgroundColor='red'> 
               <Link to={`/tienda/${p.id}`}><img src={p.imagen[0]} alt={p.imagen.indexOf()}  style={{width:'100%', height:'100%', objectFit:'cover'}} /></Link>
             </Grid>
 
-            <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'57%'}} height='100%' >
-              
+            <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'60%'}} height='100%' >
               <Grid container width={{xs:'100%', sm:'70%'}} direction='column' justifyContent='space-around' >
               <Grid item>
               <TypographyPrecio>$ {p.precio} {p.moneda}</TypographyPrecio>
@@ -45,8 +45,8 @@ const Productos = () => {
               <Grid item width={{xs:'100%', sm:'20%'}} alignSelf='end' p={2}> 
                 <Button variant="contained" size="large" onClick={() => navigate(`/contacto?c=alquilar&id=${p.id}`)}>Contactar</Button>
               </Grid>
-
             </Grid>
+
            </Grid>
           )
         )

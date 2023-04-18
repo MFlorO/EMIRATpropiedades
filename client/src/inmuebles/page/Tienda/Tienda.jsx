@@ -14,13 +14,13 @@ const Tienda = () => {
     <InmuebleLayout>
       <Grid container justifyContent="space-between" pt={10}>
         
-        <Grid item xs={12} sm={2.5} minHeight={{ xs: "3rem", sm: "17rem" }} backgroundColor='white' 
+        <Grid item xs={12} sm={3} minHeight={{ xs: "3rem", sm: "17rem" }} backgroundColor='white' 
         border={{xs:'none', sm:`2px solid ${theme.palette.primary.main}`}}>
           <Filtros />
         </Grid>
 
-        <Grid item xs={12} sm={9}>
-          <Grid container justifyContent={{ xs: "center", sm: "space-between" }} gap={{ xs: 3, sm: 0 }}>
+        <Grid item xs={12} sm={8.5}>
+          <Grid container width='95%' justifyContent={{ xs: "center", sm: "space-between" }} gap={{ xs: 3, sm: 0 }}>
             <Ordenamientos />
             <Paginado />
           </Grid>
