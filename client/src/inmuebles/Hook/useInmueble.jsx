@@ -16,11 +16,8 @@ const useInmueble = () => {
   useEffect(() => {
     dispatch(InmuebleID(id))
 
-    console.log("el componente se monto")
-
     return () => {
       dispatch(deleteInmuebleID(id));
-      console.log("el componente se desmonto");
       //TENGO QUE DESMONTAR EL COMPONENTE SINO ME QUEDA AHI COLGADO
     };
   }, [dispatch, id])
