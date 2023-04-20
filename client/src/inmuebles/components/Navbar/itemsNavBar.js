@@ -21,8 +21,8 @@ export const item = [
         'link': '/administracion'
     },
     {
-        'nombre': 'Nosotros',
-        'link': '/nosotros'
+        'nombre': 'Empresa',
+        'link': '/empresa'
     },
     {
         'nombre': 'Contacto',

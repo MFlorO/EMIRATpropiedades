@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Detalle, LandingPage, Tienda, Contacto, Administracion } from "../page";
+import { Detalle, LandingPage, Tienda, Contacto, Administracion, Empresa } from "../page";
 import InmuebleLayout from "../layout/InmuebleLayout";
 
 
@@ -13,6 +13,7 @@ const InmobiliariaRoutes = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/tienda/:id" element={<Detalle /> } />
       <Route path="/tienda" element={<Tienda />} />
+      <Route path="/empresa" element={<Empresa />} />
       <Route path="/contacto" element={<Contacto />} />
       <Route path="/administracion" element={<Administracion />} />
 
