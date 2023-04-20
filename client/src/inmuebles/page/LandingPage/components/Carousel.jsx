@@ -9,43 +9,52 @@ const style = {
   width:'100%', 
   height:'60%', 
   objectFit:'cover',
-  transition: 'opacity 0.5s ease-in-out'
+  objectPosition: 'center center',
 }
 
-// onClick={() => navigate(`/contacto?c=alquilar&id=${p.id}`)}
-// borderLeft={`3px solid ${theme.palette.secondary.main}`}
+
+
+const elementos = [
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCukprG1CL0fwu5f1XI1OKggmoiHsb48R2gw&usqp=CAU", //1
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCukprG1CL0fwu5f1XI1OKggmoiHsb48R2gw&usqp=CAU", //2
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCukprG1CL0fwu5f1XI1OKggmoiHsb48R2gw&usqp=CAU", //3
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuMLRmTKnrOLmTDNv1tbZvWpj0LnqSj5fazA&usqp=CAU", //4
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuMLRmTKnrOLmTDNv1tbZvWpj0LnqSj5fazA&usqp=CAU", //5
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCukprG1CL0fwu5f1XI1OKggmoiHsb48R2gw&usqp=CAU", //6
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCukprG1CL0fwu5f1XI1OKggmoiHsb48R2gw&usqp=CAU", //7
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCukprG1CL0fwu5f1XI1OKggmoiHsb48R2gw&usqp=CAU", //8
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCukprG1CL0fwu5f1XI1OKggmoiHsb48R2gw&usqp=CAU" //9
+  ]
 
 
 
-
-
-const Carousell = ({ elementos }) => {
+const Carousell = () => {
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm')); 
 
     const [selectedIndex, setSelectedIndex] = useState(0);
 
-    const cantidadSegunResponsive = isSmallScreen? 1 : 6
+    const cantidadSegunResponsive = isSmallScreen? 1 : 3
 
     const anterior = () => setSelectedIndex((selectedIndex - cantidadSegunResponsive + elementos.length) % elementos.length)
     const siguiente = () => setSelectedIndex((selectedIndex + cantidadSegunResponsive) % elementos.length);
     const slicedElements = elementos?.slice(selectedIndex, selectedIndex + cantidadSegunResponsive);
-        
+
 
     return (
-      <Grid container direction='column' sx={{width:'100%', height:'30rem', maxHeight:'max-content'}} justifyContent='center' alignItems='center'>
-      <Grid container direction='column' justifyContent='center' alignItems='center' mb={2}>
-       <Typography variant="h3" fontWeight={600}>Inmuebles Destacados</Typography>
+      <Grid container direction='column' sx={{width:'100%', height:'30rem', maxHeight:'max-content'}} justifyContent='center' alignItems='center' mb={4}>
+      <Grid container direction='column' justifyContent='center' alignItems='center' mb={4}>
+       <Typography variant="h3" fontSize='28px' fontWeight={400}>Inmuebles Destacados</Typography>
       </Grid>
 
-      <Grid container width='100%' height='17rem' justifyContent='center' alignItems='center'>
+      <Grid container width='100%' height='25rem' justifyContent='center' alignItems='center'>
 
         <Button onClick={anterior} size='small'><KeyboardArrowLeft/></Button>
 
         <Grid container width={{xs:'60%', sm:'90%'}} height='100%' direction='row' alignItems='center' justifyContent='space-around'>
         {slicedElements?.map( (e, index) => ( 
-            <Grid item key={index} width={{xs:'100%', sm:'15%'}} height='100%' backgroundColor='white'>
+            <Grid item key={index} width={{xs:'100%', sm:'30%'}} height='100%' backgroundColor='white'>
                 <img src={e} alt={e} style={style} />
                 <Grid container direction='column' alignItems='center' gap={1}>
                   <TypographyNombre variant='p'>VENTA</TypographyNombre>
@@ -55,8 +64,10 @@ const Carousell = ({ elementos }) => {
             </Grid>
         ))}
         </Grid>
-            <Button onClick={siguiente} size='small' ><KeyboardArrowRight /></Button>
-            </Grid> 
+
+        <Button onClick={siguiente} size='small' ><KeyboardArrowRight /></Button>
+        
+        </Grid> 
         </Grid>
     );
  }

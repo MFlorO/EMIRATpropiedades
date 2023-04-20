@@ -15,7 +15,7 @@ const InmuebleLayout = ({children}) => {
     <NavBar />
 
     <Grid container paddingLeft={{xs:1.5, sm:10}} paddingRight={{xs:1.5, sm:10}} justifyContent="space-around" alignItems='center' 
-    sx={{height:'max-content', width:'100%'}} pb='5rem' backgroundColor='#F8F8F8'
+    sx={{minHeight:'31rem' ,height:'max-content', width:'100%'}} pb='5rem' backgroundColor='#F8F8F8'
     >
       {children}
     </Grid>

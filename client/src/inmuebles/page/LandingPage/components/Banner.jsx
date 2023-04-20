@@ -16,7 +16,7 @@ const Banner = () => {
   
   return (
     <Grid container sx={{ backgroundImage: 'url(/img/banner/bannerLanding.png)', backgroundSize:'cover', backgroundPosition:'center' }} 
-    height={{xs:'30rem', sm:'45rem'}} width='100%'>
+    height={{xs:'30rem', sm:'40rem'}} width='100%'>
 
     <Grid container sx={{ backgroundColor:'rgba(30, 30, 30, 0.5)', width:'100%', height:'100%' }}>
       <Grid container direction='column' alignItems='center' justifyContent='center' gap={1}>

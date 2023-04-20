@@ -13,7 +13,7 @@ export const item = [
         },
         {
             'nombre': 'Comprar',
-            'link': '/tienda?c=comprar',
+            'link': '/tienda?c=venta',
         }]
     },
     {

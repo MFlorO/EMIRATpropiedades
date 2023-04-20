@@ -126,7 +126,7 @@ const TypographyTitulo = styled(Typography)(({ theme }) => ({
 const TypographyVenta = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.main,
   fontFamily: theme.typography.p.fontFamily,
-  fontSize: '10px',
+  fontSize: '20px',
   fontWeight: 400,
 }));
 
