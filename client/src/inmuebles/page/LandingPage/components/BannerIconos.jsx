@@ -3,8 +3,6 @@ import { styled } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
-import VerticalSplitIcon from '@mui/icons-material/VerticalSplit';
 import KeyIcon from '@mui/icons-material/Key';
 import { useNavigate } from "react-router-dom";
 

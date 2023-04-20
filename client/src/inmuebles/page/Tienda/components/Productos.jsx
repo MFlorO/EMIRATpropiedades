@@ -12,22 +12,22 @@ const Productos = () => {
 
   const navigate = useNavigate()
 
-  const { inmuebleCopia } = useInmuebles()
+  const { inmuebleCopia, status, ok } = useInmuebles()
 
   const cantidadInmuebles = inmuebleCopia?.length
   
   return (
     <>
 
-    <Typography variant="h4" fontWeight={600}>  {cantidadInmuebles} Inmuebles totales</Typography>
+    <Typography variant="h4" fontWeight={600}> {!ok ?  status : cantidadInmuebles + " Inmuebles totales"}</Typography>
       
 
     <Grid container direction='column' gap={2} mt={2} >
-      {inmuebleCopia?.map( p => (
+      { ok && inmuebleCopia?.map( p => (
           <Grid container direction={{xs:'column', sm:'row'}} width='95%' height='18rem' key={p.id} justifyContent='space-between' backgroundColor='white'>
 
             <Grid container width={{xs:'90%', sm:'35%'}} height='100%' backgroundColor='red'> 
-              <Link to={`/tienda/${p.id}`}><img src={p.imagen[0]} alt={p.imagen.indexOf()}  style={{width:'100%', height:'100%', objectFit:'cover'}} /></Link>
+              <Link to={`/tienda/${p.id}`}><img src={p.imagen[0]} alt={p.imagen.indexOf()}  style={{width:'100%', height:'100%', objectFit:'cover', objectPosition: 'center center',}} /></Link>
             </Grid>
 
             <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'60%'}} height='100%' >
