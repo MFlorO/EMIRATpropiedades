@@ -6,11 +6,12 @@ const baseURL = "http://localhost:3001/api"
 
 
 export const GET_All_INMUEBLES = "GET_All_INMUEBLES"
+export const DELETE_All_INMUEBLES = "DELETE_All_INMUEBLES"
 export const GET_INMUEBLE_ID = "GET_INMUEBLE_ID";
 export const DELETE_COUNTRIES_DETAIL = "DELETE_COUNTRIES_DETAIL";
 export const CREAR_INMUEBLE = "CREAR_INMUEBLE";
-export const DELETE_INMUEBLE_ID = "DELETE_INMUEBLE_ID"
-
+export const DELETE_INMUEBLE_ID = "DELETE_INMUEBLE_ID";
+export const GET_NAME_INMUEBLES = "GET_NAME_INMUEBLES";
 
 
 
@@ -19,11 +20,11 @@ export const DELETE_INMUEBLE_ID = "DELETE_INMUEBLE_ID"
 
 export function getAllInmuebles(query) {
 
-  const { search } = query
+  const { c } = query
 
   return function (dispatch) {
    
-    axios.get(`${baseURL}/inmuebles?q=${search}`)
+    axios.get(`${baseURL}/inmuebles?c=${c}`)
       .then(response => {
         dispatch({
           type: 'GET_All_INMUEBLES',
@@ -31,11 +32,47 @@ export function getAllInmuebles(query) {
         });
       })
     .catch(error => {
-      console.log("todos los inmuebles",error)
+      console.log("error ruta getAllInmuebles",error)
     })
   };
 }
 
+
+//         #########   DELETE_All_INMUEBLES  #################
+
+
+export function deleteInmueble(query) {  //--> Lo utilizo para desmontar el componente de inmueble
+  return {
+    type: DELETE_All_INMUEBLES,
+    payload: query
+  };
+}
+
+
+
+//         ##################       GET_NAME_INMUEBLES         #################
+
+
+export function getNameInmuebles(query) {
+
+  const { c } = query
+
+
+  return function (dispatch) {
+   
+    axios.get(`${baseURL}/inmuebles?c=${c}`)
+      .then(response => {
+        console.log(response.data)
+        dispatch({
+          type: 'GET_NAME_INMUEBLES',
+          payload: response.data
+        });
+      })
+    .catch(error => {
+      console.log("error ruta getnameinmueblee",error)
+    })
+  };
+}
 
 
 

@@ -74,14 +74,14 @@ exports.crearCategoria = async(req, res) => {
         if(created) {
             return res.status(201).json({
                 ok: true,
-                status: "categoría creada con éxito",
+                status: `categoría [${categoria.nombre}] creada con éxito`,
                 categoria
             })
         }
         
         return res.status(400).json({
             ok: false,
-            status: "No se pudo crear la categoria",
+            status: `No se pudo crear la categoria ${categoria.nombre}`,
         })
 
     
@@ -115,7 +115,7 @@ exports.editCategoria = async(req, res) => {
         if(categoriaExistente === null) {
             return res.status(400).json({
                 ok: false,
-                status: "No se encontró la categoría",
+                status: `No se encontró la categoría ${c}`,
             })
         }
 
@@ -136,7 +136,7 @@ exports.editCategoria = async(req, res) => {
 
          return res.status(201).json({
             ok: true,
-            status: "categoría modificada con éxito",
+            status: `categoría [ ${c} ] modificada con éxito`,
         })
         
 

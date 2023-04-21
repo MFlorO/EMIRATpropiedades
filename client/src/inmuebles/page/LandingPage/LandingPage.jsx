@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
 import { Banner, Menu, Carousel, BannerIconos, Publicidad } from "./components";
 import { Footer, NavBar } from "../../components";
-import imagen1 from "../../../../public/img/publicidadLandingPage/publicidad1.jpg"
-import imagen2 from "../../../../public/img/publicidadLandingPage/publicidad2.jpg"
+import imagen1 from "/img/publicidadLandingPage/publicidad1.jpg"
+import imagen2 from "/img/publicidadLandingPage/publicidad2.jpg"
 
 
 

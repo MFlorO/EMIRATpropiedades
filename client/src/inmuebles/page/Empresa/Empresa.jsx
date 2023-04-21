@@ -3,8 +3,8 @@ import { InmuebleLayout } from "../../layout"
 import PublicidadEmpresa from "./PublicidadEmpresa"
 import { heightViews } from "../../layout/InmuebleLayout"
 
-import imagen from "../../../../public/img/empresa/fotoEmpresa.jpg"
-import imagen2 from "../../../../public/img/empresa/fotoEmpresa2.jpg"
+import imagen from "/img/empresa/fotoEmpresa.jpg"
+import imagen2 from "/img/empresa/fotoEmpresa2.jpg"
 
 
 const Empresa = () => {

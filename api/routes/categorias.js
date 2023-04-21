@@ -4,7 +4,7 @@
 
 const { Router } = require('express');
 const router = Router();
-const { getCategorias, crearCategoria, editCategoria, deleteCategoria, postCategoria, putCategoria } = require('../controllers/categorias');
+const { getCategorias, crearCategoria, editCategoria, deleteCategoria, putCategoria } = require('../controllers/categorias');
 
 
 
@@ -13,7 +13,6 @@ router.post('/', crearCategoria);
 router.put('/', editCategoria);
 router.delete('/', deleteCategoria);
 
-router.post('/:codigo', postCategoria)  //agregar categoria a determinado producto
 router.put('/:codigo', putCategoria)
 
 

@@ -4,100 +4,22 @@ const { Inmueble, Categoria } = require("../database/db");
 
 
 
-// ------------ GET ------------ //
+exports.getTodosLosInmuebles = async () => {
+    try{
 
+        const inmueble = await Inmueble.findAll({
+            order: [['id', 'ASC']],
+            include: [{        
+                model: Categoria,
+                attributes: ['id', "nombre"],
+                through: { attributes: [] }
+             }
+            ]
+        });
 
-exports.getInmueble = async (req, res) => {
+        return inmueble
 
-    const { q } = req.query;     //Si busco algo, trae lo que busco. Sino Todos
- 
-    try {
-        
-        if (q !== "") {
-            
-            let where = {};
-
-            if (isNaN(q) === false ) { // Si el valor de búsqueda es un número, buscar por id
-                where = { id: parseInt(q) };
-            } else { // De lo contrario, buscar por nombre
-                where = { nombre: { [Op.like]: `%${q}%` } };
-            }
-
-            const inmueble = await Inmueble.findAll({
-                order: [['id', 'ASC']],
-                where: where, 
-                include: [{          //##### UNIR LAS DIFERENTES TABLAS #####
-                    model: Categoria,
-                    attributes: ['id', "nombre"],
-                    through: { attributes: [] }
-                 }
-                ]
-            })
-
-            if (inmueble.length > 0) {
-                
-                return res.status(201).json({
-                    ok: true,
-                    status: "Inmuebles segun la busqueda",
-                    inmueble
-                })
-
-            } else {
-
-                const inmueble = await Inmueble.findAll({
-                    order: [['id', 'ASC']],
-                    include: [{          //##### UNIR LAS DIFERENTES TABLAS #####
-                        model: Categoria,
-                        attributes: ['id', "nombre"],
-                        through: { attributes: [] }
-                     }
-                    ]
-                });
-        
-                if (inmueble) return res.status(201).json({
-                    ok: true,
-                    status: "Todos los inmuebles",
-                    inmueble
-                })
-        
-                return res.status(400).json({
-                    ok: false,
-                    status: 'No se encontraron inmuebles'
-                });
-            }
-
-            
-        } else {
-
-            const inmueble = await Inmueble.findAll({
-                order: [['id', 'ASC']],
-                include: [{          //##### UNIR LAS DIFERENTES TABLAS #####
-                    model: Categoria,
-                    attributes: ['id', "nombre"],
-                    through: { attributes: [] }
-                 }
-                ]
-            });
-    
-            if (inmueble) return res.status(201).json({
-                ok: true,
-                status: "Todos los inmuebles",
-                inmueble
-            })
-    
-            return res.status(400).json({
-                ok: false,
-                status: 'No se encontraron inmuebles'
-            });
-
-        }
-    
-
-
-
-
-    } catch (error) {
-
+    }catch{
         res.status(500).json({
             ok: false,
             status: "comunicarse con el administrador",
@@ -105,6 +27,75 @@ exports.getInmueble = async (req, res) => {
 
         console.log(error)
     }
+}
+
+
+exports.getInmueble = async ( c ) => {
+ 
+    try {
+        
+            const inmueble = await Inmueble.findAll({
+                order: [['id', 'ASC']],
+                include: [{         
+                    model: Categoria,
+                    where: { nombre: { [Op.like]: `%${c}%` } },
+                    attributes: ['id', "nombre"],
+                    through: { attributes: [] }
+                 }
+                ]
+            });
+
+            return inmueble
+
+    } catch (error) {
+
+        console.log(error)
+        return undefined;
+    }
+}
+
+
+
+// -------- GET SEARCH INMUEBLE ------------ //
+
+exports.getSearch = async (req, res) => {
+
+  const { search } = req.query;    
+
+try {
+
+    let where = {};
+
+    if (isNaN(search) === false ) { // Si el valor de búsqueda es un número, buscar por id
+    where = { id: parseInt(search) };
+    } else { // De lo contrario, buscar por nombre
+    where = { nombre: { [Op.like]: `%${search}%` } };
+    }
+
+
+    const resultados = await Inmueble.findAll({
+        order: [['id', 'ASC']],
+        where: where,
+        include: {
+                    model: Categoria,
+                    attributes: ['id', "nombre"],
+                    through: { attributes: [] }
+            }
+       })
+
+    resultados.length === 0 
+    ? res.status(500).json({ ok: false, status: 'No se encontraron inmuebles en la busqueda'  })
+    : res.status(201).json({
+        ok: true,
+        status: "Inmuebles segun la busqueda",
+        resultados
+    })
+
+       
+} catch (error) {
+    console.log(error)
+    return undefined;
+}
 }
 
 
@@ -153,39 +144,35 @@ exports.getInmuebleId = async(req, res) => {
 
 
 
-// --------- GET FILTRO --------- //
+// --------- GET FILTRO CATEGORIA --------- //
 
 
 
 exports.getProductosByFilter = async (req, res) => {
 
-    const { idcategoria, idMV } = req.query
+    const { idcategoria } = req.params
 
     try {
 
-        const productos = await Producto.findAll({
+        const inmueble = await Inmueble.findAll({
             order: [['nombre', 'ASC']],
-
-            include: [Categoria, Modelo],
+            include: Categoria,
             where: {
-                [Op.or]: [
-                    { "$categoria.id$": Number(idcategoria) },
-                    { "$modelos.id$": Number(idMV) },  
-                ],
+               "$categoria.id$": Number(idcategoria)
             },
         });
 
-        console.log(productos)
+        console.log(inmueble)
 
-        if (productos) return res.status(201).json({
+        if (inmueble) return res.status(201).json({
             ok: true,
-            status: "getProducto",
-            productos
+            status: "inmueble segun categoria",
+            inmueble
         })
 
         return res.status(400).json({
             ok: false,
-            status: 'No se encontraron los productos'
+            status: 'No se encontraron los inmuebles según categoria'
         });
 
     } catch (error) {
@@ -203,7 +190,7 @@ exports.getProductosByFilter = async (req, res) => {
 // ------------ POST ------------ //
 
 
-function validaciones( nombre , descripcion, precio, imagen, fechaPublicacion, direccion ) {
+function validaciones( nombre , descripcion, precio, imagen, fechaPublicacion, direccion, idCategoria ) {
 
     if (!nombre || nombre === undefined || nombre.length > 300) return false;
     if (!descripcion || descripcion === undefined || descripcion.length > 5200)
@@ -213,6 +200,7 @@ function validaciones( nombre , descripcion, precio, imagen, fechaPublicacion, d
     if (!imagen || imagen === undefined) return false;
     if (!fechaPublicacion || fechaPublicacion === undefined) return false;
     if (!direccion || direccion === undefined) return false;
+    if (!idCategoria || idCategoria === undefined) return false;
 
     return true;
 }
@@ -223,33 +211,38 @@ function validaciones( nombre , descripcion, precio, imagen, fechaPublicacion, d
 
 exports.crearInmueble = async (req, res) => {
 
-    const { id, nombre, descripcion, precio, moneda, imagen, fechaPublicacion, direccion } = req.body
+    const { nombre, descripcion, precio, moneda, imagen, fechaPublicacion, direccion, idCategoria } = req.body
 
 
-    if ( !validaciones( nombre , precio, descripcion, imagen, fechaPublicacion, direccion ) )  
+    if ( !validaciones( nombre , precio, descripcion, imagen, fechaPublicacion, direccion, idCategoria ) )  
     return res.status(400).json({ ok: false, status: "Error con las validaciones" });
 
+    const inmueble = await Inmueble.create({
+        nombre: nombre.toLowerCase(),
+        precio,
+        moneda,
+        descripcion: descripcion.toLowerCase(),
+        imagen,
+        fechaPublicacion,
+        direccion
+    });
 
 
     try {
 
-        const codigoRepetido = await Inmueble.findByPk(id)
+                   
+        idCategoria.map(async i => { 
+            
+            const categoria = await Categoria.findOne({
+                  where:{  id: i  } 
+                }) 
 
+            
+            if (categoria) {
+                categoria.addInmueble(inmueble) 
+            }
+        })
 
-        if (codigoRepetido) {
-            return res.status(400).json({ ok: false, status: "ya existe un inmueble con ese id" })
-        }
-
-        const inmueble = await Inmueble.create({
-            codigo: id,
-            nombre: nombre.toLowerCase(),
-            precio,
-            moneda,
-            descripcion: descripcion.toLowerCase(),
-            imagen,
-            fechaPublicacion,
-            direccion
-        });
 
         return res.status(201).json({
             ok: true,
