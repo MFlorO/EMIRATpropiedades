@@ -12,6 +12,11 @@ const useInmuebles = () => {
 
   const { c , s } = useQueryParams()
 
+  const { inmuebles, inmueblesCopia } = useSelector( state => state )
+
+  const {inmueble, status, ok} = inmueblesCopia
+
+
   useEffect(() => {
     
     dispatch(getAllInmuebles({c,s}))
@@ -21,15 +26,11 @@ const useInmuebles = () => {
     }
   }, [ c, s ])
 
-  
-  const { inmuebles, inmueblesCopia } = useSelector( state => state )
 
-  const {inmueble: inmuebleCopia, status, ok} = inmueblesCopia
 
-  
   return {
     inmuebles, 
-    inmuebleCopia,
+    inmueble,
     status,
     ok
   }

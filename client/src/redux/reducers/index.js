@@ -1,6 +1,7 @@
 
-import { GET_All_INMUEBLES, DELETE_All_INMUEBLES, GET_INMUEBLE_ID, DELETE_INMUEBLE_ID, CREAR_INMUEBLE
-    // OrderCont, asc_des, order_Poblation, Order_Type_Activities 
+import { GET_All_INMUEBLES, DELETE_All_INMUEBLES, GET_INMUEBLE_ID, DELETE_INMUEBLE_ID, CREAR_INMUEBLE,
+    asc_des, 
+    // OrderCont, order_Poblation, Order_Type_Activities 
 } from "../actions/index.js"
 
 
@@ -107,59 +108,35 @@ export default function rootReducer(state = initialState, action) {
         
         
             
-        // //         ##################       ORDENAMIENTOS         #################
+        //         ##################       ORDENAMIENTOS         #################
 
       
 
-        // case asc_des:
+        case asc_des:
 
-        //     let continetOrder = [...state.filterCountries]
+            let inmuebles = [...state.inmueblesCopia.inmueble]
 
-        //     let continetOrder2 = action.payload === "Default" ? continetOrder :
+              let inmueble2 = action.payload === 'default' 
+              ? inmuebles 
+              : inmuebles.sort((a, b) => {
+                if(a.precio < b.precio){
+                    return action.payload === "asc" ? -1 : 1
+                }
+                if(a.precio > b.precio){
+                    return action.payload === "asc" ? 1 : -1
+                }
+                return 0;
+            })
 
-        //     continetOrder.sort((a,b) =>{
-        //         if(a.name < b.name){
-        //             return action.payload === DESCENDENTE ? 1 : -1
-        //         }
-        //         if(a.name > b.name){
-        //             return action.payload === DESCENDENTE ? -1 : 1
-        //         }
-        //         return 0;
-        //     })
+            return {
+                ...state,
+                inmueblesCopia: {
+                    ...state.inmueblesCopia,
+                    inmueble: inmueble2
+                  }
+            }
 
-        //     return {
-        //         ...state,
-        //         filterCountries: continetOrder2
-        //     }
-
-
-
-
-
-
-        //     case order_Poblation:
-        //         let poblationOrder =  [...state.filterCountries]
-
-        //         let poblationOrder2 =  action.payload === "Default" ? poblationOrder :
-    
-        //         poblationOrder.sort((a,b) =>{
-
-        //             if(a.population < b.population){
-        //                 return action.payload === DESCENDENTE ? -1 : 1
-        //             }
-        //             if(a.population > b.population){
-        //                 return action.payload === DESCENDENTE ? 1 : -1
-        //             }
-        //             return 0;
-        //         })
-    
-        //         return {
-        //             ...state,
-        //             filterCountries: poblationOrder2
-        //         }
-
-
-
+            
 
                 
         default:

@@ -1,4 +1,5 @@
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { ordenarPor } from "~/redux/actions";
 
 
 const styleSelect = {
@@ -12,15 +13,16 @@ const styleSelect = {
 
 const Ordenamientos = () => {
   
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const handleOrdenChange = (event) => {
     event.preventDefault()
-    // dispatch(ordenarPor(event.target.value))
+    dispatch(ordenarPor(event.target.value))
   }
 
   return (
-    <select defaultValue={'des'} onChange={handleOrdenChange} style={styleSelect}>
+    <select defaultValue={'default'} onChange={handleOrdenChange} style={styleSelect}>
+      <option value={'default'}>PRECIO</option> {/* Original */}
       <option value={'des'}>Mayor precio</option> {/* Descendiente */}
       <option value={'asc'}>Menor precio</option> {/* Ascendiente */}
     </select>

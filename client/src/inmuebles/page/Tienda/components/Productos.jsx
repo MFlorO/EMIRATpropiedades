@@ -9,15 +9,17 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 
 const Productos = () => {
-
+  
+  
   const navigate = useNavigate()
 
-  const { inmuebleCopia, status, ok } = useInmuebles()
+  const { inmueble, status, ok } = useInmuebles()
 
   const { c,s } = useQueryParams()
 
+  const cantidadInmuebles = inmueble?.length
 
-  const cantidadInmuebles = inmuebleCopia?.length
+
   
   return (
     <>
@@ -27,7 +29,7 @@ const Productos = () => {
 
     <Grid container direction='column' gap={2} mt={2} >
       { s && <Grid><Button variant="contained" onClick={() => navigate(`/tienda?c=${c}`)}>{s}<ClearIcon size='small'/></Button></Grid>}
-      { ok && inmuebleCopia?.map( p => (
+      { ok && inmueble?.map( p => (
           <Grid container direction={{xs:'column', sm:'row'}} width='95%' height='18rem' key={p.id} justifyContent='space-between' backgroundColor='white'>
 
             <Grid container width={{xs:'90%', sm:'35%'}} height='100%'> 

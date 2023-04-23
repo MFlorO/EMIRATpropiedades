@@ -14,7 +14,7 @@ const Tienda = () => {
     <InmuebleLayout>
       <Grid container justifyContent="space-between" pt={10}>
         
-        <Grid item xs={12} sm={3} minHeight={{ xs: "3rem", sm: "17rem" }} backgroundColor='white' 
+        <Grid item xs={12} sm={3} minHeight={{ xs: "3rem", sm: "10rem" }} backgroundColor='white' height='max-content'
         border={{xs:'none', sm:`2px solid ${theme.palette.primary.main}`}}>
           <Filtros />
         </Grid>

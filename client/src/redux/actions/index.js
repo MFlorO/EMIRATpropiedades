@@ -13,6 +13,14 @@ export const CREAR_INMUEBLE = "CREAR_INMUEBLE";
 export const DELETE_INMUEBLE_ID = "DELETE_INMUEBLE_ID";
 
 
+export const asc_des = "ASC_DES";
+
+
+
+
+
+
+
 
 
 
@@ -100,7 +108,14 @@ export function createInmueble(body) {
 }
 
 
+//         ##################       asc_des         #################
 
+export function ordenarPor(payload) {
+  return {
+    type: asc_des,
+    payload: payload
+  };
+}
 
 
 
@@ -111,7 +126,6 @@ export function createInmueble(body) {
 
 // export const Order_Type_Activities = "ORDER_TYPE_ACTIVITIES";
 // export const order_Poblation = "ORDER_POBLATION";
-// export const asc_des = "ASC_DES";
 // export const OrderCont = "ORDER_CONT";
 // export const delete_activities = "DELETE_ACTIVITIES";
 // export const update_activities = "UPDATE_ACTIVITIES";
