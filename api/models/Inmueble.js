@@ -35,45 +35,37 @@ module.exports = (sequelize) => {
       },
 
 
-      Destacado:{
+      destacado:{
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
+        defaultValue: false
       },
       status:{
         type: DataTypes.ENUM('Disponible', 'Reservado' ),
-        defaultValue: 'Disponible',
-        allowNull: false,
+        defaultValue: 'Disponible'
       },
       antiguedad:{
         type: DataTypes.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
+        defaultValue: 0
       },
       mt2:{
         type: DataTypes.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
+        defaultValue: 0
       },
       dormitorios:{
         type: DataTypes.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
+        defaultValue: 0
       },
       baños:{
         type: DataTypes.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
+        defaultValue: 0
       },
       cochera:{
         type: DataTypes.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
+        defaultValue: 0
       },
       pileta:{
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
+        defaultValue: false
       }
     },
     {

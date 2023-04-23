@@ -211,7 +211,9 @@ function validaciones( nombre , descripcion, precio, imagen, fechaPublicacion, d
 
 exports.crearInmueble = async (req, res) => {
 
-    const { nombre, descripcion, precio, moneda, imagen, fechaPublicacion, direccion, idCategoria } = req.body
+    const { nombre, descripcion, precio, moneda, imagen, fechaPublicacion, direccion, idCategoria,
+        destacado, status, antiguedad, mt2, dormitorios, baños, cochera, pileta
+     } = req.body
 
 
     if ( !validaciones( nombre , precio, descripcion, imagen, fechaPublicacion, direccion, idCategoria ) )  
@@ -224,7 +226,16 @@ exports.crearInmueble = async (req, res) => {
         descripcion: descripcion.toLowerCase(),
         imagen,
         fechaPublicacion,
-        direccion
+        direccion,
+
+        destacado,
+        status,
+        antiguedad,
+        mt2,
+        dormitorios,
+        baños,
+        cochera,
+        pileta
     });
 
 
