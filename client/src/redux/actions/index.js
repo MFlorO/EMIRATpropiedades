@@ -83,7 +83,7 @@ export function getNameInmuebles(query) {
 export function InmuebleID(id) {
 
   return function (dispatch) {
-      axios.get(`${baseURL}/inmuebles/${id}`)
+      axios.get(`${baseURL}/inmuebles/detalle/${id}`)
       .then(response => {
         dispatch({
           type: "GET_INMUEBLE_ID" ,

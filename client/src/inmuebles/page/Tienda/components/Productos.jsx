@@ -14,6 +14,8 @@ const Productos = () => {
 
   const { inmuebleCopia, status, ok } = useInmuebles()
 
+  // console.log(inmuebleCopia)
+
   const cantidadInmuebles = inmuebleCopia?.length
   
   return (
@@ -27,7 +29,7 @@ const Productos = () => {
           <Grid container direction={{xs:'column', sm:'row'}} width='95%' height='18rem' key={p.id} justifyContent='space-between' backgroundColor='white'>
 
             <Grid container width={{xs:'90%', sm:'35%'}} height='100%'> 
-              <Link to={`/tienda/${p.id}`}><img src={p.imagen[0]} alt={p.imagen.indexOf()}  style={{width:'100%', height:'100%', objectFit:'cover', objectPosition: 'center center',}} /></Link>
+              <Link to={`/tienda/detalle/${p.id}`}><img src={p.imagen[0]} alt={p.imagen.indexOf()}  style={{width:'100%', height:'100%', objectFit:'cover', objectPosition: 'center center'}} /></Link>
             </Grid>
 
             <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'60%'}} height='100%' >

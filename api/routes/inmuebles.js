@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
 router.post('/', crearInmueble);
 router.put('/', editProducto)
 router.delete('/', deleteInmueble)
-router.get('/:id', getInmuebleId);
+router.get('/detalle/:id', getInmuebleId);
 router.get('/filter/busqueda', getSearch)
 
 
