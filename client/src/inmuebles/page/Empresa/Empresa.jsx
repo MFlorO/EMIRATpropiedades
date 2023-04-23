@@ -4,7 +4,7 @@ import PublicidadEmpresa from "./PublicidadEmpresa"
 import { heightViews } from "../../layout/InmuebleLayout"
 
 import imagen from "/img/empresa/fotoEmpresa.jpg"
-import imagen2 from "/img/empresa/fotoEmpresa2.jpg"
+import imagen2 from "/img/empresa/fotoempresa2.jpg"
 
 
 const Empresa = () => {
