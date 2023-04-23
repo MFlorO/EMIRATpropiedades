@@ -1,35 +1,52 @@
-import { Fragment, useState, useEffect } from 'react'
-// import useCategorias from '../../../../../Hook/useCategorias'
-import { Button, Grid, Typography } from '@mui/material'
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Grid, Checkbox, Typography, FormGroup, FormLabel } from "@mui/material"
+import { styled } from '@mui/material/styles';
+import { filtroCat } from "~/redux/actions";
 
 
 
 const FiltrosPorCategoria = () => {
 
-  // const categorias = useCategorias()
-  // const [categoriaCopia, setcategoriaCopia] = useState(categorias)
-  // const categoria6 = categoriaCopia.slice(0,6)
-  // const [verMas, setVerMas] = useState(categoriaCopia)
-  
-  // useEffect(() => {
-  //   setcategoriaCopia(categorias)
-  //   setVerMas(categoria6)
-  // }, [ categoriaCopia, categorias ])
+  const [selectedValue, setSelectedValue] = useState('');
 
-  // const onMostrar = () => verMas.length <= 6 ? setVerMas(categoriaCopia) : setVerMas(categoria6)
+  const dispatch = useDispatch()
+  
+  const handleCheckChange = (event) => {
+    event.preventDefault()
+    setSelectedValue(event.target.value);
+    dispatch(filtroCat(event.target.value))
+  }
 
   return (
-    <Grid>
-      {/* {verMas?.map( c => (
-      <Fragment key={c.id}>
-        <Typography>{c.nombre}</Typography>
-      </Fragment>
-    ))}
+    <Grid container direction='column' gap={1}>
+      <Typography variant="h4">Operación:</Typography>
+      <FormGroup sx={{ display:'flex', flexDirection:'row', alignItems:'center'}}>
 
-    <Button variant='text' onClick={(onMostrar)}>{verMas.length <= 6 ? 'Ver Más' : 'Ver Menos'}</Button> */}
-    filtro por categoria
+        <Gridcheck>
+            <FormLabel>Alquiler</FormLabel>
+            <Checkbox checked={selectedValue === 'alquiler'} name="alquiler" value="alquiler" onChange={handleCheckChange} />
+        </Gridcheck>
+
+        <Gridcheck>
+            <FormLabel>Venta</FormLabel>
+            <Checkbox checked={selectedValue === 'venta'} name="venta" value="venta" onChange={handleCheckChange} />
+        </Gridcheck>
+
+
+      </FormGroup>
     </Grid>
   )
 }
 
-export default FiltrosPorCategoria
+export default FiltrosPorCategoria;
+
+
+
+
+const Gridcheck = styled(Grid)(({ theme }) => ({
+  display:'flex',
+  flexDirection:'column',
+  justifyContent: 'center',
+  alignItems:'center'
+}));

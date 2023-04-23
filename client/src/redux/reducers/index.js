@@ -1,7 +1,6 @@
 
 import { GET_All_INMUEBLES, DELETE_All_INMUEBLES, GET_INMUEBLE_ID, DELETE_INMUEBLE_ID, CREAR_INMUEBLE,
-    asc_des, 
-    // OrderCont, order_Poblation, Order_Type_Activities 
+    ASC_DES, RESET_FILTRO, FILTRO_CATEGORIA, FILTRO_HABITACION,
 } from "../actions/index.js"
 
 
@@ -62,57 +61,67 @@ export default function rootReducer(state = initialState, action) {
 
 
 
-
-
-        
         //         ##################       FILTROS         #################
 
+        case RESET_FILTRO:
+           const resetFiltro = [...state.inmuebles.inmueble]
+           return{
+              ...state,
+              inmueblesCopia: {
+                  ...state.inmueblesCopia,
+                  inmueble: resetFiltro
+                }
+            }
 
-        // case OrderCont:
-        //    const continetFilter = action.payload === "Default" ? state.countriesAll : state.countriesAll.filter(el => el.continent[0] === action.payload)
-        //     return{
-        //       ...state,
-        //      filterCountries: continetFilter    
-        //     }
+
+
+
+        case FILTRO_HABITACION:
+            // console.log('reducer', action.payload)
+
+           const inmuebleFilterHab = [...state.inmuebles.inmueble]
+           let inmuebleFilterHab2 = [...state.inmueblesCopia.inmueble]
+
+           const inmuebleFilterHab3 = action.payload === "default" ? inmuebleFilterHab : inmuebleFilterHab2.filter(i => String(i.dormitorios) === action.payload)
+
+        //    console.log('inmuebleFilterHab3', inmuebleFilterHab3)
+
+           return{
+              ...state,
+              inmueblesCopia: {
+                  ...state.inmueblesCopia,
+                  inmueble: inmuebleFilterHab3
+                }
+            }
                
         
 
+        case FILTRO_CATEGORIA:
+            console.log('reducer', action.payload)
+            console.log('...state.inmuebles.inmuebl.nombre', ...state.inmuebles.inmueble)
+    
+            const inmuebleFilterCat = [...state.inmuebles.inmueble]
+            let inmuebleFilterCat2 = [...state.inmueblesCopia.inmueble]
+    
+            const inmuebleFilterCat3 = action.payload === "default" ? inmuebleFilterCat : inmuebleFilterCat2.filter(i => String(i.categoria.map( c => c.nombre === action.payload )))
 
-        // case Order_Type_Activities:
+            console.log('inmuebleFilterCat3', inmuebleFilterCat3)
+    
+            return{
+                ...state,
+                inmueblesCopia: {
+                    ...state.inmueblesCopia,
+                    inmueble: inmuebleFilterCat3
+                }
+            }
 
-        //     let newArray = []; // let newArray = ["COL","ARG"];
-
-        //     let countriesAll2 = state.countriesAll
-
-
-        //     for (let i = 0; i < countriesAll2.length; i++) {
-        //         if(countriesAll2[i].activities.length > 0){
-        //             for (let j = 0; j < countriesAll2[i].activities.length; j++) {
-        //                 if (countriesAll2[i].activities[j].id === action.payload) {
-        //                     newArray.push(countriesAll2[i].id)
-        //                     console.log("newArray",newArray)
-        //                 }
-        //             } 
-        //         }
-        //     }
-
-            
-        //     const activitiesFilter = action.payload === "Default" ? state.countriesAll : state.countriesAll.filter(el => newArray.includes(el.id))
-
-            
-        //     return{
-        //     ...state,
-        //     filterCountries: activitiesFilter
-        //     }
-
-        
         
             
         //         ##################       ORDENAMIENTOS         #################
 
       
 
-        case asc_des:
+        case ASC_DES:
 
             let inmuebles = [...state.inmueblesCopia.inmueble]
 

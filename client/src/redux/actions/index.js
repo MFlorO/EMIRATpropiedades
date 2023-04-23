@@ -13,10 +13,10 @@ export const CREAR_INMUEBLE = "CREAR_INMUEBLE";
 export const DELETE_INMUEBLE_ID = "DELETE_INMUEBLE_ID";
 
 
-export const asc_des = "ASC_DES";
-
-
-
+export const ASC_DES = "ASC_DES";
+export const FILTRO_HABITACION = "FILTRO_HABITACION"
+export const RESET_FILTRO = "RESET_FILTRO"
+export const FILTRO_CATEGORIA = "FILTRO_CATEGORIA"
 
 
 
@@ -99,7 +99,7 @@ export function createInmueble(body) {
     try {
       await axios.post(`${baseURL}/inmuebles/`, body);
       return dispatch({
-        type: CREAR_INMUEBLE
+        type: "CREAR_INMUEBLE"
       })
     } catch (error) {
       console.log("crear inmueble", error)
@@ -112,7 +112,34 @@ export function createInmueble(body) {
 
 export function ordenarPor(payload) {
   return {
-    type: asc_des,
+    type: "ASC_DES",
+    payload: payload
+  };
+}
+
+
+
+
+//         ##################       FILTRO POR HABITACION        #################
+
+export function filtroCat(payload) {
+  return {
+    type: "FILTRO_CATEGORIA",
+    payload: payload
+  };
+}
+
+export function filtroHab(payload) {
+  return {
+    type: "FILTRO_HABITACION",
+    payload: payload
+  };
+}
+
+
+export function resetFiltro(payload) {
+  return {
+    type: "RESET_FILTRO",
     payload: payload
   };
 }
@@ -122,9 +149,6 @@ export function ordenarPor(payload) {
 
 
 
-
-
-// export const Order_Type_Activities = "ORDER_TYPE_ACTIVITIES";
 // export const order_Poblation = "ORDER_POBLATION";
 // export const OrderCont = "ORDER_CONT";
 // export const delete_activities = "DELETE_ACTIVITIES";

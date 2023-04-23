@@ -1,18 +1,30 @@
+import { useDispatch } from "react-redux"
+import { useQueryParams } from "../../../../../Hook"
+import { resetFiltro } from "~/redux/actions"
 import FiltrosPorCategoria from "./FiltrosPorCategoria"
-import { Typography } from '@mui/material'
-
+import FiltrosPorHabitaciones from "./FiltrosPorHabitaciones"
+import { Button, Grid } from '@mui/material'
 
 
 const FiltrosItems = () => {
+
+  const { c } = useQueryParams()
+
+  const dispatch = useDispatch()
+
   return (
-    <form>
+    <Grid container gap={2}>
 
-     <Typography>Por precio</Typography>
-     <FiltrosPorCategoria />
-     <Typography>Por Cantidad de habitaciones</Typography>
+     { c === 'todos' && <FiltrosPorCategoria />}
 
-    </form>
+     <FiltrosPorHabitaciones />
+
+     <Button onClick={() => dispatch(resetFiltro())} size="small">Borrar Filtro</Button>
+
+    </Grid>
   )
 }
 
-export default FiltrosItems
+export default FiltrosItems;
+
+
