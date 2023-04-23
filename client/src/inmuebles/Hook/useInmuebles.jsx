@@ -10,18 +10,19 @@ const useInmuebles = () => {
 
   const dispatch = useDispatch()
 
-  const { c="" } = useQueryParams()
-
-  const { inmuebles, inmueblesCopia } = useSelector( state => state )
+  const { c , s } = useQueryParams()
 
   useEffect(() => {
-    dispatch(getAllInmuebles({c}))
+    
+    dispatch(getAllInmuebles({c,s}))
   
     return () => {
-      deleteInmueble()
+      deleteInmueble({c})
     }
-  }, [dispatch, c])
+  }, [ c, s ])
+
   
+  const { inmuebles, inmueblesCopia } = useSelector( state => state )
 
   const {inmueble: inmuebleCopia, status, ok} = inmueblesCopia
 

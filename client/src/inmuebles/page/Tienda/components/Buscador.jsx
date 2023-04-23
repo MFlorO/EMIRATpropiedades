@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import { Grid, Button, TextField} from "@mui/material";
+import useQueryParams from "../../../Hook/useQueryParams";
 
 
 
@@ -12,10 +13,12 @@ const Buscador = () => {
 
   const onSearchChange = (event) => setSearch(event.target.value);
 
+  const { c } = useQueryParams()
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate(`/tienda?q=${search}`)
+    navigate(`/tienda?c=${c}&s=${search}`)
     setSearch("");
   };
 

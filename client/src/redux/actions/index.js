@@ -11,7 +11,7 @@ export const GET_INMUEBLE_ID = "GET_INMUEBLE_ID";
 export const DELETE_COUNTRIES_DETAIL = "DELETE_COUNTRIES_DETAIL";
 export const CREAR_INMUEBLE = "CREAR_INMUEBLE";
 export const DELETE_INMUEBLE_ID = "DELETE_INMUEBLE_ID";
-export const GET_NAME_INMUEBLES = "GET_NAME_INMUEBLES";
+
 
 
 
@@ -20,11 +20,13 @@ export const GET_NAME_INMUEBLES = "GET_NAME_INMUEBLES";
 
 export function getAllInmuebles(query) {
 
-  const { c } = query
+  const { c, s="" } = query
 
   return function (dispatch) {
+
+    const url = `${baseURL}/inmuebles?c=${c}&s=${s}`
    
-    axios.get(`${baseURL}/inmuebles?c=${c}`)
+    axios.get(url)
       .then(response => {
         dispatch({
           type: 'GET_All_INMUEBLES',
@@ -45,32 +47,6 @@ export function deleteInmueble(query) {  //--> Lo utilizo para desmontar el comp
   return {
     type: DELETE_All_INMUEBLES,
     payload: query
-  };
-}
-
-
-
-//         ##################       GET_NAME_INMUEBLES         #################
-
-
-export function getNameInmuebles(query) {
-
-  const { c } = query
-
-
-  return function (dispatch) {
-   
-    axios.get(`${baseURL}/inmuebles?c=${c}`)
-      .then(response => {
-        console.log(response.data)
-        dispatch({
-          type: 'GET_NAME_INMUEBLES',
-          payload: response.data
-        });
-      })
-    .catch(error => {
-      console.log("error ruta getnameinmueblee",error)
-    })
   };
 }
 

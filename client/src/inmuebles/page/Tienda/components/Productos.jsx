@@ -1,9 +1,9 @@
 import { Button, Grid, Typography } from "@mui/material"
 import { Link, useNavigate } from "react-router-dom";
-import useInmuebles from "../../../Hook/useInmuebles";
+import { useInmuebles,useQueryParams } from "../../../Hook";
 import { IconosItems } from "../../../components";
 import { styled } from '@mui/material/styles';
-
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 
@@ -14,7 +14,8 @@ const Productos = () => {
 
   const { inmuebleCopia, status, ok } = useInmuebles()
 
-  // console.log(inmuebleCopia)
+  const { c,s } = useQueryParams()
+
 
   const cantidadInmuebles = inmuebleCopia?.length
   
@@ -22,9 +23,10 @@ const Productos = () => {
     <>
 
     <Typography variant="h4" fontWeight={600}> {!ok ?  status : cantidadInmuebles + " Inmuebles totales"}</Typography>
-      
+
 
     <Grid container direction='column' gap={2} mt={2} >
+      { s && <Grid><Button variant="contained" onClick={() => navigate(`/tienda?c=${c}`)}>{s}<ClearIcon size='small'/></Button></Grid>}
       { ok && inmuebleCopia?.map( p => (
           <Grid container direction={{xs:'column', sm:'row'}} width='95%' height='18rem' key={p.id} justifyContent='space-between' backgroundColor='white'>
 

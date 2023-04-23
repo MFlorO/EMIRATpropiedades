@@ -1,5 +1,5 @@
 
-import { GET_All_INMUEBLES, DELETE_All_INMUEBLES, GET_NAME_INMUEBLES, GET_INMUEBLE_ID, DELETE_INMUEBLE_ID, CREAR_INMUEBLE
+import { GET_All_INMUEBLES, DELETE_All_INMUEBLES, GET_INMUEBLE_ID, DELETE_INMUEBLE_ID, CREAR_INMUEBLE
     // OrderCont, asc_des, order_Poblation, Order_Type_Activities 
 } from "../actions/index.js"
 
@@ -23,24 +23,16 @@ export default function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 inmuebles: action.payload,
-                inmueblesCopia: action.payload,
+                inmueblesCopia: action.payload
             }
 
             
-        case DELETE_INMUEBLE_ID:   //Limpia el componente --> useEffect del componente detalle
+        case DELETE_All_INMUEBLES:   //Limpia el componente --> useEffect del componente
             return {
                 ...state,
                 inmuebles: [],
                 inmueblesCopia: []
         } 
-
-
-        case GET_NAME_INMUEBLES:
-            return{
-                ...state,
-                inmuebles: action.payload,
-                inmueblesCopia: action.payload,
-            }
 
 
         case GET_INMUEBLE_ID:

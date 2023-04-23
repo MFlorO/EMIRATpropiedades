@@ -6,7 +6,7 @@ export const item = [
     },
     {
         'nombre': 'Inmuebles',
-        'link': '/tienda',
+        'link': '/tienda?c=todos',
         'subItems': [{
             'nombre': 'Alquiler',
             'link': '/tienda?c=alquiler',
