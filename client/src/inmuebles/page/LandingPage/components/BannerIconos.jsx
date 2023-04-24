@@ -1,4 +1,4 @@
-import { IconButton, Grid, Typography } from "@mui/material"
+import { IconButton, Grid, Typography, useTheme, useMediaQuery } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
@@ -12,29 +12,28 @@ const BannerIconos = () => {
 
   const navigate = useNavigate()
 
-
   return (
     <Grid container width='100%' minHeight='20rem' justifyContent='center' mb={10} p={8}>
     <Grid container width='100%' direction={{xs:'column', sm: 'row'}}  justifyContent='space-around' alignItems='center' gap={2} >
 
       <GridIcon>
-       <ButtonStyle onClick={() => navigate('/tienda')}><HomeIcon sx={{fontSize:'60px'}}/></ButtonStyle>
+       <ButtonStyle onClick={() => navigate('/tienda')}><HomeIcon sx={{fontSize:'45px'}}/></ButtonStyle>
        <TypographyStyle>INMUEBLES</TypographyStyle>
       </GridIcon>
 
       <GridIcon>
-       <ButtonStyle onClick={() => navigate('/tienda?c=alquiler')}><MapsHomeWorkIcon sx={{fontSize:'60px'}}/></ButtonStyle>
+       <ButtonStyle onClick={() => navigate('/tienda?c=alquiler')}><MapsHomeWorkIcon sx={{fontSize:'45px'}}/></ButtonStyle>
        <TypographyStyle>ALQUILER</TypographyStyle>
       </GridIcon>
 
       <GridIcon>
-       <ButtonStyle onClick={() => navigate('/tienda?c=venta')}><AttachMoneyIcon sx={{fontSize:'60px'}}/></ButtonStyle>
+       <ButtonStyle onClick={() => navigate('/tienda?c=venta')}><AttachMoneyIcon sx={{fontSize:'45px'}}/></ButtonStyle>
        <TypographyStyle>COMPRAR</TypographyStyle>
       </GridIcon>
 
 
       <GridIcon>
-       <ButtonStyle onClick={() => navigate('/administracion')}><KeyIcon sx={{fontSize:'60px'}}/></ButtonStyle>
+       <ButtonStyle onClick={() => navigate('/administracion')}><KeyIcon sx={{fontSize:'45px'}}/></ButtonStyle>
        <TypographyStyle>ADMINISTRACION</TypographyStyle>
       </GridIcon>
 
