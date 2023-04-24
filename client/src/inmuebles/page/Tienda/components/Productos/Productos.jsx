@@ -37,22 +37,24 @@ const Productos = () => {
               <Carousel p={p} cantidadImagDesktop={1}/>
             </Grid>
 
-            <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'55%'}} height='100%'>
-              <Grid container width={{xs:'100%', sm:'60%'}} direction='column' p={2}>
+            <Grid container direction='column' width={{xs:'90%', sm:'55%'}} height='100%'>
+              <Grid container width={{xs:'100%', sm:'100%'}} direction='column' p={2}>
 
-              <Grid item xs={12} sm={5}>
+              <Grid container width='100%'>
               <TypographyPrecio>$ {p.precio} {p.moneda}</TypographyPrecio>
               <Typography variant='p' fontWeight={700}>{p.direccion}</Typography>
               </Grid>
 
-              <Grid item xs={8} sm={5}> 
-                <IconosItems p={p} />
+              <Grid container direction={{xs:'column', sm:'row'}} width='100%' gap={{xs:2,sm:0}}> 
+                <Grid item xs={12} sm={8}>
+                  <IconosItems p={p} />
+                </Grid>
+                <Grid item xs={12} sm={4} alignSelf={{xs:'center', sm:'end'}}>
+                  <Button variant="contained" size="large" onClick={() => navigate(`/contacto?c=alquilar&id=${p.id}`)}>Contactar</Button>
+                </Grid>
               </Grid>
               </Grid>
 
-              <Grid item width={{xs:'100%', sm:'30%'}} alignSelf='end' p={2} textAlign='center'> 
-                <Button variant="contained" size="large" onClick={() => navigate(`/contacto?c=alquilar&id=${p.id}`)}>Contactar</Button>
-              </Grid>
             </Grid>
 
            </Grid>
