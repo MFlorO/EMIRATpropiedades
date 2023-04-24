@@ -16,7 +16,7 @@ const Footer = () => {
       
       <Grid item xs={10} sm={5}>
         <StyledTypographyTitle>SOBRE NOSOTROS</StyledTypographyTitle>
-        <Grid mt='5px' color='white'>
+        <Grid container mt='5px' color='white' width={{xs:'85%', sm:'95%'}} >
           <StyledTypographyLink>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi commodi quod ipsa, laborum odit aspernatur sit 
           harum ipsam fuga iste vitae aperiam, eos maxime aut odio officiis placeat reiciendis esse!
