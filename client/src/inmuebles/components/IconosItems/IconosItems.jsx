@@ -48,5 +48,5 @@ export default IconosItems;
 const StackItem = styled(Stack)(({ theme }) => ({
   flexDirection: 'row',
   alignItems:'end',
-  gap: 0.5
+  gap: 4
 }));

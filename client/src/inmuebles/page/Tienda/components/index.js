@@ -5,4 +5,4 @@ export * from './Filtros';
 export { default as Inmbuebles } from './Inmbuebles';
 export { default as Ordenamientos } from './Ordenamientos';
 export { default as Paginado } from './Paginado';
-export { default as Productos } from './Productos';
+export * from './Productos';

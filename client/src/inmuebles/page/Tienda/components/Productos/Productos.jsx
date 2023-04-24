@@ -1,9 +1,10 @@
 import { Button, Grid, Typography } from "@mui/material"
 import { Link, useNavigate } from "react-router-dom";
-import { useInmuebles,useQueryParams } from "../../../Hook";
-import { IconosItems } from "../../../components";
+import { useInmuebles,useQueryParams } from "../../../../Hook";
+import { IconosItems } from "../../../../components";
 import { styled } from '@mui/material/styles';
 import ClearIcon from '@mui/icons-material/Clear';
+import { Carousel } from ".";
 
 
 
@@ -30,25 +31,26 @@ const Productos = () => {
     <Grid container direction='column' gap={4} mt={2} >
       { s && <Grid><Button variant="contained" onClick={() => navigate(`/tienda?c=${c}`)}>{s}<ClearIcon size='small'/></Button></Grid>}
       { ok && inmueble?.map( p => (
-          <Grid container direction={{xs:'column', sm:'row'}} width='95%' minHeight='18rem' height='max-content' key={p.id} justifyContent={{xs:'center', sm:'space-between'}} alignItems={{xs:'center', sm: 'center'}} backgroundColor='white' boxShadow={{xs:'none', sm:`rgba(0, 0, 0, 0.24) 0px 3px 8px`}}>
+          <Grid container key={p.id} direction={{xs:'column', sm:'row'}} width='90%' minHeight='15rem' height={{xs:"", sm:"15rem"}} justifyContent={{xs:'center', sm:'space-between'}} alignItems='center' backgroundColor='white' boxShadow={{xs:'none', sm:`rgba(0, 0, 0, 0.24) 0px 3px 8px`}}>
 
-            <Grid container width={{xs:'90%', sm:'40%'}} height='100%' justifyContent={{xs:'center', sm:'start'}}> 
-              <Link to={`/tienda/detalle/${p.id}`}><img src={p.imagen[0]} alt={p.imagen.indexOf()}  style={{width:'100%', height:'100%', objectFit:'cover', objectPosition: 'center center'}} /></Link>
+            <Grid container width={{xs:'100%', sm:'45%'}} height={{xs:'15rem', sm:'100%'}} justifyContent={{xs:'center', sm:'center'}}> 
+              <Carousel p={p}/>
             </Grid>
 
-            <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'60%'}} height='100%' >
-              <Grid container width={{xs:'100%', sm:'70%'}} direction='column' justifyContent='space-around'>
-              <Grid item>
+            <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'55%'}} height='100%'>
+              <Grid container width={{xs:'100%', sm:'60%'}} direction='column' p={2}>
+
+              <Grid item xs={12} sm={5}>
               <TypographyPrecio>$ {p.precio} {p.moneda}</TypographyPrecio>
               <Typography variant='p' fontWeight={700}>{p.direccion}</Typography>
               </Grid>
 
-              <Grid item>
+              <Grid item xs={8} sm={5}> 
                 <IconosItems p={p} />
               </Grid>
               </Grid>
 
-              <Grid item width={{xs:'100%', sm:'20%'}} alignSelf='end' p={2}> 
+              <Grid item width={{xs:'100%', sm:'30%'}} alignSelf='end' p={2} textAlign='center'> 
                 <Button variant="contained" size="large" onClick={() => navigate(`/contacto?c=alquilar&id=${p.id}`)}>Contactar</Button>
               </Grid>
             </Grid>
@@ -76,5 +78,5 @@ const TypographyPrecio = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary.main,
   fontFamily: theme.typography.h1.fontFamily,
   fontSize: '40px',
-  fontWeight: 600,
+  fontWeight: 600
 }));
