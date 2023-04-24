@@ -24,7 +24,7 @@ const Administracion = () => {
           <Grid>
           <Typography variant="h1" textAlign='center' mt={5} mb={3}>¿Cuáles son tus ventajas de nuestra administración?</Typography>
           <Grid container width='100%' alignContent='center' justifyContent='center'>
-            <Grid container width='50%' direction='column' gap={4} textAlign='center'>
+            <Grid container width={{xs:'90%', sm:'50%'}} direction='column' gap={4} textAlign='center'>
             <TypographyParrafo variant="p">Evita el estrés al propietario del inmueble por el proceso de arrendamiento. Todas las gestiones relevantes quedan a cargo del agente inmobiliario.</TypographyParrafo>
             <TypographyParrafo variant="p">La gestión se desarrolla de un modo más eficiente y se maximizan las ganancias.</TypographyParrafo>
             <TypographyParrafo variant="p">El proceso es gestionado por una persona que conoce a la perfección el mercado inmobiliario, aumentando la seguridad en los acuerdos y se evitan posibles fraudes.</TypographyParrafo>
