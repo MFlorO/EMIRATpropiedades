@@ -34,7 +34,7 @@ const Productos = () => {
           <Grid container key={p.id} direction={{xs:'column', sm:'row'}} width='90%' minHeight='15rem' height={{xs:"", sm:"15rem"}} justifyContent={{xs:'center', sm:'space-between'}} alignItems='center' backgroundColor='white' boxShadow={{xs:'none', sm:`rgba(0, 0, 0, 0.24) 0px 3px 8px`}}>
 
             <Grid container width={{xs:'100%', sm:'45%'}} height={{xs:'15rem', sm:'100%'}} justifyContent={{xs:'center', sm:'center'}}> 
-              <Carousel p={p}/>
+              <Carousel p={p} cantidadImagDesktop={1}/>
             </Grid>
 
             <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'55%'}} height='100%'>

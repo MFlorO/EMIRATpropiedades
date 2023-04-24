@@ -1,5 +1,6 @@
 const { Op } = require("sequelize");
 const { Inmueble, Categoria } = require("../database/db");
+const { API_KEY_GOOGLEMAPS } = process.env;
 
 
 
@@ -141,6 +142,43 @@ exports.getInmuebleId = async(req, res) => {
         console.log(error)
     }
 }
+
+
+
+// --------- GET_GOOGLE_MAPS --------- //
+
+
+
+const { Client } = require("@googlemaps/google-maps-services-js");
+
+
+const client = new Client({});
+
+
+  // Obtener la ubicación del inmueble
+  exports.direccionGoogleMaps = async (req, res) => {
+    
+    const { direccion } = req.params
+
+    try {
+        const respuesta = await client.geocode({
+          params: {
+            address: direccion,
+            key: API_KEY_GOOGLEMAPS 
+          },
+          timeout: 1000 
+        });
+        const { lat, lng } = respuesta.data.results[0].geometry.location;
+        res.json({ latitud: lat, longitud: lng });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Hubo un error al obtener la ubicación de la dirección' });
+      }
+  }
+
+  
+
+
 
 
 
@@ -385,3 +423,7 @@ exports.deleteInmueble = async(req, res) => {
         console.log(error)
     }
 }
+
+
+
+

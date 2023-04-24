@@ -13,11 +13,11 @@ const Carousell = ({ p, cantidadImagDesktop }) => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm')); 
 
-    const { imagen, id, direccion } = p
+    const { imagen, id } = p
 
     const [selectedIndex, setSelectedIndex] = useState(0);
 
-    const cantidadSegunResponsive = isSmallScreen? 1 : cantidadImagDesktop
+    const cantidadSegunResponsive = isSmallScreen? 1 : {cantidadImagDesktop}
 
 
     const anterior = () => setSelectedIndex((selectedIndex - cantidadSegunResponsive + imagen.length) % imagen.length)
@@ -34,7 +34,7 @@ const Carousell = ({ p, cantidadImagDesktop }) => {
         <Grid container width={{xs:'80%', sm:'85%'}} height='100%' alignItems='center' justifyContent='center'>
         {slicedImagen?.map( (e, index) => ( 
             <Grid item key={index} width='100%' height='100%' backgroundColor='white'>
-               <Link to={`/tienda/detalle/${id}/${direccion}`}>
+               <Link to={`/tienda/detalle/${id}`}>
                 <img src={e} alt={e} style={{width:'100%', height:'100%', objectFit:'cover', objectPosition: 'center center'}} />
                </Link>
             </Grid>

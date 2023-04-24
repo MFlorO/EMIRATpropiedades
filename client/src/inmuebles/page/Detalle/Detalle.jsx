@@ -1,4 +1,4 @@
-import { Button, Grid, Icon, IconButton, Typography, useTheme } from '@mui/material'
+import { Button, Grid, Icon, Typography, useTheme } from '@mui/material'
 import useInmueble from '../../Hook/useInmueble'
 import { IconosItems } from '../../components'
 import InmuebleLayout, { heightViews } from '../../layout/InmuebleLayout'
@@ -7,6 +7,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useNavigate } from 'react-router-dom';
+import { Maps } from './components';
 
 
 
@@ -25,7 +26,7 @@ const Detalle = () => {
 
   return (
     <InmuebleLayout>
-    <Grid container width='100%' maxHeight='max-content' height={{xs:'150rem', sm:'80rem'}} direction='column' justifyContent='space-around' 
+    <Grid container width='100%' maxHeight='min-content' height={{xs:'160rem', sm:'100rem'}} direction='column' justifyContent='space-around' 
     mt={`${heightViews}rem`} pl={{xs:0, sm:10}} pr={{xs:0, sm:10}}>
 
       <Grid container width='100%' display='flex' flexDirection={{xs:'column',sm:'row'}} justifyContent='center' alignItems='center' gap={2} mb={2}>
@@ -94,10 +95,10 @@ const Detalle = () => {
       </Grid>
 
       <Grid container direction='column' p={2} backgroundColor='white' boxShadow='rgba(50, 50, 93, 0.25) 0px 2px 8px -3px'>
-        <Typography variant='h4' fontWeight={400}>Ubicación</Typography>
+        <Typography variant='h4' fontWeight={600}>Ubicación</Typography>
         <Typography variant='p' fontWeight={400} mt={1}>{inmuebleId?.direccion}</Typography>
         <Grid mt={2} p={2} border={`3px solid ${theme.palette.primary.main}`} >
-        ACA VA EL MAPA
+         <Maps direccion={inmuebleId?.direccion}/>
         </Grid>
       </Grid>
 

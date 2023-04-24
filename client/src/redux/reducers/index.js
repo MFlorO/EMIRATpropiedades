@@ -1,6 +1,7 @@
 
 import { GET_All_INMUEBLES, DELETE_All_INMUEBLES, GET_INMUEBLE_ID, DELETE_INMUEBLE_ID, CREAR_INMUEBLE,
     ASC_DES, RESET_FILTRO, FILTRO_CATEGORIA, FILTRO_HABITACION,
+    GET_GOOGLEMAPS,
 } from "../actions/index.js"
 
 
@@ -9,6 +10,7 @@ const initialState = {
     inmueblesCopia: [],
     inmueble: {},
     categorias: [],
+    localizacion: {}
 };
 
 
@@ -77,14 +79,11 @@ export default function rootReducer(state = initialState, action) {
 
 
         case FILTRO_HABITACION:
-            // console.log('reducer', action.payload)
 
            const inmuebleFilterHab = [...state.inmuebles.inmueble]
            let inmuebleFilterHab2 = [...state.inmueblesCopia.inmueble]
 
            const inmuebleFilterHab3 = action.payload === "default" ? inmuebleFilterHab : inmuebleFilterHab2.filter(i => String(i.dormitorios) === action.payload)
-
-        //    console.log('inmuebleFilterHab3', inmuebleFilterHab3)
 
            return{
               ...state,
@@ -97,16 +96,12 @@ export default function rootReducer(state = initialState, action) {
         
 
         case FILTRO_CATEGORIA:
-            console.log('reducer', action.payload)
-            console.log('...state.inmuebles.inmuebl.nombre', ...state.inmuebles.inmueble)
-    
+
             const inmuebleFilterCat = [...state.inmuebles.inmueble]
             let inmuebleFilterCat2 = [...state.inmueblesCopia.inmueble]
     
             const inmuebleFilterCat3 = action.payload === "default" ? inmuebleFilterCat : inmuebleFilterCat2.filter(i => String(i.categoria.map( c => c.nombre === action.payload )))
 
-            console.log('inmuebleFilterCat3', inmuebleFilterCat3)
-    
             return{
                 ...state,
                 inmueblesCopia: {
@@ -146,6 +141,12 @@ export default function rootReducer(state = initialState, action) {
             }
 
             
+
+        case GET_GOOGLEMAPS:
+            return {
+                ...state,
+                localizacion: action.payload
+            }
 
                 
         default:

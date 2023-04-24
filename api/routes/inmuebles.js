@@ -4,14 +4,12 @@
 
 const { Router } = require('express');
 const router = Router();
-const { getTodosLosInmuebles, getInmueble, crearInmueble, getInmuebleId, editProducto, deleteInmueble } = require('../controllers/inmuebles');
+const { getTodosLosInmuebles, getInmueble, crearInmueble, getInmuebleId, editProducto, deleteInmueble, direccionGoogleMaps } = require('../controllers/inmuebles');
 
 
 router.get('/:id?', async (req, res) => {
 
   const { c, s="" } = req.query;
-
-  console.log(c, s)
 
   try {
     if ( c !== 'todos') {
@@ -60,6 +58,7 @@ router.post('/', crearInmueble);
 router.put('/', editProducto)
 router.delete('/', deleteInmueble)
 router.get('/detalle/:id', getInmuebleId);
+router.get('/maps/:direccion', direccionGoogleMaps);
 
 
 

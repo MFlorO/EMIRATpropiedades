@@ -19,6 +19,8 @@ export const RESET_FILTRO = "RESET_FILTRO"
 export const FILTRO_CATEGORIA = "FILTRO_CATEGORIA"
 
 
+export const GET_GOOGLEMAPS = "GET_GOOGLEMAPS"
+
 
 
 
@@ -146,14 +148,27 @@ export function resetFiltro(payload) {
 
 
 
+//         ##################       GET_GOOGLEMAPS         #################
 
+export function getLocalizacionGoogleMaps(params) {
 
+  const { direccion } = params
 
-// export const order_Poblation = "ORDER_POBLATION";
-// export const OrderCont = "ORDER_CONT";
-// export const delete_activities = "DELETE_ACTIVITIES";
-// export const update_activities = "UPDATE_ACTIVITIES";
-// export const truncate_activities = "TRUNCATE_ACTIVITIES"
+  return async function (dispatch) {
+    axios.get(`${baseURL}/inmuebles/maps/${direccion}`)
+    .then(response => {
+      console.log('action2', response.data)
+      dispatch({
+        type: "GET_GOOGLEMAPS" ,
+        payload: response.data
+      });
+    })
+  .catch(error => {
+    console.log("obtener localicacion de google maps", error)
+  })
+  }
+}
+
 
 
 
