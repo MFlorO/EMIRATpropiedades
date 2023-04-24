@@ -20,17 +20,17 @@ const FiltrosPorCategoria = () => {
 
   return (
     <Grid container direction='column' gap={1}>
-      <Typography variant="h4">Operación:</Typography>
-      <FormGroup sx={{ display:'flex', flexDirection:'row', alignItems:'center'}}>
+      <Typography variant="h4" fontWeight={600}>Operación:</Typography>
+      <FormGroup sx={{ display:'flex', flexDirection:'column', alignItems:'start'}}>
 
         <Gridcheck>
-            <FormLabel>Alquiler</FormLabel>
             <Checkbox checked={selectedValue === 'alquiler'} name="alquiler" value="alquiler" onChange={handleCheckChange} />
+            <FormLabel>Alquiler</FormLabel>
         </Gridcheck>
 
         <Gridcheck>
-            <FormLabel>Venta</FormLabel>
             <Checkbox checked={selectedValue === 'venta'} name="venta" value="venta" onChange={handleCheckChange} />
+            <FormLabel>Venta</FormLabel>
         </Gridcheck>
 
 
@@ -46,7 +46,7 @@ export default FiltrosPorCategoria;
 
 const Gridcheck = styled(Grid)(({ theme }) => ({
   display:'flex',
-  flexDirection:'column',
+  flexDirection:'row',
   justifyContent: 'center',
   alignItems:'center'
 }));

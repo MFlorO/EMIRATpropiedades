@@ -13,15 +13,17 @@ const FiltrosItems = () => {
   const dispatch = useDispatch()
 
   return (
+    <>
+
     <Grid container gap={2}>
 
      { c === 'todos' && <FiltrosPorCategoria />}
 
      <FiltrosPorHabitaciones />
 
-     <Button onClick={() => dispatch(resetFiltro())} size="small">Borrar Filtro</Button>
-
     </Grid>
+    <Button variant='outlined' onClick={() => dispatch(resetFiltro())} size="small">BORRAR FILTROS</Button>
+    </>
   )
 }
 

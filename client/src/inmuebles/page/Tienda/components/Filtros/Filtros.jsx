@@ -17,7 +17,7 @@ const Filtros = () => {
 
 
   return (
-    <Grid container p={{xs:0,sm:2}} direction='column' gap={{ xs:'0', sm:1 }}>
+    <Grid container p={{xs:0,sm:2}} direction='column' gap={{ xs: 0, sm:2 }}>
 
     { isSmallScreen ? 
 
@@ -31,7 +31,6 @@ const Filtros = () => {
      : 
      
      <>
-      <Typography variant='h2' textAlign='center'>Filtros</Typography>
       <FiltrosItems />
      </>
 

@@ -27,17 +27,17 @@ const Productos = () => {
     <Typography variant="h4" fontWeight={600}> {!ok ?  status : cantidadInmuebles + " Inmuebles totales"}</Typography>
 
 
-    <Grid container direction='column' gap={2} mt={2} >
+    <Grid container direction='column' gap={4} mt={2} >
       { s && <Grid><Button variant="contained" onClick={() => navigate(`/tienda?c=${c}`)}>{s}<ClearIcon size='small'/></Button></Grid>}
       { ok && inmueble?.map( p => (
-          <Grid container direction={{xs:'column', sm:'row'}} width='95%' height='18rem' key={p.id} justifyContent='space-between' backgroundColor='white'>
+          <Grid container direction={{xs:'column', sm:'row'}} width='95%' minHeight='18rem' height='max-content' key={p.id} justifyContent={{xs:'center', sm:'space-between'}} alignItems={{xs:'center', sm: 'center'}} backgroundColor='white' boxShadow={{xs:'none', sm:`rgba(0, 0, 0, 0.24) 0px 3px 8px`}}>
 
-            <Grid container width={{xs:'90%', sm:'35%'}} height='100%'> 
+            <Grid container width={{xs:'90%', sm:'40%'}} height='100%' justifyContent={{xs:'center', sm:'start'}}> 
               <Link to={`/tienda/detalle/${p.id}`}><img src={p.imagen[0]} alt={p.imagen.indexOf()}  style={{width:'100%', height:'100%', objectFit:'cover', objectPosition: 'center center'}} /></Link>
             </Grid>
 
             <Grid container direction={{xs:'column', sm:'row'}} width={{xs:'90%', sm:'60%'}} height='100%' >
-              <Grid container width={{xs:'100%', sm:'70%'}} direction='column' justifyContent='space-around' >
+              <Grid container width={{xs:'100%', sm:'70%'}} direction='column' justifyContent='space-around'>
               <Grid item>
               <TypographyPrecio>$ {p.precio} {p.moneda}</TypographyPrecio>
               <Typography variant='p' fontWeight={700}>{p.direccion}</Typography>

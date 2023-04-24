@@ -10,15 +10,12 @@ const FiltrosMobile = ({openDrawer, setOpenDrawer}) => {
 
   return (
     <Drawer anchor='left' variant='temporary' open={openDrawer} onClose={toggleDrawer}>
-     <Grid paddingTop='1rem'>
-     <Grid borderBottom='solid 2px #DBDBDB' paddingBottom='1rem'>
+
+     <Grid container padding='1rem' gap={3}>
        <IconButton onClick={() => setOpenDrawer(!openDrawer)} sx={{color:'black'}}><CloseIcon /></IconButton>
        <FiltrosItems />
      </Grid>
-     <List>
 
-     </List>
-     </Grid>
    </Drawer>
   )
 }

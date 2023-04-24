@@ -1,11 +1,11 @@
-import { Stack, Pagination, useTheme } from "@mui/material"
+import { Grid, Pagination, useTheme } from "@mui/material"
 
 
 const Paginado = () => {
   const theme = useTheme();
   return (
-    <Stack spacing={2}>
-      <Pagination count={10} variant="outlined" 
+    <Grid item xs={10} sm={5} >
+      <Pagination count={5} variant="outlined" 
       sx={{
         "& .MuiPaginationItem-root": {
           color: theme.palette.primary.main,
@@ -17,7 +17,7 @@ const Paginado = () => {
         },
       }}
       />
-    </Stack>
+    </Grid>
   ) 
 }
 
