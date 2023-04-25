@@ -56,7 +56,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 //#############   sequelize.models tiene los modelos como propiedades - los relaciono con destructuring  #############//
 
-const { Inmueble, Categoria } = sequelize.models;
+const { Inmueble, Categoria, Usuario } = sequelize.models;
 
 
 
