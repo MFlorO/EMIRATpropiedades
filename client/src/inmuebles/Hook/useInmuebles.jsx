@@ -12,7 +12,7 @@ const useInmuebles = () => {
 
   const { c , s } = useQueryParams()
 
-  const { inmuebles, inmueblesCopia } = useSelector( state => state )
+  const { inmuebles, inmueblesCopia } = useSelector( state => state.inmueble )
 
   const {inmueble, status, ok} = inmueblesCopia
 

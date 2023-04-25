@@ -10,7 +10,7 @@ const useInmueble = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
 
-  const { inmueble } = useSelector( state => state)
+  const { inmueble } = useSelector( state => state.inmueble)
 
 
   useEffect(() => {
