@@ -24,8 +24,13 @@ const FiltrosPorHabitaciones = () => {
       <FormGroup sx={{ display:'flex', flexDirection:'column', alignItems:'start'}}>
 
         <Gridcheck>
-            <Checkbox checked={selectedValue === '1'} name="1" value="1" onChange={handleCheckChange} />
+            <Checkbox checked={selectedValue === 'monoambiente'} name="monoambiente" value="monoambiente" onChange={handleCheckChange} />
             <FormLabel>Monoambiente</FormLabel>
+        </Gridcheck>
+
+        <Gridcheck>
+            <Checkbox checked={selectedValue === '1'} name="1" value="1" onChange={handleCheckChange} />
+            <FormLabel>1 habitacion</FormLabel>
         </Gridcheck>
 
         <Gridcheck>
