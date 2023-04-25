@@ -5,16 +5,17 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import { Grid } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { apiKey } from "./env";
+import icono  from '~/public/img/detalle/iconoGoogleMaps.jpg'
+
+
 
 
 const Maps = () => {
 
-  const [coordinates, setCoordinates] = useState(null);
   const [center, setCenter] = useState({
-    "lat": -31.42008329999999,
-    "lng": -64.1887761
+    "lat": 0,
+    "lng": 0
   });
-  const { localizacion } = useSelector( state => state )
 
   const dispatch = useDispatch()
   const { direccion } = useParams()
@@ -25,7 +26,20 @@ const Maps = () => {
 
   }, [direccion]);
 
-  console.log('maps',localizacion)
+  const { localizacion } = useSelector( state => state.inmueble )
+  
+  useEffect(() => {
+
+    if (localizacion?.latitud && localizacion?.longitud) {
+      const lat = parseFloat(localizacion.latitud);
+      const lng = parseFloat(localizacion.longitud);
+      if (!isNaN(lat) && !isNaN(lng)) {
+        setCenter({ ...center, lat, lng });
+      }
+    }
+
+  }, [localizacion]);
+
 
   return (
     <Grid>
@@ -35,7 +49,10 @@ const Maps = () => {
         zoom={15}
         mapContainerStyle={{ height: "400px", width: "100%" }}
       />
-      <Marker position={coordinates} />
+      <Marker 
+      position={{ lat: localizacion.latitud, lng: localizacion.longitud }} 
+      // icon={{ url: icono }}
+      />
     </LoadScript>
     </Grid>
   )
