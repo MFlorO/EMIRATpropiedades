@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllInmuebles, deleteInmueble } from '~/redux/actions';
+import { useParams } from 'react-router-dom';
+import { getAllInmuebles, deleteInmueble, ordenarPor } from '~/redux/actions';
 import useQueryParams from './useQueryParams';
+
 
 
 
@@ -10,29 +12,37 @@ const useInmuebles = () => {
 
   const dispatch = useDispatch()
 
-  const { c , s } = useQueryParams()
+  const { orden = 'default' } = useParams()
 
-  const { inmuebles, inmueblesCopia } = useSelector( state => state.inmueble )
+  const { c , s, items } = useQueryParams()
 
-  const {inmueble, status, ok} = inmueblesCopia
+  const { inmueblesCopia, paginaActual } = useSelector( state => state.inmueble )
 
+  const {inmueble, status, ok, cantidadTotal, cantidadPaginas } = inmueblesCopia
+  
 
   useEffect(() => {
-    
-    dispatch(getAllInmuebles({c,s}))
+
+    if ( orden === 'asc' || orden ==='des' ) {
+      dispatch(ordenarPor( {c,s, paginaActual, items}, {orden} ))
+    } else {
+      dispatch(getAllInmuebles({c,s, paginaActual, items}))
+    }
+
   
     return () => {
       deleteInmueble({c})
     }
-  }, [ c, s ])
-
+  }, [ c, s, orden, paginaActual ])
 
 
   return {
-    inmuebles, 
+    // inmuebles, 
     inmueble,
     status,
-    ok
+    ok,
+    cantidadTotal,
+    cantidadPaginas
   }
 }
 

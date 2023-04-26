@@ -14,7 +14,7 @@ const FiltrosPorHabitaciones = () => {
   
   const handleCheckChange = (event) => {
     event.preventDefault()
-    setSelectedValue(event.target.value);
+    // setSelectedValue(event.target.value);
     dispatch(filtroHab(event.target.value))
   }
 

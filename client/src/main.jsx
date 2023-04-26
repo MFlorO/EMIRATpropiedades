@@ -12,7 +12,6 @@ import './index.css'
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>    
-    {/* Redux va aca porque queremos que las rutas también puedan acceder al store global */}
       <BrowserRouter>
         <App />
       </BrowserRouter>

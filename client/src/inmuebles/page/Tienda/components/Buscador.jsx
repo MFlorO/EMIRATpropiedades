@@ -18,7 +18,7 @@ const Buscador = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate(`/tienda?c=${c}&s=${search}&paginaActual=1=0&items=${items}`)
+    navigate(`/tienda?c=${c}&s=${search.toLowerCase()}&paginaActual=1=0&items=${items}`)
     setSearch("");
   };
 

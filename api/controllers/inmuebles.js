@@ -3,22 +3,109 @@ const { Inmueble, Categoria } = require("../database/db");
 const { API_KEY_GOOGLEMAPS } = process.env;
 
 
+// exports.getTodosLosInmuebles = async () => {
+//     try{
 
+//         const inmueble = await Inmueble.findAll({
+//             order: [['id', 'ASC']],
+//             include: [{        
+//                 model: Categoria,
+//                 attributes: ['id', "nombre"],
+//                 through: { attributes: [] }
+//              }
+//             ]
+//         });
 
-exports.getTodosLosInmuebles = async () => {
+//         return inmueble
+
+//     }catch{
+//         res.status(500).json({
+//             ok: false,
+//             status: "comunicarse con el administrador",
+//         })
+
+//         console.log(error)
+//     }
+// }
+
+exports.getTodosLosInmuebles = async ( req, res ) => {
+
+    const { c, s="", paginaActual = 0, items = 5 } = req.query;
+
     try{
 
-        const inmueble = await Inmueble.findAll({
-            order: [['id', 'ASC']],
-            include: [{        
-                model: Categoria,
-                attributes: ['id', "nombre"],
-                through: { attributes: [] }
-             }
-            ]
-        });
+        if ( c !== 'todos') {
 
-        return inmueble
+            const inmueble =  await Inmueble.findAll({
+                order: [['id', 'ASC']],
+                include: [{         
+                    model: Categoria,
+                    where: { nombre: { [Op.like]: `%${c}%` } },
+                    attributes: ['id', "nombre"],
+                    through: { attributes: [] }
+                 }
+                ]
+            });
+            
+            if (inmueble.length === 0) return res.json({ ok: false, status: `No se encontraron inmuebles con esa categoria: ${c}` });
+            
+      
+            let filteredInmueble = inmueble;
+            
+            // Filtrar los inmuebles según la búsqueda
+            if ( s && s!== undefined ) {
+              filteredInmueble = inmueble.filter(inmueble => inmueble.nombre.includes(s));
+          
+              if (filteredInmueble.length === 0) return res.json({ ok: false, status: `No se encontraron inmuebles para la búsqueda ${s}` });
+            }
+      
+            const cantidadTotal = filteredInmueble.length
+            const cantidadPaginas = Math.ceil(cantidadTotal / items)
+            const set = parseInt(paginaActual) * items 
+            const limite =  set + parseInt(items) 
+      
+            let filteredInmueble2 = filteredInmueble.slice(set,limite)
+      
+      
+            return res.status(201).json({ ok: true, status: `Inmuebles encontrados para la categoría ${c}`, cantidadTotal, cantidadPaginas, inmueble: filteredInmueble2 });
+      
+          } else {
+
+            const inmueble = await Inmueble.findAll({
+                order: [['id', 'ASC']],
+                include: [{        
+                    model: Categoria,
+                    attributes: ['id', "nombre"],
+                    through: { attributes: [] }
+                 }
+                ]
+            });;
+            
+            if (inmueble.length === 0) return res.status(404).json({ ok: false, status: 'No se encontraron inmuebles' });
+      
+            
+            let filteredInmueble = inmueble;
+      
+            
+            // Filtrar los inmuebles según la búsqueda
+            if ( s && s!== undefined ) {
+              filteredInmueble = inmueble.filter(inmueble => inmueble.nombre.includes(s));
+          
+              if (filteredInmueble.length === 0) return res.json({ ok: false, status: `No se encontraron inmuebles para la búsqueda ${s}` });
+            }
+      
+            const cantidadTotal = filteredInmueble.length
+            const cantidadPaginas = Math.ceil(cantidadTotal / items)
+            const set = parseInt(paginaActual) * items 
+            const limite =  set + parseInt(items) 
+      
+      
+            let filteredInmueble2 = filteredInmueble.slice(set,limite)
+      
+      
+            return res.status(201).json({ ok: true, status: 'Todos los inmuebles', cantidadTotal, cantidadPaginas, inmueble:filteredInmueble2});
+
+          }
 
     }catch{
         res.status(500).json({
@@ -31,30 +118,38 @@ exports.getTodosLosInmuebles = async () => {
 }
 
 
-exports.getInmueble = async ( c ) => {
- 
-    try {
-        
-            const inmueble = await Inmueble.findAll({
-                order: [['id', 'ASC']],
-                include: [{         
-                    model: Categoria,
-                    where: { nombre: { [Op.like]: `%${c}%` } },
-                    attributes: ['id', "nombre"],
-                    through: { attributes: [] }
-                 }
-                ]
-            });
+exports.getInmueblesOrdenadosPorPrecio = async (req, res) => {
 
-            return inmueble
+    const { c, s="", paginaActual = 0, items = 5 } = req.query;
+
+    const { orden='default' } = req.params;
+
+    try {
+      // Hacer una solicitud HTTP GET a la primer ruta
+      const response = await fetch(`http://localhost:3001/api/inmuebles?c=${c}&s=${s}&paginaActual=${paginaActual}&items=${items}`);
+
+      const { inmueble }   = await response.json();
+
+      let inmuebles2 = inmueble
+        
+      orden === 'default' 
+      ? inmuebles2
+      : inmuebles2.sort((a, b) => {
+        if (orden === 'asc') {
+            return a.precio - b.precio;
+        } else {
+            return b.precio - a.precio;
+        }
+      });
+
+      res.status(200).json(inmuebles2);
 
     } catch (error) {
-
-        console.log(error)
-        return undefined;
+      console.error(error);
+      res.status(500).json({ status: 'Error al obtener los inmuebles ordenados por precio' });
     }
-}
-
+    
+  };
 
 
 // -------- GET SEARCH INMUEBLE ------------ //

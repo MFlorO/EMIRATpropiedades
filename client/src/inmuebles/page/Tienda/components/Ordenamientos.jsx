@@ -1,6 +1,6 @@
+import { useNavigate } from "react-router-dom";
+import useQueryParams from "../../../Hook/useQueryParams";
 import { Grid, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { ordenarPor } from "~/redux/actions";
 
 
 const styleSelect = {
@@ -14,11 +14,12 @@ const styleSelect = {
 
 const Ordenamientos = () => {
   
-  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { c, s="", items, } = useQueryParams()
 
   const handleOrdenChange = (event) => {
     event.preventDefault()
-    dispatch(ordenarPor(event.target.value))
+    navigate(`/tienda/${event.target.value}/?c=${c}&s=${s}&paginaActual=1=0&items=${items}`)
   }
 
   return (

@@ -120,10 +120,26 @@ export function createInmueble(body) {
 
 //         ##################       asc_des         #################
 
-export function ordenarPor(payload) {
-  return {
-    type: "ASC_DES",
-    payload: payload
+export function ordenarPor( query, params ) {
+
+  const { c, s="", paginaActualParaBack = 0, items = 5 } = query;
+
+  const { orden = 'default' } = params;
+
+  return function (dispatch) {
+
+    const url = `${baseURL}/inmuebles/orden/${orden}/?c=${c}&s=${s}&paginaActual=${paginaActualParaBack}&items=${items}`
+   
+    axios.get(url)
+      .then(response => {
+        dispatch({
+          type: 'ASC_DES',
+          payload: response.data
+        });
+      })
+    .catch(error => {
+      console.log("error ruta ordenarPor",error)
+    })
   };
 }
 

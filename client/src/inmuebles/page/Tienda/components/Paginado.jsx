@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPaginaActual } from "~/redux/actions/inmuebles";
 import { Loading } from "../../../components";
 import { useInmuebles, useQueryParams } from "../../../Hook";
@@ -15,6 +15,7 @@ const Paginado = () => {
   const theme = useTheme();
   const { c, s, items} = useQueryParams()
   const { cantidadPaginas } = useInmuebles()
+  const { paginaActual } = useSelector( state => state.inmueble )
 
   if (!cantidadPaginas) return <Loading />; 
 
@@ -25,7 +26,7 @@ const Paginado = () => {
 
   return (
     <Grid item xs={10} sm={5} >
-      <Pagination count={cantidadPaginas} variant="outlined" onChange={handleChange} defaultPage={1}
+      <Pagination count={cantidadPaginas} variant="outlined" onChange={handleChange} defaultPage={1} page={paginaActual}
       sx={{
         "& .MuiPaginationItem-root": {
           color: theme.palette.primary.main,

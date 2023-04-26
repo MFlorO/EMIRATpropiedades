@@ -3,6 +3,7 @@ import { GET_All_INMUEBLES, DELETE_All_INMUEBLES, GET_INMUEBLE_ID, DELETE_INMUEB
     ASC_DES, RESET_FILTRO, FILTRO_CATEGORIA, FILTRO_HABITACION,
     GET_GOOGLEMAPS,
     SET_PAGINA_ACTUAL,
+    
 } from "../actions/inmuebles.js"
 
 
@@ -12,7 +13,7 @@ const initialState = {
     inmueble: {},
     categorias: [],
     localizacion: {},
-    paginaActual: 0,
+    paginaActual: 1,
     cantidadPaginas: 1
 };
 
@@ -131,30 +132,39 @@ export default function inmuebleReducer(state = initialState, action) {
 
       
 
+        // case ASC_DES:
+
+        //     let inmuebles = [...state.inmueblesCopia.inmueble]
+
+        //       let inmueble2 = action.payload === 'default' 
+        //       ? inmuebles 
+        //       : inmuebles.sort((a, b) => {
+        //         if(a.precio < b.precio){
+        //             return action.payload === "asc" ? -1 : 1
+        //         }
+        //         if(a.precio > b.precio){
+        //             return action.payload === "asc" ? 1 : -1
+        //         }
+        //         return 0;
+        //     })
+
+        //     return {
+        //         ...state,
+        //         inmueblesCopia: {
+        //             ...state.inmueblesCopia,
+        //             inmueble: inmueble2
+        //           }
+        //     }
+
+        
         case ASC_DES:
-
-            let inmuebles = [...state.inmueblesCopia.inmueble]
-
-              let inmueble2 = action.payload === 'default' 
-              ? inmuebles 
-              : inmuebles.sort((a, b) => {
-                if(a.precio < b.precio){
-                    return action.payload === "asc" ? -1 : 1
-                }
-                if(a.precio > b.precio){
-                    return action.payload === "asc" ? 1 : -1
-                }
-                return 0;
-            })
-
             return {
                 ...state,
                 inmueblesCopia: {
                     ...state.inmueblesCopia,
-                    inmueble: inmueble2
-                  }
+                    inmueble: action.payload                    
+                }
             }
-
             
 
         case GET_GOOGLEMAPS:
