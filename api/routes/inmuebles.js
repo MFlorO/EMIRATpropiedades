@@ -7,9 +7,9 @@ const router = Router();
 const { getTodosLosInmuebles, getInmueble, crearInmueble, getInmuebleId, editProducto, deleteInmueble, direccionGoogleMaps } = require('../controllers/inmuebles');
 
 
-router.get('/:id?', async (req, res) => {
+router.get('/', async (req, res) => {
 
-  const { c, s="" } = req.query;
+  const { c, s="", paginaActual = 0, items = 5 } = req.query;
 
   try {
     if ( c !== 'todos') {
@@ -27,7 +27,15 @@ router.get('/:id?', async (req, res) => {
         if (filteredInmueble.length === 0) return res.json({ ok: false, status: `No se encontraron inmuebles para la búsqueda ${s}` });
       }
 
-      return res.status(201).json({ ok: true, status: `Inmuebles encontrados para la categoría ${c}`, inmueble: filteredInmueble });
+      const cantidadTotal = filteredInmueble.length
+      const cantidadPaginas = Math.ceil(cantidadTotal / items)
+      const set = parseInt(paginaActual) * items 
+      const limite =  set + parseInt(items) 
+
+      let filteredInmueble2 = filteredInmueble.slice(set,limite)
+
+
+      return res.status(201).json({ ok: true, status: `Inmuebles encontrados para la categoría ${c}`, cantidadTotal, cantidadPaginas, inmueble: filteredInmueble2 });
 
     } else {
       const inmueble = await getTodosLosInmuebles();
@@ -45,7 +53,16 @@ router.get('/:id?', async (req, res) => {
         if (filteredInmueble.length === 0) return res.json({ ok: false, status: `No se encontraron inmuebles para la búsqueda ${s}` });
       }
 
-      return res.status(201).json({ ok: true, status: 'Todos los inmuebles', inmueble:filteredInmueble });
+      const cantidadTotal = filteredInmueble.length
+      const cantidadPaginas = Math.ceil(cantidadTotal / items)
+      const set = parseInt(paginaActual) * items 
+      const limite =  set + parseInt(items) 
+
+
+      let filteredInmueble2 = filteredInmueble.slice(set,limite)
+
+
+      return res.status(201).json({ ok: true, status: 'Todos los inmuebles', cantidadTotal, cantidadPaginas, inmueble:filteredInmueble2});
     }
   } catch (error) {
     console.log(error);
