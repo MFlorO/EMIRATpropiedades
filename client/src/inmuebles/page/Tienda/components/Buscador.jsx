@@ -13,12 +13,12 @@ const Buscador = () => {
 
   const onSearchChange = (event) => setSearch(event.target.value);
 
-  const { c } = useQueryParams()
+  const { c, items } = useQueryParams()
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate(`/tienda?c=${c}&s=${search}`)
+    navigate(`/tienda?c=${c}&s=${search}&paginaActual=1=0&items=${items}`)
     setSearch("");
   };
 
