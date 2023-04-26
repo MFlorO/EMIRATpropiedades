@@ -12,7 +12,10 @@ export const DELETE_COUNTRIES_DETAIL = "DELETE_COUNTRIES_DETAIL";
 export const CREAR_INMUEBLE = "CREAR_INMUEBLE";
 export const DELETE_INMUEBLE_ID = "DELETE_INMUEBLE_ID";
 
-export const SET_PAGE = "SET_PAGE"
+export const SET_PAGINA_ACTUAL = "SET_PAGINA_ACTUAL"
+
+
+
 
 export const ASC_DES = "ASC_DES";
 export const FILTRO_HABITACION = "FILTRO_HABITACION"
@@ -31,11 +34,13 @@ export const GET_GOOGLEMAPS = "GET_GOOGLEMAPS"
 
 export function getAllInmuebles(query) {
 
-  const { c="", s="" } = query
+  const { c="", s="", paginaActual, items } = query
+
+  const paginaActualParaBack = paginaActual - 1   // Esto lo hago porque en el back la pagina actual siempre es menor a la del front
 
   return function (dispatch) {
 
-    const url = `${baseURL}/inmuebles?c=${c}&s=${s}`
+    const url = `${baseURL}/inmuebles?c=${c}&s=${s}&paginaActual=${paginaActualParaBack}&items=${items}`
    
     axios.get(url)
       .then(response => {
@@ -111,16 +116,6 @@ export function createInmueble(body) {
 }
 
 
-// ############ SEET_PAGE ##################
-
-
-export function setPage(page) {
-  return function (dispatch) {
-    dispatch({ type: "SET_PAGE", payload: page });
-  };
-}
-
-
 
 
 //         ##################       asc_des         #################
@@ -182,5 +177,14 @@ export function getLocalizacionGoogleMaps(params) {
 }
 
 
+
+
+//################# PAGINADO ##############
+export function setPaginaActual(payload) {
+  return {
+    type: "SET_PAGINA_ACTUAL",
+    payload: payload
+  };
+}
 
 

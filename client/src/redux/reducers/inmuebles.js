@@ -2,6 +2,7 @@
 import { GET_All_INMUEBLES, DELETE_All_INMUEBLES, GET_INMUEBLE_ID, DELETE_INMUEBLE_ID, CREAR_INMUEBLE,
     ASC_DES, RESET_FILTRO, FILTRO_CATEGORIA, FILTRO_HABITACION,
     GET_GOOGLEMAPS,
+    SET_PAGINA_ACTUAL,
 } from "../actions/inmuebles.js"
 
 
@@ -12,6 +13,7 @@ const initialState = {
     categorias: [],
     localizacion: {},
     paginaActual: 0,
+    cantidadPaginas: 1
 };
 
 
@@ -60,6 +62,18 @@ export default function inmuebleReducer(state = initialState, action) {
                 ...state,
                 Inmuebles: action.payload
         }
+
+
+
+
+        // ################### PAGINADO ####################
+
+        case SET_PAGINA_ACTUAL:
+            return{
+                ...state,
+                paginaActual: action.payload
+            }
+
 
 
 
