@@ -63,13 +63,13 @@ export function getAllInmuebles(query) {
 
 export function getInmueblesCategoria(query) {
 
-  const { c , paginaActual, items } = query
+  const { c , paginaActual, items=5 } = query
 
   const paginaActualParaBack = paginaActual - 1   // Esto lo hago porque en el back la pagina actual siempre es menor a la del front
 
   return function (dispatch) {
 
-    const url = `${baseURL}/inmuebles/categoria?c=${c}&paginaActual=${paginaActualParaBack}&items=${items}`
+    const url = `${baseURL}/inmuebles/categoria?c=${c}&paginaActual=${paginaActualParaBack}&items=${parseInt(items)}`
    
     axios.get(url)
       .then(response => {
@@ -182,15 +182,22 @@ export function createInmueble(body) {
 
 export function ordenarPor( query, params ) {
 
-  const { c, s="", paginaActualParaBack = 0, items = 5 } = query;
+  const { c, s, paginaActualParaBack = 0, items = 5 } = query;
+  const { ordenar } = params
 
-  const { orden = 'default' } = params;
+
+
+  const urlTodos = `${baseURL}/inmuebles/orden/${ordenar}?paginaActual=${paginaActualParaBack}&items=${items}`
+  const urlTodosconBusqueda = `${baseURL}/inmuebles/orden/${ordenar}?s=${s}&paginaActual=${paginaActualParaBack}&items=${items}`
+  const urlCategoria = `${baseURL}/inmuebles/orden/${ordenar}?c=${c}&paginaActual=${paginaActualParaBack}&items=${items}`
+  const urlCategoriaconBusqueda = `${baseURL}/inmuebles/orden/${ordenar}?c=${c}&s=${s}&paginaActual=${paginaActualParaBack}&items=${items}`
 
   return function (dispatch) {
-
-    const url = `${baseURL}/inmuebles/orden/${orden}/?c=${c}&s=${s}&paginaActual=${paginaActualParaBack}&items=${items}`
-   
-    axios.get(url)
+  
+    axios.get( (c !== undefined && c !== 'todos')  
+                      ? (s !== undefined) ? urlCategoriaconBusqueda : urlCategoria
+                      : (s !== undefined) ? urlTodosconBusqueda : urlTodos
+             )
       .then(response => {
         dispatch({
           type: 'ASC_DES',

@@ -140,43 +140,10 @@ export default function inmuebleReducer(state = initialState, action) {
             }
 
         
-            
-        //         ##################       ORDENAMIENTOS         #################
-
-      
-
-        // case ASC_DES:
-
-        //     let inmuebles = [...state.inmueblesCopia.inmueble]
-
-        //       let inmueble2 = action.payload === 'default' 
-        //       ? inmuebles 
-        //       : inmuebles.sort((a, b) => {
-        //         if(a.precio < b.precio){
-        //             return action.payload === "asc" ? -1 : 1
-        //         }
-        //         if(a.precio > b.precio){
-        //             return action.payload === "asc" ? 1 : -1
-        //         }
-        //         return 0;
-        //     })
-
-        //     return {
-        //         ...state,
-        //         inmueblesCopia: {
-        //             ...state.inmueblesCopia,
-        //             inmueble: inmueble2
-        //           }
-        //     }
-
-        
         case ASC_DES:
             return {
                 ...state,
-                inmueblesCopia: {
-                    ...state.inmueblesCopia,
-                    inmueble: action.payload                    
-                }
+                inmueblesCopia: action.payload
             }
             
 

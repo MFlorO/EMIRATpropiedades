@@ -12,7 +12,7 @@ const InmobiliariaRoutes = () => {
 
       <Route path="/" element={<LandingPage />} />
       <Route path="/tienda/detalle/:id/:direccion/*" element={<Detalle /> } />
-      <Route path="/tienda" element={<Tienda />} />
+      <Route path="/tienda/:ordenar?" element={<Tienda />} />
       <Route path="/empresa" element={<Empresa />} />
       <Route path="/contacto" element={<Contacto />} />
       <Route path="/administracion" element={<Administracion />} />

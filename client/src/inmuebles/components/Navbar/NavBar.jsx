@@ -12,7 +12,7 @@ const NavBar = () => {
 
   const { pathname } = useLocation()
 
-  const pathnameNO = ["/", "/tienda"]
+  const pathnameNO = ["/", "/tienda", "/tienda/desc", "/tienda/asc"]
   const pathname2 = pathnameNO.includes(pathname)
 
 
