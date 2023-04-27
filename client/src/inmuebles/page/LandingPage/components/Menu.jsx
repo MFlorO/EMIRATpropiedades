@@ -13,11 +13,11 @@ const Menu = () => {
      boxShadow='rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;' zIndex={200} backgroundColor='#FFFFFF'
      gap={1} 
     >
-        <ButtonStyles onClick={() => navigate('/tienda?c=alquiler')}>ALQUILER</ButtonStyles>
+        <ButtonStyles onClick={() => navigate('/tienda?c=alquiler&paginaActual=1&items=5')}>ALQUILER</ButtonStyles>
 
         <GridBorder></GridBorder>
 
-        <ButtonStyles onClick={() => navigate('/tienda?c=venta')}>COMPRAR</ButtonStyles>
+        <ButtonStyles onClick={() => navigate('/tienda?c=venta&paginaActual=1&items=5')}>COMPRAR</ButtonStyles>
 
         <GridBorder></GridBorder>
 

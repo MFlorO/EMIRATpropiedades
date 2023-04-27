@@ -3,12 +3,12 @@ import { GET_All_INMUEBLES, DELETE_All_INMUEBLES, GET_INMUEBLE_ID, DELETE_INMUEB
     ASC_DES, RESET_FILTRO, FILTRO_CATEGORIA, FILTRO_HABITACION,
     GET_GOOGLEMAPS,
     SET_PAGINA_ACTUAL,
-    
+    GET_INMUEBLES_CATEGORIA, GET_INMUEBLES_BUSQUEDA
 } from "../actions/inmuebles.js"
 
 
 const initialState = {
-    inmuebles: [],
+    inmueblesTotales: [],
     inmueblesCopia: [],
     inmueble: {},
     categorias: [],
@@ -28,15 +28,28 @@ export default function inmuebleReducer(state = initialState, action) {
         case GET_All_INMUEBLES:
             return {
                 ...state,
-                inmuebles: action.payload,
+                inmueblesTotales: action.payload,
                 inmueblesCopia: action.payload
             }
 
+        case GET_INMUEBLES_CATEGORIA:{
+            return{
+                ...state,
+                inmueblesCopia: action.payload
+            }
+        }
+
+        case GET_INMUEBLES_BUSQUEDA:{
+            return{
+                ...state,
+                inmueblesCopia: action.payload
+            }
+        }
             
         case DELETE_All_INMUEBLES:   //Limpia el componente --> useEffect del componente
             return {
                 ...state,
-                inmuebles: [],
+                inmueblesTotales: [],
                 inmueblesCopia: []
         } 
 

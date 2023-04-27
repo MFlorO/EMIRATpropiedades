@@ -10,7 +10,7 @@ const useInmueble = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
 
-  const { inmueble } = useSelector( state => state.inmueble)
+  const { inmueble } = useSelector( state => state.inmueble )
 
 
   useEffect(() => {
@@ -27,7 +27,8 @@ const useInmueble = () => {
  
 
   return { 
-    inmuebleId
+    inmuebleId,
+    status
   }
 }
 

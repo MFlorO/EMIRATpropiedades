@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getAllInmuebles, deleteInmueble, ordenarPor } from '~/redux/actions';
+import { getAllInmuebles, getInmueblesBusqueda, getInmueblesCategoria } from '~/redux/actions';
 import useQueryParams from './useQueryParams';
+
 
 
 
@@ -12,33 +12,39 @@ const useInmuebles = () => {
 
   const dispatch = useDispatch()
 
-  const { orden = 'default' } = useParams()
 
-  const { c , s, items } = useQueryParams()
+  const { c='todos', s, items=5 } = useQueryParams()
 
-  const { inmueblesCopia, paginaActual } = useSelector( state => state.inmueble )
+  const { inmueblesTotales, inmueblesCopia, paginaActual } = useSelector( state => state.inmueble )
 
-  const {inmueble, status, ok, cantidadTotal, cantidadPaginas } = inmueblesCopia
+  const { inmuebles, status, ok, cantidadTotal, cantidadPaginas } = inmueblesCopia
   
 
   useEffect(() => {
 
-    if ( orden === 'asc' || orden ==='des' ) {
-      dispatch(ordenarPor( {c,s, paginaActual, items}, {orden} ))
-    } else {
-      dispatch(getAllInmuebles({c,s, paginaActual, items}))
+    if ( c !== undefined && c !=='todos') {
+       if( s!== undefined){
+        return dispatch(getInmueblesBusqueda({ c, s, paginaActual, items }))
+       }else{
+        return dispatch(getInmueblesCategoria( { c, paginaActual, items } ))
+       }
+    } else if (s !== undefined) {
+      dispatch(getInmueblesBusqueda({ s, items, paginaActual }))
+    }else {
+      dispatch(getAllInmuebles({ paginaActual, items }))
     }
+    
 
-  
-    return () => {
-      deleteInmueble({c})
-    }
-  }, [ c, s, orden, paginaActual ])
+    // return () => {
+    //   deleteInmueble()
+    // }
+  }, [ paginaActual, c, s ])
+
 
 
   return {
-    // inmuebles, 
-    inmueble,
+    inmueblesTotales, 
+    inmuebles,
     status,
     ok,
     cantidadTotal,

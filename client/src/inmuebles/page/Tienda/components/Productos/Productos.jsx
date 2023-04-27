@@ -14,12 +14,11 @@ const Productos = () => {
   
   const navigate = useNavigate()
 
-  const { inmueble, status, ok, cantidadTotal } = useInmuebles()
+  const { inmuebles, status, ok, cantidadTotal } = useInmuebles()
 
   const { c, s } = useQueryParams()
 
   if (cantidadTotal === 0) return <Loading />
-
   
   return (
     <>
@@ -28,8 +27,15 @@ const Productos = () => {
 
 
     <Grid container direction='column' gap={4} mt={2} >
-      { s && <Grid><Button variant="contained" onClick={() => navigate(`/tienda?c=${c}&paginaActual=1&items=5`)}>{s}<ClearIcon size='small'/></Button></Grid>}
-      { ok && inmueble?.map( p => (
+      
+      { s && <Grid>
+                    <Button variant="contained" onClick={() => (c !==undefined && c!=='todos') ? navigate(`/tienda?c=${c}&paginaActual=1&items=5`) : navigate(`/tienda?paginaActual=1&items=5`)}>{s}
+                      <ClearIcon size='small'/>
+                    </Button>
+             </Grid>
+      }
+
+      { ok && inmuebles?.map( p => (
           <Grid container key={p.id} direction={{xs:'column', sm:'row'}} width='90%' minHeight={{xs:'15rem', sm:'15rem'}} height={{xs:"max-content", sm:"15rem"}} justifyContent={{xs:'center', sm:'space-between'}} 
           alignItems='center' backgroundColor='white' boxShadow={{xs:'none', sm:`rgba(0, 0, 0, 0.24) 0px 3px 8px`}}>
 

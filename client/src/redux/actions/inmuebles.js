@@ -27,6 +27,9 @@ export const GET_GOOGLEMAPS = "GET_GOOGLEMAPS"
 
 
 
+export const GET_INMUEBLES_CATEGORIA = "GET_INMUEBLES_CATEGORIA"
+export const GET_INMUEBLES_BUSQUEDA = "GET_INMUEBLES_BUSQUEDA"
+
 
 
 
@@ -34,13 +37,13 @@ export const GET_GOOGLEMAPS = "GET_GOOGLEMAPS"
 
 export function getAllInmuebles(query) {
 
-  const { c="", s="", paginaActual, items } = query
+  const { paginaActual, items=5 } = query
 
   const paginaActualParaBack = paginaActual - 1   // Esto lo hago porque en el back la pagina actual siempre es menor a la del front
 
   return function (dispatch) {
 
-    const url = `${baseURL}/inmuebles?c=${c}&s=${s}&paginaActual=${paginaActualParaBack}&items=${items}`
+    const url = `${baseURL}/inmuebles?paginaActual=${paginaActualParaBack}&items=${parseInt(items)}`
    
     axios.get(url)
       .then(response => {
@@ -54,6 +57,63 @@ export function getAllInmuebles(query) {
     })
   };
 }
+
+
+//         ##################       GET_INMUEBLES_CATEGORIA         #################
+
+export function getInmueblesCategoria(query) {
+
+  const { c , paginaActual, items } = query
+
+  const paginaActualParaBack = paginaActual - 1   // Esto lo hago porque en el back la pagina actual siempre es menor a la del front
+
+  return function (dispatch) {
+
+    const url = `${baseURL}/inmuebles/categoria?c=${c}&paginaActual=${paginaActualParaBack}&items=${items}`
+   
+    axios.get(url)
+      .then(response => {
+        dispatch({
+          type: 'GET_INMUEBLES_CATEGORIA',
+          payload: response.data
+        });
+      })
+    .catch(error => {
+      console.log("error ruta getAllInmuebles",error)
+    })
+  };
+}
+
+
+
+//         ##################       GET_INMUEBLES_BUSQUEDA         #################
+
+export function getInmueblesBusqueda(query) {
+
+  const { c, s, paginaActual, items } = query
+
+  const paginaActualParaBack = paginaActual - 1   // Esto lo hago porque en el back la pagina actual siempre es menor a la del front
+
+  return function (dispatch) {
+
+    const url = `${baseURL}/inmuebles/busqueda?s=${s}&paginaActual=${paginaActualParaBack}&items=${items}`
+    const urlCategoria = `${baseURL}/inmuebles/busqueda?c=${c}&s=${s}&paginaActual=${paginaActualParaBack}&items=${items}`
+   
+    axios.get( (c !== undefined && c !== 'todos') ? urlCategoria : url)
+      .then(response => {
+        dispatch({
+          type: 'GET_INMUEBLES_BUSQUEDA',
+          payload: response.data
+        });
+      })
+    .catch(error => {
+      console.log("error ruta getAllInmuebles",error)
+    })
+  };
+}
+
+
+
 
 
 //         #########   DELETE_All_INMUEBLES  #################

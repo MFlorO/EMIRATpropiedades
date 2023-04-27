@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setPaginaActual } from "~/redux/actions/inmuebles";
+import useQueryParams from "../../../Hook/useQueryParams";
 import SearchIcon from '@mui/icons-material/Search';
 import { Grid, Button, TextField} from "@mui/material";
-import useQueryParams from "../../../Hook/useQueryParams";
 
 
 
 const Buscador = () => {
 
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [search, setSearch] = useState("");
 
@@ -18,7 +21,13 @@ const Buscador = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate(`/tienda?c=${c}&s=${search.toLowerCase()}&paginaActual=1=0&items=${items}`)
+    if(c !== undefined && c !== 'todos') {
+      dispatch(setPaginaActual(1))
+      navigate(`/tienda?c=${c}&s=${search.toLowerCase()}&paginaActual=1&items=${items}`)
+    } else {
+      navigate(`/tienda?s=${search.toLowerCase()}&paginaActual=1&items=${items}`)
+      dispatch(setPaginaActual(1))
+    }            
     setSearch("");
   };
 

@@ -17,10 +17,16 @@ const Paginado = () => {
   const { cantidadPaginas } = useInmuebles()
   const { paginaActual } = useSelector( state => state.inmueble )
 
-  if (!cantidadPaginas) return <Loading />; 
-
   const handleChange = (event, value) => {
-    navigate( s !== undefined ? `/tienda?c=${c}&s=${s}&paginaActual=${value}&items=${items}` : `/tienda?c=${c}&paginaActual=${value}&items=${items}`)
+
+    (c !== undefined && c !== 'todos') 
+    ? (s !== undefined ) 
+           ? navigate(`/tienda?c=${c}&s=${s}&paginaActual=${value}&items=${items}`) 
+           : navigate(`/tienda?c=${c}&paginaActual=${value}&items=${items}`)
+    : (s !== undefined ) 
+           ? navigate(`/tienda?s=${s}&paginaActual=${value}&items=${items}`)
+           : navigate(`/tienda?paginaActual=${value}&items=${items}`) 
+
     dispatch(setPaginaActual(value))
   }
 
