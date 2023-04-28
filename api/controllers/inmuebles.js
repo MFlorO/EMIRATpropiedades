@@ -1,6 +1,6 @@
 const { Op, where } = require("sequelize");
 const { Inmueble, Categoria } = require("../database/db");
-const { API_KEY_GOOGLEMAPS } = process.env;
+const { API_KEY_GOOGLEMAPS } = require("./../env");
 
 
 exports.getInmuebles = async ( where = {}, orden = [['id', 'ASC']],  ) => {
@@ -27,8 +27,6 @@ exports.getInmuebles = async ( where = {}, orden = [['id', 'ASC']],  ) => {
 
 
 exports.getInmueblesCategoria = async ( c, orden = [['id', 'ASC']], where = {}) => {
-
-    console.log( c,where, orden )
 
     try {
 
