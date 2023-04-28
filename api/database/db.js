@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = require("./../env");
 
 
 //#############   CONEXION DE SEQUELIZE(ORM) A MI BD   #############//

@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore/lite"
-import { apiKey, appId } from "./env";
+import { apiKeyFirebase, appId } from "~/env";
 
 
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: apiKey,
+  apiKey: apiKeyFirebase,
   authDomain: "emirat-propiedades.firebaseapp.com",
   projectId: "emirat-propiedades",
   storageBucket: "emirat-propiedades.appspot.com",

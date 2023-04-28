@@ -2,7 +2,7 @@
 const app = require('./app');
 require('dotenv').config();
 const { conn } = require('./database/db'); // "conn" tiene todos los modelos juntos, ya que es la instancia de sequelize.models renombrado
-const { PORT } = process.env;
+const { PORT } = require("./env");
 
 
 

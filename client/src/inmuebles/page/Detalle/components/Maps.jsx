@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import { Grid } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { apiKey } from "./env";
-import icono  from '~/public/img/detalle/iconoGoogleMaps.jpg'
+import { apiKey } from "~/env";
+// import icono  from '~/public/img/detalle/iconoGoogleMaps.jpg'
 
 
 

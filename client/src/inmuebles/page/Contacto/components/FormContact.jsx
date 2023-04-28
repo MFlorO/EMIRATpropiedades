@@ -3,7 +3,7 @@ import { useForm, useQueryParams } from "../../../Hook"
 import { validacionFormulario } from "../../../functions/validacionFormulario"
 import emailjs from "@emailjs/browser";
 import { Alert, Button, FormHelperText, Grid, TextField, Typography } from "@mui/material"
-import { serviceId, templateId, userId } from "./env";
+import { serviceId, templateId, userId } from "~/env";
 
 
 let formData = {
