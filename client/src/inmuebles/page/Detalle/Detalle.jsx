@@ -1,4 +1,4 @@
-import { Button, Grid, Icon, Typography, useTheme } from '@mui/material'
+import { Button, Grid, IconButton, Typography } from '@mui/material'
 import useInmueble from '../../Hook/useInmueble'
 import InmuebleLayout, { heightViews } from '../../layout/InmuebleLayout'
 import { styled } from '@mui/material/styles';
@@ -27,10 +27,10 @@ const Detalle = () => {
     <Grid container width='100%' maxHeight='max-content' height={{xs:'160rem', sm:'max-content'}} direction='column' justifyContent='space-around' 
     mt={`${heightViews}rem`} pl={{xs:0, sm:10}} pr={{xs:0, sm:10}} gap={{xs:1, sm:4}}>
 
-      <Grid container width='100%' display='flex' flexDirection={{xs:'column',sm:'row'}} justifyContent='center' alignItems='center' gap={2} mb={2}>
-        <TypographyTitulo>{inmuebleId?.nombre}</TypographyTitulo>
-        <Grid display='flex' flexDirection='row' alignItems='end' >
-          <Icon><CircleIcon sx={{ fontSize:'15px', color: inmuebleId?.status === 'Disponible' ? '#2FBF01' : '#bf5001'}}/></Icon>
+      <Grid container width='100%' display='flex' flexDirection={{xs:'column',sm:'row'}} justifyContent='center' alignContent='center' gap={1}>
+        <TypographyTitulo alignContent='center'>{inmuebleId?.nombre}</TypographyTitulo>
+        <Grid display='flex' flexDirection='row' alignItems='center'>
+          <IconButton><CircleIcon sx={{ color: inmuebleId?.status === 'Disponible' ? '#2FBF01' : '#bf5001', fontSize:'12px'}}/></IconButton>
           <Typography variant='p'>{inmuebleId?.status}</Typography>
         </Grid>
       </Grid>

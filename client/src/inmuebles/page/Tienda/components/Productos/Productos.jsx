@@ -36,7 +36,7 @@ const Productos = () => {
       }
 
       { ok && inmuebles?.map( p => (
-          <Grid container key={p.id} direction={{xs:'column', sm:'row'}} width='90%' minHeight={{xs:'15rem', sm:'15rem'}} height={{xs:"max-content", sm:"15rem"}} justifyContent={{xs:'center', sm:'space-between'}} 
+          <Grid container key={p.id} direction={{xs:'column', sm:'row'}} width={{xs:'95%', sm:'90%'}} minHeight={{xs:'15rem', sm:'16rem'}} height={{xs:"max-content", sm:"15rem"}} justifyContent={{xs:'center', sm:'space-between'}} 
           alignItems='center' backgroundColor='white' boxShadow={{xs:'none', sm:`rgba(0, 0, 0, 0.24) 0px 3px 8px`}}>
 
             <Grid container width={{xs:'100%', sm:'45%'}} height={{xs:'15rem', sm:'100%'}} justifyContent={{xs:'center', sm:'center'}}> 
@@ -44,11 +44,16 @@ const Productos = () => {
             </Grid>
 
             <Grid container direction='column' width={{xs:'90%', sm:'55%'}} height='100%'>
-              <Grid container width={{xs:'100%', sm:'100%'}} direction='column' p={2} gap={{xs:2,sm:0}}>
-
-              <Grid container width='100%'>
-              <TypographyPrecio>$ {p.precio} {p.moneda} {p.id}</TypographyPrecio>
-              <Typography variant='p' fontWeight={700}>{p.direccion}</Typography>
+              <Grid container width={{xs:'100%', sm:'100%'}} direction='column' p={2} gap={{xs:3,sm:1}}>
+              <Grid container width='100%' direction='column'>
+                <Grid container width='100%' direction={{xs:'column', sm:'row'}} alignItems='center' justifyContent='space-between'>
+                  <TypographyPrecio>$ {p.precio} {p.moneda} {p.id}</TypographyPrecio>
+                  <TypographyCategoria>VENTA</TypographyCategoria>
+                </Grid>
+                <Grid container direction='row'>
+                  <Typography variant='p' fontWeight={700}>{p.direccion}</Typography>
+                  <Typography>{p.nombre}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Typography>
+                </Grid>
               </Grid>
 
               <Grid container direction={{xs:'column', sm:'row'}} width='100%' gap={{xs:2,sm:0}}> 
@@ -79,12 +84,21 @@ export default Productos
 
 
 
-
-
-
 const TypographyPrecio = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary.main,
   fontFamily: theme.typography.h1.fontFamily,
-  fontSize: '40px',
+  fontSize: '38px',
   fontWeight: 600
+}));
+
+
+
+const TypographyCategoria = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  fontFamily: theme.typography.p.fontFamily,
+  fontSize: '15px',
+  fontWeight: 400,
+  paddingLeft:  4,
+  paddingRight:  4,
+  border: `1px solid ${theme.palette.primary.main}`
 }));
