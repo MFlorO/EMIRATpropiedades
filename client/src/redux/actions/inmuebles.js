@@ -1,34 +1,27 @@
-
+import { baseURL } from "./url"
 import axios from "axios"
-const baseURL = "http://localhost:3001/api" 
 
 
 
 
 export const GET_All_INMUEBLES = "GET_All_INMUEBLES"
+export const GET_INMUEBLES_CATEGORIA = "GET_INMUEBLES_CATEGORIA"
+export const GET_INMUEBLES_BUSQUEDA = "GET_INMUEBLES_BUSQUEDA"
 export const DELETE_All_INMUEBLES = "DELETE_All_INMUEBLES"
 export const GET_INMUEBLE_ID = "GET_INMUEBLE_ID";
 export const DELETE_COUNTRIES_DETAIL = "DELETE_COUNTRIES_DETAIL";
 export const CREAR_INMUEBLE = "CREAR_INMUEBLE";
 export const DELETE_INMUEBLE_ID = "DELETE_INMUEBLE_ID";
-
 export const SET_PAGINA_ACTUAL = "SET_PAGINA_ACTUAL"
-
-
-
-
 export const ASC_DES = "ASC_DES";
 export const FILTRO_HABITACION = "FILTRO_HABITACION"
 export const RESET_FILTRO = "RESET_FILTRO"
 export const FILTRO_CATEGORIA = "FILTRO_CATEGORIA"
-
-
 export const GET_GOOGLEMAPS = "GET_GOOGLEMAPS"
 
 
 
-export const GET_INMUEBLES_CATEGORIA = "GET_INMUEBLES_CATEGORIA"
-export const GET_INMUEBLES_BUSQUEDA = "GET_INMUEBLES_BUSQUEDA"
+
 
 
 
