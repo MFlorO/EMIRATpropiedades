@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AdminLayOut } from "../layout";
-import { Dashboard, Usuarios, Perfil, AdminProductoRoutes, AdminCategoriaRoutes } from "../Page";
+import { Dashboard, Cuentas, Perfil, AdminProductoRoutes, AdminCategoriaRoutes } from "../Page";
 
 
 const AdminRoutes = () => {
@@ -12,7 +12,7 @@ const AdminRoutes = () => {
       <Route path="/" element={<Dashboard />} />
       <Route path="/productos/*" element={<AdminProductoRoutes />} />
       <Route path="/categorias/*" element={<AdminCategoriaRoutes />} />
-      <Route path="/usuarios" element={<Usuarios />} />
+      <Route path="/cuentas" element={<Cuentas />} />
 
       {/* ITEMS SECUNDARIOS */}
       <Route path="/perfil" element={<Perfil />} />

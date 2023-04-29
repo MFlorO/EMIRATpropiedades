@@ -38,7 +38,7 @@ const ItemsPrincipales = () => {
 
      { listas("categorias", <AppsIcon  />, "Categorias" ) }
 
-     { listas("usuarios", <PersonIcon  />, "Usuarios" ) }
+     { listas("cuentas", <PersonIcon  />, "Cuentas" ) }
 
     </>
   );
