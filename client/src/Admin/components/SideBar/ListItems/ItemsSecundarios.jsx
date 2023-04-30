@@ -23,7 +23,7 @@ const ItemsSecundarios = () => {
 
   const listas = (navigateDireccion, icono, texto) => {
     return (
-      <ListItemButton onClick={() => navigateDireccion }>
+      <ListItemButton onClick={() => navigate(`/dashboard/admin/${navigateDireccion}`) }>
         <ListItemIcon sx={{color: `${theme.palette.primary.main}`}}>{icono}</ListItemIcon>
         <ListItemText primary={texto} />
       </ListItemButton>
@@ -38,7 +38,7 @@ const ItemsSecundarios = () => {
          <Typography component="h6" fontSize={12} fontWeight={600} textAlign='center' marginTop='1rem' marginBottom='1rem'>ADMINISTRADOR</Typography>
        </ListSubheader>
 
-      {listas(navigate(`/dashboard/admin/perfil`), <AccountCircleIcon />, "Perfil")}
+      {listas( "perfil", <AccountCircleIcon />, "Perfil")}
 
       <ListItemButton onClick={() => dispatch(logout())}>
         <ListItemIcon sx={{color: `${theme.palette.primary.main}`}}><SettingsIcon /></ListItemIcon>

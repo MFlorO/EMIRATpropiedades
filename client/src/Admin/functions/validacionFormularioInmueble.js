@@ -1,15 +1,12 @@
 
 const email = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-
-
-
-
+// const nombre = ""
 
 //VALIDACION DEL FORMULARIO
-export const validacionFormulario = (input) => {
+export const validacionFormularioInmueble = (input) => {
 
     let errores = {};
-
+    
     if(!input.displayName){
       errores.displayName = "Completar el campo nombre";
     }

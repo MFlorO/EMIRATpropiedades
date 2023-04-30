@@ -1,3 +1,2 @@
-export { default as CrearCategoria } from './CrearCategoria';
-export { default as EditCategoria } from './EditCategoria';
 export { default as ListaCategorias } from './ListaCategorias';
+export { default as TablaInmuebleCategorias } from './TablaInmuebleCategorias';

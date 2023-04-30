@@ -1,51 +1,28 @@
-import { useState } from "react";
-import { useDispatch } from 'react-redux';
-import EditCategoria from "./EditCategoria";
-import Swal from 'sweetalert2'
-import { Button, ListItemText, Switch, Stack} from "@mui/material/";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { ListItemText, Accordion, AccordionSummary, AccordionDetails, IconButton } from "@mui/material/";
+import TablaInmuebleCategorias from "./TablaInmuebleCategorias";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Fragment } from "react";
 
 
 
 
-
-const ListaCategorias = ({ id, nombre, isActive }) => {
-
-  const [modal, setModal] = useState(false);
-
-  const dispatch = useDispatch()
-
-  const deleteCategoria = (id) =>{
-    Swal.fire({
-      title: `Esta seguro que quiere eliminar la categoria : "${nombre}" ?`,
-      showCancelButton: true,
-      confirmButtonColor: '#F8BBD0',
-      cancelButtonColor: '#c82719',
-      confirmButtonText: 'Si'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // dispatch(DeleteCategorias({id}));
-        setAnchorEl(null);
-      }
-    })
-  }
+const ListaCategorias = ({ nombre, inmuebles }) => {
 
   return (
-    <>
-        {/* <ListItemText primary={nombre} /> */}
+  <Accordion sx={{ boxShadow: "none", height: "max-content", gap: 2 }} >
+    <AccordionSummary>
+      <ListItemText primary={nombre} />
+      <IconButton>
+        <KeyboardArrowDownIcon />
+      </IconButton>
+    </AccordionSummary>
 
-        <Stack flexDirection='row'>
-          <Switch       />
-
-        <Button onClick={() => setModal(true)}><EditIcon /></Button>
-        {/* <EditCategoria modal={modal} setModal={setModal} id={id} /> */}
-
-        {/* <Button onClick={() => deleteCategoria(id)}><DeleteIcon /></Button> */}
-
-        </Stack>
-
-    </>
+    <AccordionDetails>
+     {
+      inmuebles?.map( i => ( <Fragment key={i.id}><TablaInmuebleCategorias i={i}/></Fragment> ))
+     }
+    </AccordionDetails>
+  </Accordion>
   );
 };
 

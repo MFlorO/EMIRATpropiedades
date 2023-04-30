@@ -1,1 +1,1 @@
-export { default as AdminCuentaRoutes } from './AdminCuentaRoutes';
+export { default as AdminCuentasRoutes } from './AdminCuentasRoutes';
