@@ -1,5 +1,5 @@
 
-import { LOGIN, LOGOUT, CHECKING_CREDENTIALS, GET_USER_INFO, CLEAR_LOGIN_ERROR } from "../actions/auth.js"
+import { LOGIN, LOGOUT, CHECKING_CREDENTIALS, GET_USER_INFO, SET_CREATE_USER_ERROR } from "../actions/auth.js"
 
 
 
@@ -81,10 +81,18 @@ const initialState = {
             status : 'checking',
           }
 
-      case CLEAR_LOGIN_ERROR:
+      case SET_CREATE_USER_ERROR:
         return {
-            ...state,
-            errorMessage: null,
+          ...state,
+          status: "autenticado",
+          uid: null,
+          email: null,
+          displayName: null,
+          photoURL: null,
+          errorMessage: action.payload,
+          isActive: true,
+          isAdmin: false,
+          isBanned: false,
         };
 
 

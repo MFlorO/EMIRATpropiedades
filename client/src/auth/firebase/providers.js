@@ -47,7 +47,6 @@ export const registerUserWithEmailPassword = async({ email, password, displayNam
         }
 
     } catch (error) {
-        console.log(error);
         return { ok: false, errorMessage: error.message }
     }
 
@@ -61,10 +60,7 @@ export const loginWithEmailPassword = async({ email, password }) => {
         
         const { uid, photoURL, displayName } = resp.user;
 
-        return {
-            ok: true,
-            uid, photoURL, displayName
-        }
+        return { ok: true, uid, photoURL, displayName }
 
     } catch (error) {
         return { ok: false, errorMessage: error.message }

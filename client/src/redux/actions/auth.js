@@ -8,7 +8,7 @@ export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const CHECKING_CREDENTIALS = "CHECKING_CREDENTIALS";
 export const GET_USER_INFO = "GET_USER_INFO";
-export const CLEAR_LOGIN_ERROR = "CLEAR_LOGIN_ERROR";
+export const SET_CREATE_USER_ERROR = "SET_CREATE_USER_ERROR";
 
 
 
@@ -27,9 +27,9 @@ export function logout(msg) {
   
 
   
-export function clearLoginError() {
+export function setCreateUserError(msg) {
     return (dispatch) => {
-      dispatch({ type: "CLEAR_LOGIN_ERROR" });
+      dispatch({ type: "SET_CREATE_USER_ERROR", payload: msg });
     };
 }
   
@@ -67,10 +67,7 @@ export function clearLoginError() {
   
       const result = await signInWithGoogle();
 
-      if (!result.ok) {
-      console.log('Error cuando no se logra ingresar con Google', result)
-      return dispatch(logout(result))
-    }
+      if (!result.ok) return dispatch(logout(result))
   
       const { uid, photoURL, displayName, email } = result;
       dispatch(login({ uid, email, displayName, photoURL }));
@@ -80,43 +77,37 @@ export function clearLoginError() {
 
 
 
-//   export const startCreatingUserWithEmailPassword = ({
-//     email,
-//     password,
-//     displayName,
-//   }) => {
-//     return async (dispatch) => {
-//       dispatch(checkingCredentials());
+  export const startCreatingUserWithEmailPassword = ({ email, password, displayName }) => {
+    return async (dispatch) => {
+
+      dispatch(checkingCredentials());
   
-//       const result = await registerUserWithEmailPassword({
-//         email,
-//         password,
-//         displayName,
-//       });
+      const {ok, errorMessage} = await registerUserWithEmailPassword({email,password,displayName});
   
-//       if (!result.ok) return dispatch(logout(result));
+      if (!ok) return dispatch(setCreateUserError(errorMessage));
   
-//       const { uid, photoURL } = result;
-//       dispatch(login({ uid, email, displayName, photoURL }));
-//     };
-//   };
+      dispatch(setCreateUserError('Usuario creado con exito'))
+
+    };
+  };
   
 
 
 
-//   export const startLoginWithEmailPassword = ({ email, password }) => {
-//     return async (dispatch) => {
-//       dispatch(checkingCredentials());
+  export const startLoginWithEmailPassword = ({ email, password }) => {
+    return async (dispatch) => {
+      dispatch(checkingCredentials());
   
-//       const result = await loginWithEmailPassword({ email, password });
+      const { ok, uid, photoURL, displayName , errorMessage } = await loginWithEmailPassword({ email, password });
   
-//       if (!result.ok) return dispatch(logout(result));
+      if (!ok) return dispatch(setCreateUserError(errorMessage));
   
-//       const { uid, photoURL, displayName } = result;
-//       dispatch(login({ uid, email, displayName, photoURL }));
-//     };
-//   };
+      dispatch(login({ uid, email, displayName, photoURL }));
+    };
+  };
   
+
+
 //   export function createOrFindUser(user) {
 //     return async function (dispatch) {
 //       await axios

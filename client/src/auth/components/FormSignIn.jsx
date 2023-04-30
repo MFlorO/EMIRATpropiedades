@@ -1,7 +1,7 @@
 import {  useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
-import { startGoogleSignIn, checkingCredentials } from '~/redux/actions/auth';
+import { startGoogleSignIn, startLoginWithEmailPassword } from '~/redux/actions/auth';
 import { validacionFormulario } from '../functions';
 import { useForm } from '../hook';
 import { styled } from '@mui/material/styles';
@@ -35,7 +35,7 @@ const FormSignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(checkingCredentials())
+    dispatch(startLoginWithEmailPassword({email,password}))
   };
 
   
