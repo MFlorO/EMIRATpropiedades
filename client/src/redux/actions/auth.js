@@ -33,19 +33,6 @@ export function clearLoginError() {
     };
 }
   
-//   export function createOrFindUser(user) {
-//     return async function (dispatch) {
-//       await axios
-//         .post(`${baseURL}/user`, user)
-//         .then((response) => {
-//           dispatch(getUserInfo(user.uid));
-//         })
-//         .catch((error) => {
-//           console.log("createOrFindUser", error);
-//         });
-//     };
-//   }
-  
 
   export function getUserInfo(uid) {
     return async function (dispatch) {
@@ -81,7 +68,7 @@ export function clearLoginError() {
       const result = await signInWithGoogle();
 
       if (!result.ok) {
-      console.log('Error cuando no se logra ingresar con Google',result)
+      console.log('Error cuando no se logra ingresar con Google', result)
       return dispatch(logout(result))
     }
   
@@ -130,10 +117,16 @@ export function clearLoginError() {
 //     };
 //   };
   
-//   export const startLogout = () => {
-//     return async (dispatch) => {
-//       await logoutFirebase();
-  
-//       dispatch(logout());
+//   export function createOrFindUser(user) {
+//     return async function (dispatch) {
+//       await axios
+//         .post(`${baseURL}/user`, user)
+//         .then((response) => {
+//           dispatch(getUserInfo(user.uid));
+//         })
+//         .catch((error) => {
+//           console.log("createOrFindUser", error);
+//         });
 //     };
-//   };
+//   }
+  

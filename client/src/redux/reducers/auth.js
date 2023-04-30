@@ -23,7 +23,6 @@ const initialState = {
     switch (action.type) {
 
       case LOGIN:
-        console.log(action.payload)
         if (action.payload.email === "emiratpropiedades@gmail.com") {
           return {
             ...state,
@@ -38,7 +37,7 @@ const initialState = {
         }
         return {
             ...state,
-            status: "authenticated",
+            status: "autenticado",
             uid: action.payload.uid,
             email: action.payload.email,
             displayName: action.payload.displayName,
@@ -65,7 +64,7 @@ const initialState = {
       case LOGOUT:
           return {
             ...state,
-            status: "not-autenticado",
+            status: "no-autenticado",
             uid: null,
             email: null,
             displayName: null,
