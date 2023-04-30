@@ -99,7 +99,7 @@ exports.getTodosLosInmuebles = async (req, res) => {
             ? res.json({ ok: false, status: `No se encontraron todos los inmuebles` })
             : res.status(201).json({
                 ok: true,
-                status: `se encontraron todos los inmuebles`,
+                status: `Se encontraron todos los inmuebles`,
                 cantidadTotal,
                 cantidadPaginas,
                 inmuebles: filteredInmueble2,

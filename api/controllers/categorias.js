@@ -19,13 +19,13 @@ exports.getCategorias = async(req, res) => {
       
         if (categorias)  return res.status(201).json({
             ok: true,
-            status: "todasLasCategorias",
+            status: "Se encontraron todas las categorías",
             categorias
         })
         
         return res.status(400).json({
             ok: false,
-            status: 'No se encontraron las categorias'
+            status: 'No se encontraron las categorías'
         });
 
 
@@ -33,7 +33,7 @@ exports.getCategorias = async(req, res) => {
 
         res.status(500).json({
             ok: false,
-            status: "comunicarse con el administrador",
+            status: "Comunicarse con el administrador",
         })
 
         console.log(error)
