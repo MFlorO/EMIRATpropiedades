@@ -10,10 +10,10 @@ const AdminProductoRoutes = () => {
     <Routes>
 
       <Route path="/" element={<Productos />}/>
-      <Route path="/crearproducto" element={<CrearProducto />}/>
+      <Route path="/inmueble" element={<CrearProducto />}/>
       
       {/* Ruta defecto */}
-      <Route path="/" element={<Navigate to="/dashboard/admin/productos" />}/>
+      <Route path="/" element={<Navigate to="/dashboard/admin/inmuebles" />}/>
     </Routes>
   )
 }

@@ -1,10 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { Link as LinkRouter, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AdminLayOut } from "~/Admin/layout"
-// import { useForm } from "../../../Hook";
-// import { PostProducto } from "~/redux/slice/admin/thunks";
-// import { validacionFormularioProducto } from "~/functions/validacionFormulario";
-import { Container, Paper, Button, Input, TextField, Typography, Stack, Alert } from "@mui/material";
+import { Container, Paper, Button, Input, TextField, Typography, Stack, Alert, Link } from "@mui/material";
 
 
 
@@ -18,8 +15,6 @@ import { Container, Paper, Button, Input, TextField, Typography, Stack, Alert } 
 //   fechaPublicacion: '',
 //   oferta: null
 // }
-
-
 
 
 
@@ -44,12 +39,14 @@ const CrearProducto = () => {
     <AdminLayOut>
     <Container maxWidth="md">
   
-    {/* <Stack>
+    <Stack>
     <Paper sx={{ p: 2, display: "flex", flexDirection: "column"}}>
+
+      <Link component={LinkRouter} to='/dashboard/admin/inmuebles/' sx={{textDecoration:'none'}}>Volver a Productos</Link>
 
       <Typography variant='h4' textAlign='center' mb='1rem'>CREAR PRODUCTO</Typography>
        
-      <form style={{ p: 2, display: "flex", flexDirection: "column", justifyContent:'center',  gap:'1rem'}} onSubmit={onSubmit}>
+      {/* <form style={{ p: 2, display: "flex", flexDirection: "column", justifyContent:'center',  gap:'1rem'}} onSubmit={onSubmit}>
 
         <TextField label="Codigo" name="codigo" value={codigo} onChange={onInputChange} error={formValid()} helperText={errorFormValid.codigo} />
         
@@ -66,10 +63,10 @@ const CrearProducto = () => {
         {Object.values(errorFormValid).length && <Alert severity="error">Error en el formulario, compruebe que todos los campos esten llenos</Alert>}
         <Button variant="contained" type="submit" disabled={formValid() || (codigo.length === 0) ? true : false}>SIGUIENTE</Button>
       </form>
-
+    */}
     </Paper>
     </Stack> 
-    */}
+
     </Container>
     </AdminLayOut>
   )

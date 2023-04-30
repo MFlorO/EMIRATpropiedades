@@ -34,7 +34,7 @@ const ItemsPrincipales = () => {
     
      {listas("", <CastIcon />, "Dashboard")}
       
-     { listas("productos", <InventoryIcon  />, "Productos" ) }
+     { listas("inmuebles", <InventoryIcon  />, "Inmuebles" ) }
 
      { listas("categorias", <AppsIcon  />, "Categorias" ) }
 

@@ -3,12 +3,11 @@ import { ListItemText, Accordion, AccordionSummary, AccordionDetails, IconButton
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 
-const ListaProductos = () => {
-
+const ListaProductos = (i) => {
   return (
     <Accordion sx={{ boxShadow: "none", height: "max-content", gap: 2 }} >
       <AccordionSummary>
-        {/* <ListItemText primary={p.nombre} /> */}
+        <ListItemText primary={i.nombre} />
         <IconButton>
           <KeyboardArrowDownIcon />
         </IconButton>

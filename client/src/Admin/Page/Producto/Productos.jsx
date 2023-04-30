@@ -1,26 +1,29 @@
+import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminLayOut } from "~/Admin/layout"
-// import { ListaProductos } from './components';
+import { ListaProductos } from './components';
+import useInmuebles from "../../Hook/useInmuebles";
 import { Container, Grid, Paper, Button } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-// import { Fragment } from "react";
+
 
 
 const Productos = () => {
 
-//  const { productos, productosCopia } = useProductos()
+ const { inmuebles } = useInmuebles()
 
- const navigate = useNavigate()
+
+ const navigate = useNavigate() 
 
  return (
   <AdminLayOut>
   <Container>
-  <Grid container spacing={3} >
+  <Grid container spacing={3}>
 
   <Grid item xs={12} width={{xs:'5rem', sm:'max-content'}} minHeight={{xs:'5rem', sm:'20rem'}} >
     <Paper sx={{ p: 2 }} >
-      <Button onClick={() => navigate(`/dashboard/admin/productos/crearproducto`) }><AddIcon />Crear Producto</Button>
-      {/* {productos?.map(p => <Fragment key={p.codigo}><ListaProductos {...p} /></Fragment>)}  */}
+      <Button onClick={() => navigate(`/dashboard/admin/inmuebles/inmueble`)} mb={2}><AddIcon />Crear Inmueble</Button>
+      {inmuebles?.map(i => <Fragment key={i.id}><ListaProductos {...i} /></Fragment>)} 
     </Paper>
   </Grid>
 
