@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AdminLayOut } from "../layout";
-import { Dashboard, Perfil, AdminProductoRoutes, AdminCategoriaRoutes, AdminCuentasRoutes } from "../Page";
+import { Dashboard, AdminProductoRoutes, AdminCategoriaRoutes, AdminCuentasRoutes, AdminPerfilRoutes } from "../Page";
 
 
 const AdminRoutes = () => {
@@ -15,7 +15,7 @@ const AdminRoutes = () => {
       <Route path="/cuentas/*" element={<AdminCuentasRoutes />} />
 
       {/* ITEMS SECUNDARIOS */}
-      <Route path="/perfil" element={<Perfil />} />
+      <Route path="/perfil/*" element={<AdminPerfilRoutes />} />
 
       {/* Ruta defecto */}
       <Route path="/" element={<Navigate to="/dashboard/admin/" />} />
