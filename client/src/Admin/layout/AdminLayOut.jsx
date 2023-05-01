@@ -1,7 +1,7 @@
-import { SideBar } from "../components/SideBar";
+import { MenuMobile, SideBar } from "../components/SideBar";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { Grid } from '@mui/material';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 
 
 
@@ -14,23 +14,26 @@ export const heightSidebar = 28
 
 
 const AdminLayOut = ({ children }) => {
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));  //Capto el breakpoints
   
   return (
-    <Grid container justifyContent="space-between" 
-    sx={{ backgroundColor: '#ffffff', backgroundImage: `linear-gradient(180deg, #ffffff 0%, #f5f5f5 11%, #ebeaea 30%, #281d44 71%, #281d44 100%)` }}
-    >
+    <Grid container justifyContent="space-between" sx={{ backgroundColor: theme.palette.primary.main}}>
 
-      <SideBar />
+    <NavBar />
 
-      <NavBar />
-
+    { 
+    !isSmallScreen 
+      ? <SideBar />
+      : <MenuMobile />
+    }
       
-      <Grid container direction='column' justifyContent='space-between' sx={{ minHeight:'100vh ', height:"max-content", width:'100%' }}
-      mt={{ xs: `${heightNavbar + heightSidebar + 2 }rem`, sm:`${heightNavbar}rem`}} ml={{xs:'none', sm:`${widthSideBar}rem`}} >
-        <Grid >{children}</Grid>
+    <Grid container direction='column' justifyContent='space-between' sx={{ minHeight:'100vh ', height:"max-content", width:'100%' }} 
+     mt={{ xs: `5rem`, sm:`${heightNavbar}rem`}} ml={{xs:'none', sm:`${widthSideBar}rem`}} >
+      <Grid >{children}</Grid>
         <Grid><Footer /></Grid>
       </Grid>
-
     </Grid>
   );
 }

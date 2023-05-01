@@ -24,8 +24,8 @@ const ItemsSecundarios = () => {
   const listas = (navigateDireccion, icono, texto) => {
     return (
       <ListItemButton onClick={() => navigate(`/dashboard/admin/${navigateDireccion}`) }>
-        <ListItemIcon sx={{color: `${theme.palette.primary.main}`}}>{icono}</ListItemIcon>
-        <ListItemText primary={texto} />
+        <ListItemIcon sx={{color: `${theme.palette.secondary.main}`}}>{icono}</ListItemIcon>
+        <ListItemText primary={texto} sx={{color: theme.palette.text.main }} />
       </ListItemButton>
     );
   };
@@ -34,15 +34,15 @@ const ItemsSecundarios = () => {
   return (
     <>
 
-       <ListSubheader component="div">
+       <ListSubheader component="div" sx={{backgroundColor: theme.palette.background.dark, color: theme.palette.secondary.main }}>
          <Typography component="h6" fontSize={12} fontWeight={600} textAlign='center' marginTop='1rem' marginBottom='1rem'>ADMINISTRADOR</Typography>
        </ListSubheader>
 
       {listas( "perfil", <AccountCircleIcon />, "Perfil")}
 
       <ListItemButton onClick={() => dispatch(logout())}>
-        <ListItemIcon sx={{color: `${theme.palette.primary.main}`}}><SettingsIcon /></ListItemIcon>
-        <ListItemText primary={'Cerrar Sesión'} />
+        <ListItemIcon sx={{color: `${theme.palette.secondary.main}`}}><SettingsIcon /></ListItemIcon>
+        <ListItemText primary={'Cerrar Sesión'} sx={{color: theme.palette.text.main }}/>
       </ListItemButton>
 
     </>

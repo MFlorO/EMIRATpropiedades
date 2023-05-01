@@ -28,7 +28,7 @@ export default SideBar;
 
 
 const BoxStyled = styled(Box)(({ theme }) => ({
-  background: 'white',
+  background: theme.palette.background.dark,
   boxShadow:' 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)', 
   borderRadius:'30px 0px 0px 30px',
   width:`${widthSideBar}rem`, top:`${heightNavbar}rem`, height:`${heightSidebar}rem`,
