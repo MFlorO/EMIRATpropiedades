@@ -5,9 +5,7 @@ import { Fragment } from "react";
 
 
 
-
 const ListaCategorias = ({ nombre, inmuebles }) => {
-
   return (
   <Accordion sx={{ boxShadow: "none", height: "max-content", gap: 2 }} >
     <AccordionSummary>
@@ -18,9 +16,7 @@ const ListaCategorias = ({ nombre, inmuebles }) => {
     </AccordionSummary>
 
     <AccordionDetails>
-     {
-      inmuebles?.map( i => ( <Fragment key={i.id}><TablaInmuebleCategorias i={i}/></Fragment> ))
-     }
+     {inmuebles?.map( i => ( <Fragment key={i.id}><TablaInmuebleCategorias i={i}/></Fragment> )) }
     </AccordionDetails>
   </Accordion>
   );

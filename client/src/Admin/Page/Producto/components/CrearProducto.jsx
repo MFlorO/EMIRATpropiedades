@@ -1,7 +1,7 @@
 import { Link as LinkRouter, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AdminLayOut } from "~/Admin/layout"
-import { Container, Paper, Button, Input, TextField, Typography, Stack, Alert, Link } from "@mui/material";
+import { Container, Paper, Button, Input, TextField, Typography, Stack, Alert, Link, useTheme } from "@mui/material";
 
 
 
@@ -20,6 +20,7 @@ import { Container, Paper, Button, Input, TextField, Typography, Stack, Alert, L
 
 const CrearProducto = () => {
 
+  const theme = useTheme()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -40,11 +41,11 @@ const CrearProducto = () => {
     <Container maxWidth="md">
   
     <Stack>
-    <Paper sx={{ p: 2, display: "flex", flexDirection: "column"}}>
+    <Paper sx={{ p: 2, display: "flex", flexDirection: "column", backgroundColor: theme.palette.background.dark }}>
 
-      <Link component={LinkRouter} to='/dashboard/admin/inmuebles/' sx={{textDecoration:'none'}}>Volver a Productos</Link>
+      <Link component={LinkRouter} to='/dashboard/admin/inmuebles/' sx={{color: theme.palette.text.main, fontSize:'12px', textDecoration:'underline'}}>Volver a Inmuebles</Link>
 
-      <Typography variant='h4' textAlign='center' mb='1rem'>CREAR PRODUCTO</Typography>
+      <Typography variant='h4' textAlign='center' mb='1rem' color='secondary'>CREAR PRODUCTO</Typography>
        
       {/* <form style={{ p: 2, display: "flex", flexDirection: "column", justifyContent:'center',  gap:'1rem'}} onSubmit={onSubmit}>
 
