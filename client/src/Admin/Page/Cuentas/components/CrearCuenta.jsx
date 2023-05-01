@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as LinkRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminLayOut } from "~/Admin/layout"
 import { useForm } from "../../../Hook/useForm";
 import { startCreatingUserWithEmailPassword } from "~/redux/actions/auth";
 import { validacionFormulario } from "../../../../auth/functions/validacionFormulario";
-import { Container, Paper, Button, TextField, Typography, Stack, Alert } from "@mui/material";
+import { Paper, Button, TextField, Typography, Grid, Alert, useTheme, FormHelperText, Link } from "@mui/material";
+import { useState } from "react";
 
 
 
@@ -21,56 +21,65 @@ let formData = {
 
 const CrearCuenta = () => {
 
+  const theme = useTheme()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const { displayName, email, password, onInputChange, errorFormValid, onResetForm, formValid } = useForm(formData, validacionFormulario)
+
+  const { errorMessage } = useSelector( state => state.auth )
   const [alert, setalert] = useState(false)
 
-  const { displayName, email, password, onInputChange, errorFormValid, onResetForm, formValid, formState } = useForm(formData, validacionFormulario)
-  const { errorMessage } = useSelector( state => state.auth )
 
   const onSubmit = (event) => {
     event.preventDefault();
     dispatch(startCreatingUserWithEmailPassword({email, password, displayName}));
-    if (!formValid) return;
+    // if (!formValid) return;
     onResetForm();
+    
     setalert(true)
+    
+    setTimeout(() => {
+    setalert(false)
+    }, 2000)
   }
 
 
   return (
-    <AdminLayOut>
-    <Container maxWidth="sm">
+  <AdminLayOut>
+  <Grid width='100wv' align='center'>
   
-    <Stack>
-    <Paper sx={{ p: 2, display: "flex", flexDirection: "column"}}>
+    <Grid width={{xs:'90%', sm:'50%'}}>
+    <Paper sx={{ p: 2, display: "flex", flexDirection: "column", backgroundColor: theme.palette.background.dark }}>
 
-      <Typography variant='h4' textAlign='center' mb='1rem'>CREAR CUENTA</Typography>
+      <Link component={LinkRouter} to='/dashboard/admin/cuentas/' textAlign='start' sx={{color: theme.palette.text.main, fontSize:'12px', textDecoration:'underline'}}>Volver a Cuentas</Link>
+
+      <Typography variant='h4' textAlign='center' mb='1rem' color='secondary'>CREAR CUENTA</Typography>
        
       <form style={{ p: 2, display: "flex", flexDirection: "column", justifyContent:'center',  gap:'1rem'}} onSubmit={onSubmit}>
 
-      <TextField label="Nombre Completo" name="displayName" value={displayName} onChange={onInputChange} error={formValid()} helperText={errorFormValid.displayName} />
-        
-        <TextField label="Email" name="email" value={email} onChange={onInputChange} error={formValid()} helperText={errorFormValid.email} />
+      <TextField label="Nombre Completo" name="displayName" value={displayName} onChange={onInputChange} color="secondary"/>
+      {errorFormValid.displayName && <FormHelperText error>{errorFormValid.displayName}</FormHelperText>}
+      
+      <TextField label="Email" name="email" value={email} onChange={onInputChange} color="secondary"/>
+      {errorFormValid.email && <FormHelperText error>{errorFormValid.email}</FormHelperText>}
 
-        <TextField label="Password" name="password" type="password" value={password} onChange={onInputChange} error={formValid()} helperText={errorFormValid.password} />
-        
+      <TextField label="Password" name="password" type="password" value={password} onChange={onInputChange} color="secondary"/>
+      {errorFormValid.password && <FormHelperText error>{errorFormValid.password}</FormHelperText>}
 
-        { Object.values(errorFormValid).length 
-          ?<Alert severity="error">Error en el formulario, compruebe que todos los campos esten llenos</Alert>
-          : null
-        }
-        <Button variant="contained" type="submit" disabled={formValid()}>CREAR</Button>
-        { alert &&  <Alert severity={errorMessage === 'Usuario creado con exito' ? "success" : "error"}>{errorMessage}</Alert> }
+      <Button variant="contained" type="submit" disabled={formValid()} color="secondary">CREAR</Button>
+      { alert && <Alert severity="error">{errorMessage}</Alert> } 
 
       </form>
 
     </Paper>
-    </Stack> 
+    </Grid> 
    
-    </Container>
-    </AdminLayOut>
+  </Grid>
+  </AdminLayOut>
   )
 }
 
-export default CrearCuenta
+export default CrearCuenta;
+
+

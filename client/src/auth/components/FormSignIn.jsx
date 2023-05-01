@@ -5,7 +5,7 @@ import { startGoogleSignIn, startLoginWithEmailPassword } from '~/redux/actions/
 import { validacionFormulario } from '../functions';
 import { useForm } from '../hook';
 import { styled } from '@mui/material/styles';
-import { Button, TextField, FormControlLabel, Checkbox, Link, Box, Grid, Typography, Stack } from '@mui/material';
+import { Button, TextField, FormControlLabel, Checkbox, Link, Box, Grid, Typography, Stack, useTheme, Alert } from '@mui/material';
 
 
 
@@ -19,17 +19,16 @@ let formData = {
   
 const FormSignIn = () => {
 
+  const theme = useTheme()
   const navigate = useNavigate()
   const dispatch = useDispatch()  
-  const { status } = useSelector( state => state.auth )
+  const { status, errorMessage } = useSelector( state => state.auth )
   const { email, password, onInputChange, errorFormValid, formValid, onResetForm, formState } = useForm(formData, validacionFormulario)
 
   const checking = useMemo( () => status === 'checking', [status])
 
   useEffect(() => {
-    if (status === 'autenticado') {
-      navigate('/dashboard/admin/')
-    }
+    (status === 'autenticado') && navigate('/dashboard/admin/')
   }, [status, navigate])
 
 
@@ -41,18 +40,23 @@ const FormSignIn = () => {
   
   const onGoogleSignIn =  async() => await dispatch(startGoogleSignIn())
 
-
   return (
   <Box component="form" noValidate onSubmit={handleSubmit}>
-    <TextField margin="normal" fullWidth value={email} label="Email" name="email" autoComplete="email" onChange={onInputChange} autoFocus />
-    <TextField margin="normal" fullWidth value={password} label="Contraseña" name="password" autoComplete="password" onChange={onInputChange}  />
-    <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Recordarme" />
+
+    <TextField margin="normal" fullWidth value={email} type='email' label="Email" name="email" autoComplete="email" onChange={onInputChange} color='secondary'/>
+    <TextField margin="normal" fullWidth value={password} type='password' label="Contraseña" name="password" autoComplete="password" onChange={onInputChange} color='secondary'  />
+    <FormControlLabelStyle control={<Checkbox value="remember" color="secondary" />} label="Recordarme" />
     <Stack flexDirection='row' mt={2} mb={2} gap={2}>
-      <Button type="submit" fullWidth variant="contained" disabled={checking}>INGRESAR</Button>
-      <ButtonGoogle fullWidth variant="contained" onClick={onGoogleSignIn} disabled={checking}><Typography>Google</Typography></ButtonGoogle>
+      
+      <Button type="submit" fullWidth variant="contained" color='secondary' disabled={checking}>INGRESAR</Button>
+      <Button fullWidth variant="contained" onClick={onGoogleSignIn} disabled={checking}><Typography>Google</Typography></Button>
     </Stack>
-    <Grid container><Link href="#" variant="body2">¿Olvidó la contraseña?</Link></Grid>
-    <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 5 }}>{'Copyright © '}Florencia Oldani {new Date().getFullYear()}</Typography>
+
+    <Grid container mb={2}><Link href="#" variant="body2" color='secondary'>¿Olvidó la contraseña?</Link></Grid>
+
+    {( errorMessage )&&  <Alert severity="error">{errorMessage}</Alert> }
+
+    <Typography variant="h5" color="text.main" align="center" sx={{ mt: 3 }}>{'Copyright © '}Florencia Oldani {new Date().getFullYear()}</Typography>
   </Box>
   )
 }
@@ -62,9 +66,8 @@ export default FormSignIn;
 
 
 
-const ButtonGoogle = styled(Button)(({ theme }) => ({
-    backgroundColor: '#ea4335',
-    backgroundImage: 'linear-gradient(90deg, #ea4335 15%, #ffbc05 50%, #34a853 77%, #4285fa 87%)'
-  }));
-  
-  
+const FormControlLabelStyle = styled(FormControlLabel)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+  border: theme.palette.secondary.main,
+}));
+

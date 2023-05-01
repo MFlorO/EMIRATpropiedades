@@ -47,18 +47,6 @@ const initialState = {
             // isAdmin: action.payload.isAdmin,
             // isBanned: action.payload.isBanned,
         }
-            
-      
-      case LOGOUT:
-            return {
-                ...state,
-                status : 'no-autenticado',
-                uid : null,
-                email : null,
-                displayName : null,
-                photoURL : null,
-                errorMessage : action.payload?.errorMessage,
-            }
       
             
       case LOGOUT:
@@ -70,9 +58,9 @@ const initialState = {
             displayName: null,
             photoURL: null,
             errorMessage: action.payload?.errorMessage,
-            isActive: true,
-            isAdmin: false,
-            isBanned: false,
+            // isActive: true,
+            // isAdmin: false,
+            // isBanned: false,
           };
 
       case CHECKING_CREDENTIALS:
@@ -89,7 +77,7 @@ const initialState = {
           email: null,
           displayName: null,
           photoURL: null,
-          errorMessage: action.payload,
+          errorMessage: action?.payload,
           isActive: true,
           isAdmin: false,
           isBanned: false,

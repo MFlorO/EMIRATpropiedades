@@ -19,7 +19,7 @@ export function login(user) {
     };
 }
   
-export function logout(msg) {
+export function logout(msg=null) {
     return function (dispatch) {
       dispatch({ type: "LOGOUT", payload: msg });
     };
@@ -86,7 +86,7 @@ export function setCreateUserError(msg) {
   
       if (!ok) return dispatch(setCreateUserError(errorMessage));
   
-      dispatch(setCreateUserError('Usuario creado con exito'))
+      dispatch(setCreateUserError(null))
 
     };
   };
@@ -100,7 +100,7 @@ export function setCreateUserError(msg) {
   
       const { ok, uid, photoURL, displayName , errorMessage } = await loginWithEmailPassword({ email, password });
   
-      if (!ok) return dispatch(setCreateUserError(errorMessage));
+      if (!ok) return dispatch(logout({errorMessage}));
   
       dispatch(login({ uid, email, displayName, photoURL }));
     };
