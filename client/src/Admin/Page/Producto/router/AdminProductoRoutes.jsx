@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { CrearProducto } from "../components";
+import { CrearInmueble } from "../components";
 import Inmuebles from "../Inmuebles";
 
 
@@ -10,7 +10,7 @@ const AdminProductoRoutes = () => {
     <Routes>
 
       <Route path="/" element={<Inmuebles />}/>
-      <Route path="/inmueble" element={<CrearProducto />}/>
+      <Route path="/inmueble" element={<CrearInmueble />}/>
       
       {/* Ruta defecto */}
       <Route path="/" element={<Navigate to="/dashboard/admin/inmuebles" />}/>

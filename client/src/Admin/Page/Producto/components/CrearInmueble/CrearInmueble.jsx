@@ -33,7 +33,7 @@ let data = {
 
 
 
-const CrearProducto = () => {
+const CrearInmueble = () => {
 
   const theme = useTheme()
   const dispatch = useDispatch()
@@ -67,7 +67,7 @@ const CrearProducto = () => {
 
     <Link component={LinkRouter} to='/dashboard/admin/inmuebles/' sx={{color: theme.palette.text.main, fontSize:'12px', textDecoration:'underline'}}>Volver a Inmuebles</Link>
 
-    <Typography variant='h4' textAlign='center' color='secondary' mt={4} mb={5}>CREAR PRODUCTO</Typography>
+    <Typography variant='h4' textAlign='center' color='secondary' mt={4} mb={5}>CREAR INMUEBLE</Typography>
        
     <form style={{p: 2, display: "flex", flexDirection: "column", justifyContent:'center',  gap:'1rem'}} onSubmit={onSubmit}>
 
@@ -76,7 +76,6 @@ const CrearProducto = () => {
       <SegundaParteFormulario idCategoria={idCategoria} destacado={destacado} onInputChange={onInputChange}/>
 
       <TerceraParteFormulario imagen={imagen} setimagen={setimagen} />
-
 
 
       <Button variant="contained" type="submit" color="secondary">SIGUIENTE</Button>
@@ -90,7 +89,7 @@ const CrearProducto = () => {
   )
 }
 
-export default CrearProducto;
+export default CrearInmueble;
 
 
 

@@ -1,2 +1,2 @@
-export * from './CrearProducto';
+export * from './CrearInmueble';
 export * from './ProductoCard';
