@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+
 
 
 export const useForm = ( initialForm = {}, validate ) => {
@@ -11,13 +14,37 @@ export const useForm = ( initialForm = {}, validate ) => {
 
     const onInputChange = ({ target }) => {
 
-        const { name, value } = target;
+        let { name, value } = target;
 
+
+        if (name === 'pileta' || name === 'destacado'){
+
+            if(value === 'true'){
+                value = false
+            }else{
+                value = true
+            }
+
+            return setFormState({ ...formState, [ name ] : value });
+        }
+
+        if (name === 'idCategoria'){
+
+            if(!formState.idCategoria.includes(value)){
+      
+              return setFormState({ ...formState, [name] : [...formState.idCategoria, value] });
+            }
+        }   
+        
+        
         setFormState({ ...formState, [ name ]: value });
     
         seterrorFormValid(validate ({...formState, [ name ]:value }));
           
     }
+
+
+
 
     const onResetForm = () => setFormState( initialForm );
     

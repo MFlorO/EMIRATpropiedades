@@ -9,11 +9,12 @@ const theme = createTheme({
       main: '#C39315',
     },
     text:{
-      main: '#DCDCDC'
+      main: '#C1B9B9'
     },
     background:{
       main: '#F8F8F8',
-      dark: '#312D3C'
+      dark: '#312D3C',
+      light: "#282235"
     }
   },
   typography: {

@@ -1,4 +1,4 @@
-import { GET_ALL_INMUEBLES, GET_All_CATEGORIAS } from "../actions/admin.js"
+import { GET_ALL_INMUEBLES, GET_All_CATEGORIAS, CREAR_INMUEBLE } from "../actions/admin.js"
 
 
 

@@ -1,11 +1,13 @@
 // import TablaPrincipal from "./TablaPrincipal";
 import { ListItemText, Accordion, AccordionSummary, AccordionDetails, IconButton, Grid } from "@mui/material/";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useTheme } from "@emotion/react";
 
 
 const ListaProductos = (i) => {
+  const theme = useTheme()
   return (
-    <Accordion sx={{ boxShadow: "none", height: "max-content", gap: 2 }} >
+    <Accordion sx={{ boxShadow: "none", height: "max-content", gap: 2, backgroundColor:theme.palette.background.dark }} >
       <AccordionSummary>
         <ListItemText primary={i.nombre} />
         <IconButton>

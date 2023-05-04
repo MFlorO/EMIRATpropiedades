@@ -153,20 +153,7 @@ export function deleteInmuebleID(id) {  //--> Lo utilizo para desmontar el compo
 
 
 
-//         ##################       CREAR_INMUEBLE         #################
 
-export function createInmueble(body) {
-  return async function (dispatch) {
-    try {
-      await axios.post(`${baseURL}/inmuebles/`, body);
-      return dispatch({
-        type: "CREAR_INMUEBLE"
-      })
-    } catch (error) {
-      console.log("crear inmueble", error)
-    }
-  }
-}
 
 
 

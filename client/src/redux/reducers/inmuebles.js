@@ -71,14 +71,6 @@ export default function inmuebleReducer(state = initialState, action) {
 
 
 
-        case CREAR_INMUEBLE:
-            return {
-                ...state,
-                Inmuebles: action.payload
-        }
-
-
-
 
         // ################### PAGINADO ####################
 
