@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       precio: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
         allowNull: false,
       },
       moneda: {
@@ -48,7 +48,7 @@ module.exports = (sequelize) => {
         defaultValue: 0
       },
       mt2:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
         defaultValue: 0
       },
       dormitorios:{

@@ -7,6 +7,13 @@ const DB_NAME = process.env.DB_NAME;
 const DB_PORT = process.env.DB_PORT;
 
 
+//Cloudinary
+const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
+const UPLOAD_PRESET = process.env.UPLOAD_PRESET;
+
+
 
 
 //GOOGLEMAPS
@@ -23,6 +30,10 @@ module.exports = {
     DB_HOST,
     DB_NAME,
     DB_PORT,
+    CLOUDINARY_NAME,
+    CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET,
+    UPLOAD_PRESET,
     API_KEY_GOOGLEMAPS
 };
   

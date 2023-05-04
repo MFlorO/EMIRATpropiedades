@@ -1,4 +1,4 @@
-import { fileUpload } from "../../Admin/helpers/fileUpload"
+// import { fileUpload } from "../../Admin/helpers/fileUpload"
 import { baseURL } from "./url"
 import axios from "axios"
 

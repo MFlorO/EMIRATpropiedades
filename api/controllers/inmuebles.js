@@ -1,6 +1,11 @@
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 const { Inmueble, Categoria } = require("../database/db");
-const { API_KEY_GOOGLEMAPS } = require("./../env");
+const { API_KEY_GOOGLEMAPS, UPLOAD_PRESET } = require("./../env");
+const { cloudinary } = require("../utils/cloudinary");
+const { Client } = require("@googlemaps/google-maps-services-js");
+
+
+
 
 
 exports.getInmuebles = async ( where = {}, orden = [['id', 'ASC']],  ) => {
@@ -296,7 +301,7 @@ exports.getInmuebleId = async (req, res) => {
 
 
 
-const { Client } = require("@googlemaps/google-maps-services-js");
+
 
 
 const client = new Client({});
@@ -347,8 +352,6 @@ exports.getProductosByFilter = async (req, res) => {
             },
         });
 
-        console.log(inmueble)
-
         if (inmueble) return res.status(201).json({
             ok: true,
             status: "inmueble segun categoria",
@@ -382,7 +385,10 @@ function validaciones(nombre, descripcion, precio, imagen, fechaPublicacion, dir
         return false;
     if (!precio || precio < 0 || precio === undefined) return false;
     // if (!moneda) return false;
-    if (!imagen || imagen === undefined) return false;
+    const patternURL = new RegExp(
+        /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi
+    );
+    if (!imagen || imagen === undefined || !patternURL.test(imagen)) return false;
     if (!fechaPublicacion || fechaPublicacion === undefined) return false;
     if (!direccion || direccion === undefined) return false;
     if (!idCategoria || idCategoria === undefined) return false;
@@ -391,18 +397,84 @@ function validaciones(nombre, descripcion, precio, imagen, fechaPublicacion, dir
 }
 
 
+exports.postCloudinary = async function ( file ) {
 
+ try {
+
+    console.log('cloudinary', file)
+        
+    const urls = [];
+
+    for (const f of file) {
+        
+        const uploadResponse = await cloudinary.uploader.upload(f.path, {
+              upload_preset: UPLOAD_PRESET,
+        });
+
+        urls.push(uploadResponse.url);
+    }
+    
+    console.log('url', urls)
+
+    return urls
+
+ } catch (error) {
+    throw error;
+ }
+};
+
+
+
+exports.cloudinary = async function (req, res) {
+    try {
+        const fileStr = req.body.data;
+
+        const urls = [];
+
+        for (const f of fileStr) {
+        
+           const uploadResponse = await cloudinary.uploader.upload(f, {
+              upload_preset: UPLOAD_PRESET,
+          });
+
+        urls.push(uploadResponse.url);
+       }
+      
+       console.log('url', urls)
+
+        //    return urls
+
+        // const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+        //     upload_preset: UPLOAD_PRESET
+        // });
+
+        // console.log(uploadResponse.url)
+
+        res.status(200).json({ url: urls });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json(error);
+    }
+};
 
 
 exports.crearInmueble = async (req, res) => {
 
-    const { nombre, descripcion, precio, moneda, imagen, fechaPublicacion, direccion, idCategoria,
-        destacado, status, antiguedad, mt2, dormitorios, baños, cochera, pileta
-    } = req.body
+    const { nombre, descripcion, precio, moneda, fechaPublicacion, direccion, destacado, status, antiguedad, mt2, dormitorios, baños, cochera, pileta, imagen, idCategoria } = req.body
+    
+    console.log('body', req.body)
+
+    console.log('imagen', imagen)
+
+    // if (!validaciones(nombre, precio, descripcion, imagen, fechaPublicacion, direccion, idCategoria))
+    //     return res.status(400).json({ ok: false, status: "Error con las validaciones" });
 
 
-    if (!validaciones(nombre, precio, descripcion, imagen, fechaPublicacion, direccion, idCategoria))
-        return res.status(400).json({ ok: false, status: "Error con las validaciones" });
+    // const imagen2 = await exports.postCloudinary(imagen);
+    
+    // console.log('imagen2',imagen2)
+    
 
     const inmueble = await Inmueble.create({
         nombre: nombre.toLowerCase(),
@@ -412,7 +484,6 @@ exports.crearInmueble = async (req, res) => {
         imagen,
         fechaPublicacion,
         direccion,
-
         destacado,
         status,
         antiguedad,
@@ -427,17 +498,17 @@ exports.crearInmueble = async (req, res) => {
     try {
 
 
-        idCategoria.map(async i => {
+        // idCategoria.map(async i => {
 
-            const categoria = await Categoria.findOne({
-                where: { id: i }
-            })
+        //     const categoria = await Categoria.findOne({
+        //         where: { id: i }
+        //     })
 
 
-            if (categoria) {
-                categoria.addInmueble(inmueble)
-            }
-        })
+        //     if (categoria) {
+        //         categoria.addInmueble(inmueble)
+        //     }
+        // })
 
 
         return res.status(201).json({
@@ -458,76 +529,88 @@ exports.crearInmueble = async (req, res) => {
 }
 
 
-// ------------ PUT ------------ //
 
 
-exports.editProducto = async (req, res) => {
-
-    const { id, nombre, precio, moneda, descripcion, imagen, fechaPublicacion, direccion, idCategoria } = req.body
-
-    const nombreMinuscula = nombre.toLowerCase()
-
-    if (!validaciones(id, nombre, precio, descripcion, imagen, fechaPublicacion, direccion, idCategoria))
-        return res.status(400).json({ ok: false, status: "Error con las validaciones" });
 
 
-    try {
-
-        const inmueble = await Inmueble.findByPk(id)
-        const nombreRepetido = await Inmueble.findOne({ where: { nombre: nombreMinuscula } })
-
-        if (inmueble === null) {
-            return res.status(400).json({
-                ok: false,
-                status: "No se encontró el producto",
-            })
-        }
-
-        if (nombreRepetido) {
-            return res.status(400).json({
-                ok: false,
-                status: "ya existe un producto con ese nombre",
-            })
-        }
 
 
-        inmueble.nombre = nombreMinuscula;
-        inmueble.descripcion = descripcion;
-        inmueble.precio = precio;
-        inmueble.moneda = moneda;
-        inmueble.imagen = imagen;
-        inmueble.fechaPublicacion = fechaPublicacion;
-        inmueble.direccion = direccion
-
-        await inmueble.save()
-
-        idCategoria.map(async c => { //UNIR CATEGORIA CON PRODUCTO
-
-            if (c !== null || c !== undefined) {
-
-                const categoria = await Categoria.findByPk(c)
-
-                if (categoria) inmueble.addCategoria(categoria)
-            }
-        })
 
 
-        return res.status(201).json({
-            ok: true,
-            status: "producto modificado con éxito",
-            producto
-        })
 
 
-    } catch (error) {
 
-        res.status(500).json({
-            ok: false,
-            status: "comunicarse con el administrador",
-        })
-        console.log(error)
-    }
-}
+
+// // ------------ PUT ------------ //
+
+
+// exports.editProducto = async (req, res) => {
+
+//     const { id, nombre, precio, moneda, descripcion, imagen, fechaPublicacion, direccion, idCategoria } = req.body
+
+//     const nombreMinuscula = nombre.toLowerCase()
+
+//     if (!validaciones(id, nombre, precio, descripcion, imagen, fechaPublicacion, direccion, idCategoria))
+//         return res.status(400).json({ ok: false, status: "Error con las validaciones" });
+
+
+//     try {
+
+//         const inmueble = await Inmueble.findByPk(id)
+//         const nombreRepetido = await Inmueble.findOne({ where: { nombre: nombreMinuscula } })
+
+//         if (inmueble === null) {
+//             return res.status(400).json({
+//                 ok: false,
+//                 status: "No se encontró el producto",
+//             })
+//         }
+
+//         if (nombreRepetido) {
+//             return res.status(400).json({
+//                 ok: false,
+//                 status: "ya existe un producto con ese nombre",
+//             })
+//         }
+
+
+//         inmueble.nombre = nombreMinuscula;
+//         inmueble.descripcion = descripcion;
+//         inmueble.precio = precio;
+//         inmueble.moneda = moneda;
+//         inmueble.imagen = imagen;
+//         inmueble.fechaPublicacion = fechaPublicacion;
+//         inmueble.direccion = direccion
+
+//         await inmueble.save()
+
+//         idCategoria.map(async c => { //UNIR CATEGORIA CON PRODUCTO
+
+//             if (c !== null || c !== undefined) {
+
+//                 const categoria = await Categoria.findByPk(c)
+
+//                 if (categoria) inmueble.addCategoria(categoria)
+//             }
+//         })
+
+
+//         return res.status(201).json({
+//             ok: true,
+//             status: "producto modificado con éxito",
+//             producto
+//         })
+
+
+//     } catch (error) {
+
+//         res.status(500).json({
+//             ok: false,
+//             status: "comunicarse con el administrador",
+//         })
+//         console.log(error)
+//     }
+// }
 
 
 

@@ -28,11 +28,11 @@ const Productos = () => {
 
     <Grid container direction='column' gap={4} mt={2} >
       
-      { s && <Grid>
-                    <Button variant="contained" onClick={() => (c !==undefined && c!=='todos') ? navigate(`/tienda?c=${c}&paginaActual=1&items=5`) : navigate(`/tienda?paginaActual=1&items=5`)}>{s}
-                      <ClearIcon size='small'/>
-                    </Button>
-             </Grid>
+      {s && <Grid>
+              <Button variant="contained" onClick={() => (c !==undefined && c!=='todos') ? navigate(`/tienda?c=${c}&paginaActual=1&items=5`) : navigate(`/tienda?paginaActual=1&items=5`)}>{s}
+                <ClearIcon size='small'/>
+              </Button>
+            </Grid>
       }
 
       { ok && inmuebles?.map( p => (
@@ -52,7 +52,7 @@ const Productos = () => {
                 </Grid>
                 <Grid container direction='row'>
                   <Typography variant='p' fontWeight={700}>{p.direccion}</Typography>
-                  <Typography>{p.nombre}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Typography>
+                  <Typography>{p.nombre}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Typography>
                 </Grid>
               </Grid>
 
