@@ -30,20 +30,35 @@ exports.getById = async (req, res) => {
     }
 };
 
+
+
+
+function validaciones( email ) {
+
+    const emailTest = new RegExp( /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i );
+    if (!email || !emailTest.test(email)) return false;
+
+    return true;
+}
+
+
 exports.createUser = async (req, res) => {
+
     const { uid, displayName, email, isAdmin } = req.body;
+
     try {
         
-        // if (!validations(nameUser, email))
-        // return res.status(400).json({status: 400, message: 'Error con las validaciones'});
-        // const userExist = await User.findByPk(uid);
+        if (!validaciones(email))
+        return res.status(400).json({status: 400, message: 'Error con las validaciones'});
 
         const usuario = await Usuario.findOrCreate({
             where: { uid: uid },
-            defaults: { nombre: displayName, email, isAdmin }
+            defaults: { 
+                nombre: displayName?.toLowerCase(), 
+                email: email.toLowerCase(), 
+                isAdmin 
+            }
         });
-
-        console.log('post-usuario', usuario)
 
         return res.status(201).json(usuario);
     } catch (error) {
