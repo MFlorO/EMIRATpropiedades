@@ -1,17 +1,16 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore/lite"
-import { apiKeyFirebase, appId } from "~/env";
-
+import { apiKeyFirebase, appId, projectId } from "~/env.js";
 
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: apiKeyFirebase,
-  authDomain: "emirat-propiedades.firebaseapp.com",
-  projectId: "emirat-propiedades",
-  storageBucket: "emirat-propiedades.appspot.com",
-  messagingSenderId: "1068672760143",
+  authDomain: "emiratpropiedades-6881b.firebaseapp.com",
+  projectId: projectId,
+  storageBucket: "emiratpropiedades-6881b.appspot.com",
+  messagingSenderId: "749891792389",
   appId: appId
 };
 

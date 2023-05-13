@@ -6,6 +6,8 @@ export const GET_All_CATEGORIAS = "GET_All_CATEGORIAS"
 export const GET_ALL_INMUEBLES = "GET_ALL_INMUEBLES"
 export const CREAR_INMUEBLE = "CREAR_INMUEBLE"
 export const GET_ALL_USUARIOS = "GET_ALL_USUARIOS"
+export const DELETE_USER = "DELETE_USER"
+
 
 
 
@@ -100,11 +102,13 @@ export function uploadImage(
 
 
 
+
+
 // ######## GET_ALL_USUARIOS ##############
 
 export function getAllUsuarios() {
   
-  const url = `${baseURL}/auth/`
+  const url = `${baseURL}/usuarios`
 
   return function (dispatch) {   
     axios.get(url)
@@ -117,5 +121,35 @@ export function getAllUsuarios() {
     .catch(error => {
       console.log("error ruta getAllUsuarios",error)
     })
+  };
+}
+
+
+
+
+// ######## SET_ACTIVE_USUARIOS ##############
+export function setUserAdmin(uid) {
+
+  return async function (dispatch) {
+
+    await axios.put(`${baseURL}/usuarios/${uid}`)
+  };
+}
+
+
+
+
+
+// ######## DELETE_USUARIO ##############
+export function deleteUser(uid) {
+  return async function (dispatch) {
+    await axios
+      .delete(`${baseURL}/usuarios/${uid}`)
+      .then((response) => {
+        dispatch({ type: "DELETE_USER", payload: uid });
+      })
+      .catch((error) => {
+        console.log("deleteUser", error);
+      });
   };
 }

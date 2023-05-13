@@ -21,6 +21,12 @@ const API_KEY_GOOGLEMAPS = process.env.API_KEY_GOOGLEMAPS;
 
 
 
+//FIREBASE
+const apiKeyFirebase = process.env.VITE_FIREBASE_API_KEY;
+const appId = process.env.VITE_APP_ID;
+const projectId = process.env.VITE_PROJECT_ID
+
+
 
 
 module.exports = {
@@ -34,6 +40,9 @@ module.exports = {
     CLOUDINARY_API_KEY,
     CLOUDINARY_API_SECRET,
     UPLOAD_PRESET,
-    API_KEY_GOOGLEMAPS
+    API_KEY_GOOGLEMAPS,
+    apiKeyFirebase,
+    appId,
+    projectId
 };
   

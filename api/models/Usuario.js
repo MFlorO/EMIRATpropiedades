@@ -42,14 +42,6 @@ module.exports = (sequelize) => {
 			isAdmin: {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
-			},			
-			direccion: {
-				type: DataTypes.STRING,
-				allowNull: true,
-			}, 
-			isBanned: {
-				type: DataTypes.BOOLEAN,
-				defaultValue: false,
 			}
 		}
 	);

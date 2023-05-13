@@ -1,7 +1,4 @@
-
-import { LOGIN, LOGOUT, CHECKING_CREDENTIALS, GET_USER_INFO, SET_CREATE_USER_ERROR } from "../actions/auth.js"
-
-
+import { LOGIN, LOGOUT, CHECKING_CREDENTIALS, SET_CREATE_USER_ERROR } from "../actions/auth.js"
 
 
 const initialState = {
@@ -44,8 +41,7 @@ const initialState = {
             photoURL: action.payload.photoURL,
             errorMessage: null,
             isAdmin: false,
-            // isActive: action.payload.isActive,
-            // isBanned: action.payload.isBanned,
+            isActive: state.isActive,
         }
       
             
@@ -60,27 +56,7 @@ const initialState = {
             errorMessage: action.payload?.errorMessage,
             // isActive: true,
             // isAdmin: false,
-            // isBanned: false,
           };
-
-      // case GET_USER_INFO:
-      //   if (action.payload.email === "emiratpropiedades@gmail.com") {
-      //     return {
-      //           ...state,
-      //           isActive: action.payload.isActive,
-      //           isBanned: action.payload.isBanned,
-      //           direccion: action.payload.direccion,
-      //           isAdmin: true,
-      //       };
-      //   }
-      //    return {
-      //         ...state,
-      //         isActive: action.payload.isActive,
-      //         isAdmin: action.payload.isAdmin,
-      //         isBanned: action.payload.isBanned,
-      //         direccion: action.payload.direccion,
-      //         displayName: action.payload.nombre,
-      // };
 
 
       case CHECKING_CREDENTIALS:
@@ -93,14 +69,13 @@ const initialState = {
         return {
           ...state,
           status: "autenticado",
-          uid: null,
-          email: null,
-          displayName: null,
-          photoURL: null,
+          uid: state.uid,
+          email: state.email,
+          displayName: state.displayName,
+          photoURL: state.photoURL,
           errorMessage: action?.payload,
-          isActive: true,
-          isAdmin: false,
-          isBanned: false,
+          isActive: state.isActive,
+          isAdmin: state.isAdmin,
         };
 
 

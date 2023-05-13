@@ -50,10 +50,11 @@ export const startCreatingUserWithEmailPassword = ({ email, password, displayNam
 
     dispatch(checkingCredentials());
   
-    const {ok, errorMessage} = await registerUserWithEmailPassword({email,password,displayName});
+    const {ok, errorMessage, uid} = await registerUserWithEmailPassword({email,password,displayName});
   
     if (!ok) return dispatch(setCreateUserError(errorMessage));
   
+    dispatch(findorCreateUser({ uid, email, displayName }));
     dispatch(setCreateUserError(null))
 
   };
@@ -83,16 +84,9 @@ export function findorCreateUser({ uid, email, displayName }) {
   return async function (dispatch) {
 
     email === "emiratpropiedades@gmail.com" 
-    ? await axios.post(`${baseURL}/auth`, { uid, email, displayName, isAdmin:true })
-    : await axios.post(`${baseURL}/auth`, { uid, email, displayName, isAdmin:false })
+    ? await axios.post(`${baseURL}/usuarios`, { uid, email, displayName, isAdmin:true })
+    : await axios.post(`${baseURL}/usuarios`, { uid, email, displayName, isAdmin:false })
   };
-}
-
-
-export function getUserInfo( data ) {
-  return function (dispatch) {
-    dispatch({ type: "GET_USER_INFO", payload: data });
-  }
 }
 
 
@@ -104,3 +98,12 @@ export const startLogout = () => {
   };
 };
 
+
+
+
+// export const startResetPasswordEmail = ({ email }) => {
+//   return async (dispatch) => {
+//     const result = await resetPasswordEmail({ email });
+//     if (!result.ok) return dispatch(logout(result.errorMessage));
+//   };
+// };
