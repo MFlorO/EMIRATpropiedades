@@ -4,16 +4,11 @@
 
 const { Router } = require("express");
 const router = Router();
-// const { getAll, getById, getUserByName, createUser, updateAdminUser, logicaldeleteUser, bannedUser, updateUserName } = require("../controllers/auth");
+const { getAll, getById, createUser } = require("../controllers/auth");
 
-// router.get("/", getAll);
-// router.get("/byname", getUserByName);
-// router.get("/:uid", getById);
-// router.post("/", createUser);
-// router.put("/:uid", updateAdminUser);
-// router.delete("/:uid", logicaldeleteUser);
-// router.delete("/banned/:uid", bannedUser);
-// router.put("/name/:uid", updateUserName);
+router.get("/", getAll);
+router.get("/:uid", getById);
+router.post("/", createUser);
 
 
 module.exports = router

@@ -1,4 +1,4 @@
-import { GET_ALL_INMUEBLES, GET_All_CATEGORIAS, CREAR_INMUEBLE } from "../actions/admin.js"
+import { GET_ALL_INMUEBLES, GET_All_CATEGORIAS, GET_ALL_USUARIOS } from "../actions/admin.js"
 
 
 
@@ -6,7 +6,8 @@ import { GET_ALL_INMUEBLES, GET_All_CATEGORIAS, CREAR_INMUEBLE } from "../action
 const initialState = {
   inmueblesTotales: [],
   inmueblesCopia: [],
-  categorias: []
+  categorias: [],
+  usuarios:[]
 };
 
 
@@ -26,6 +27,12 @@ const initialState = {
           ...state,
           inmueblesTotales: action.payload,
           inmueblesCopia: action.payload
+        }
+
+      case GET_ALL_USUARIOS:
+        return {
+          ...state,
+          usuarios: action.payload
         }
 
       default:

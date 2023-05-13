@@ -1,4 +1,3 @@
-// import { fileUpload } from "../../Admin/helpers/fileUpload"
 import { baseURL } from "./url"
 import axios from "axios"
 
@@ -6,6 +5,9 @@ import axios from "axios"
 export const GET_All_CATEGORIAS = "GET_All_CATEGORIAS"
 export const GET_ALL_INMUEBLES = "GET_ALL_INMUEBLES"
 export const CREAR_INMUEBLE = "CREAR_INMUEBLE"
+export const GET_ALL_USUARIOS = "GET_ALL_USUARIOS"
+
+
 
 
 
@@ -60,7 +62,7 @@ export function getAllInmueblesAdmin() {
 
 export function createInmueble(body) {
 
-  console.log('action', body)
+  // console.log('action', body)
   
   return async function (dispatch) {
     try {
@@ -93,5 +95,27 @@ export function uploadImage(
         errorMessage
         console.log("uploadImage", error);
       });
+  };
+}
+
+
+
+// ######## GET_ALL_USUARIOS ##############
+
+export function getAllUsuarios() {
+  
+  const url = `${baseURL}/auth/`
+
+  return function (dispatch) {   
+    axios.get(url)
+    .then(response => {
+        dispatch({
+          type: 'GET_ALL_USUARIOS',
+          payload: response.data
+        });
+      })
+    .catch(error => {
+      console.log("error ruta getAllUsuarios",error)
+    })
   };
 }

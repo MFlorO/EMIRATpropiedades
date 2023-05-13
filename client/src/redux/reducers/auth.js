@@ -43,8 +43,8 @@ const initialState = {
             displayName: action.payload.displayName,
             photoURL: action.payload.photoURL,
             errorMessage: null,
+            isAdmin: false,
             // isActive: action.payload.isActive,
-            // isAdmin: action.payload.isAdmin,
             // isBanned: action.payload.isBanned,
         }
       
@@ -62,6 +62,26 @@ const initialState = {
             // isAdmin: false,
             // isBanned: false,
           };
+
+      // case GET_USER_INFO:
+      //   if (action.payload.email === "emiratpropiedades@gmail.com") {
+      //     return {
+      //           ...state,
+      //           isActive: action.payload.isActive,
+      //           isBanned: action.payload.isBanned,
+      //           direccion: action.payload.direccion,
+      //           isAdmin: true,
+      //       };
+      //   }
+      //    return {
+      //         ...state,
+      //         isActive: action.payload.isActive,
+      //         isAdmin: action.payload.isAdmin,
+      //         isBanned: action.payload.isBanned,
+      //         direccion: action.payload.direccion,
+      //         displayName: action.payload.nombre,
+      // };
+
 
       case CHECKING_CREDENTIALS:
         return {
@@ -81,24 +101,6 @@ const initialState = {
           isActive: true,
           isAdmin: false,
           isBanned: false,
-        };
-
-
-      case GET_USER_INFO:
-        if (action.payload.email === "emirat@gmail.com") {
-            return {
-            ...state,
-            isActive: action.payload.isActive,
-            isBanned: action.payload.isBanned,
-            isAdmin: true,
-            }
-        }
-            return {
-            ...state,
-            isActive: action.payload.isActive,
-            isAdmin: action.payload.isAdmin,
-            isBanned: action.payload.isBanned,
-            displayName: action.payload.nameUser,
         };
 
 

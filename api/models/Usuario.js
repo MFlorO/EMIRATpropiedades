@@ -11,9 +11,8 @@ module.exports = (sequelize) => {
 				allowNull: false,
 				primaryKey: true,
 			},
-			name: {
+			nombre: {
 				type: DataTypes.STRING,
-				allowNull: false,
 				validate: {
 					len: [1,100],
 	     		},
@@ -27,7 +26,6 @@ module.exports = (sequelize) => {
 			},
 			password: {
 				type: DataTypes.STRING,
-				allowNull: false,
 				validate: {
 					len: [4,100],
 				},
@@ -35,23 +33,23 @@ module.exports = (sequelize) => {
 			isActive: {
 				type: DataTypes.BOOLEAN,
 				allowNull: true,
-				defaultValue:true,
+				defaultValue: true,
 			},
-			profilePic: {
+			foto: {
 				type: DataTypes.STRING,
 				allowNull: true,
 			},
 			isAdmin: {
 				type: DataTypes.BOOLEAN,
-				defaultValue:false,
+				defaultValue: false,
 			},			
-			address: {
+			direccion: {
 				type: DataTypes.STRING,
 				allowNull: true,
 			}, 
 			isBanned: {
 				type: DataTypes.BOOLEAN,
-				defaultValue:false,
+				defaultValue: false,
 			}
 		}
 	);

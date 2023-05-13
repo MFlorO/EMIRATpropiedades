@@ -1,3 +1,4 @@
+// import { useState } from "react";
 import { useNavigate, Link as LinkRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminLayOut } from "~/Admin/layout"
@@ -5,7 +6,6 @@ import { useForm } from "../../../Hook/useForm";
 import { startCreatingUserWithEmailPassword } from "~/redux/actions/auth";
 import { validacionFormulario } from "../../../../auth/functions/validacionFormulario";
 import { Paper, Button, TextField, Typography, Grid, Alert, useTheme, FormHelperText, Link } from "@mui/material";
-import { useState } from "react";
 
 
 
@@ -27,8 +27,8 @@ const CrearCuenta = () => {
 
   const { displayName, email, password, onInputChange, errorFormValid, onResetForm, formValid } = useForm(formData, validacionFormulario)
 
-  const { errorMessage } = useSelector( state => state.auth )
-  const [alert, setalert] = useState(false)
+  // const { errorMessage } = useSelector( state => state.auth )
+  // const [alert, setalert] = useState(false)
 
 
   const onSubmit = (event) => {
@@ -37,11 +37,7 @@ const CrearCuenta = () => {
     // if (!formValid) return;
     onResetForm();
     
-    setalert(true)
-    
-    setTimeout(() => {
-    setalert(false)
-    }, 2000)
+    // setalert(true)
   }
 
 
@@ -68,7 +64,7 @@ const CrearCuenta = () => {
       {errorFormValid.password && <FormHelperText error>{errorFormValid.password}</FormHelperText>}
 
       <Button variant="contained" type="submit" disabled={formValid()} color="secondary">CREAR</Button>
-      { alert && <Alert severity="error">{errorMessage}</Alert> } 
+      {/* { alert && <Alert severity="error">{errorMessage}</Alert> }  */}
 
       </form>
 

@@ -2,8 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { SignIn } from "../view";
 
 
-
-
 const SignInRouter = () => {
   return (
     <Routes>
