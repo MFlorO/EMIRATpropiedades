@@ -1,61 +1,52 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-
 
 
 export const useForm = ( initialForm = {}, validate ) => {
   
-    const [ formState, setFormState ] = useState( initialForm );
+const [ formState, setFormState ] = useState( initialForm );
 
-    const [ errorFormValid, seterrorFormValid ] = useState( {} );
+const [ errorFormValid, seterrorFormValid ] = useState( {} );
 
-    const formValid = () => (Object.keys(errorFormValid).length > 0) ? true : false
+const formValid = () => (Object.keys(errorFormValid).length > 0) ? true : false
 
-    const onInputChange = ({ target }) => {
+const onInputChange = ({ target }) => {
 
-        let { name, value } = target;
+    let { name, value } = target;
 
 
-        if (name === 'pileta' || name === 'destacado'){
+    if (name === 'pileta' || name === 'destacado'){
 
-            if(value === 'true'){
-                value = false
-            }else{
-                value = true
-            }
-
-            return setFormState({ ...formState, [ name ] : value });
+        if(value === 'true'){
+            value = false
+        }else{
+            value = true
         }
 
-        if (name === 'idCategoria'){
+        return setFormState({ ...formState, [ name ] : value });
+    }
 
-            if(!formState.idCategoria.includes(value)){
-      
-              return setFormState({ ...formState, [name] : [...formState.idCategoria, value] });
-            }
-        }   
+    if (name === 'idCategoria'){
+
+     setFormState({ ...formState, [name] :  value });
         
+    }   
         
-        setFormState({ ...formState, [ name ]: value });
+    setFormState({ ...formState, [ name ]: value });
     
-        seterrorFormValid(validate ({...formState, [ name ]:value }));
+    seterrorFormValid(validate ({...formState, [ name ]: value }));
           
-    }
+}
 
-
-
-
-    const onResetForm = () => setFormState( initialForm );
+const onResetForm = () => setFormState( initialForm );
     
 
-    return {
-        ...formState,
-        formState,
-        onInputChange,
-        errorFormValid,
-        onResetForm,
-        formValid,
-        setFormState
-    }
+  return {
+    ...formState,
+    formState,
+    onInputChange,
+    errorFormValid,
+    onResetForm,
+    formValid,
+    setFormState
+  }
 }   

@@ -462,26 +462,16 @@ exports.cloudinary = async function (req, res) {
 exports.crearInmueble = async (req, res) => {
 
     const { nombre, descripcion, precio, moneda, fechaPublicacion, direccion, destacado, status, antiguedad, mt2, dormitorios, baños, cochera, pileta, imagen, idCategoria } = req.body
-    
-    console.log('body', req.body)
-
-    console.log('imagen', imagen)
 
     // if (!validaciones(nombre, precio, descripcion, imagen, fechaPublicacion, direccion, idCategoria))
     //     return res.status(400).json({ ok: false, status: "Error con las validaciones" });
-
-
-    // const imagen2 = await exports.postCloudinary(imagen);
-    
-    // console.log('imagen2',imagen2)
-    
 
     const inmueble = await Inmueble.create({
         nombre: nombre.toLowerCase(),
         precio,
         moneda,
         descripcion: descripcion.toLowerCase(),
-        imagen,
+        // imagen,
         fechaPublicacion,
         direccion,
         destacado,
@@ -497,26 +487,18 @@ exports.crearInmueble = async (req, res) => {
 
     try {
 
+       const categoria = await Categoria.findOne({
+                where: { id: idCategoria }
+            })
 
-        // idCategoria.map(async i => {
-
-        //     const categoria = await Categoria.findOne({
-        //         where: { id: i }
-        //     })
-
-
-        //     if (categoria) {
-        //         categoria.addInmueble(inmueble)
-        //     }
-        // })
-
+        if (categoria) {
+            inmueble.addCategoria(categoria)
+        }
 
         return res.status(201).json({
             ok: true,
             status: "Producto creado con éxito",
-            inmueble
         })
-
 
     } catch (error) {
 
@@ -621,8 +603,8 @@ exports.crearInmueble = async (req, res) => {
 
 exports.deleteInmueble = async (req, res) => {
 
-    const { id } = req.body
-
+    const { id } = req.params
+    
     try {
 
         const productoExistente = await Inmueble.findByPk(id)

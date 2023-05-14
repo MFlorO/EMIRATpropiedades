@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
       },
       imagen: {
         type: DataTypes.ARRAY(DataTypes.STRING(100000)),
-        allowNull: false,
+        // allowNull: false,
       },
       fechaPublicacion: {
         type: DataTypes.STRING(10000),

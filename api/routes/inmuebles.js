@@ -14,7 +14,7 @@ router.get('/orden/:ordenar', getInmueblesOrdenadosPorPrecio)
 
 router.post('/', crearInmueble);
 // router.put('/', editProducto)
-router.delete('/', deleteInmueble)
+router.delete('/:id', deleteInmueble)
 router.get('/detalle/:id', getInmuebleId);
 router.get('/maps/:direccion', direccionGoogleMaps);
 router.post('/upload', cloudinary);

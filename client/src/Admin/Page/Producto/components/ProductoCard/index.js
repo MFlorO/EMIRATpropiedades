@@ -1,2 +1,2 @@
 export { default as ListaProductos } from './ListaProductos';
-export { default as MenuEditarYBorrar } from './MenuEditarYBorrar';
+export { default as TablaInmuebleCategorias } from './TablaInmuebleCategorias';

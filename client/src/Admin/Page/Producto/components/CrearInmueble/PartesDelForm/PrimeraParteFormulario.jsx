@@ -46,9 +46,11 @@ const PrimeraParteFormulario = ({formState, onInputChange}) => {
         <Grid item xs={12} sm={3}><TextField type='number' label="Cochera" name="cochera" value={cochera} onChange={onInputChange} color="secondary"/></Grid>
         <Grid item xs={12} sm={3}><TextField type='number' label="Antiguedad" name="antiguedad" value={antiguedad} onChange={onInputChange} color="secondary"/></Grid>
         <Grid item xs={12} sm={3}><TextField type='number' label="M2" name="m2" value={m2} onChange={onInputChange} color="secondary"/></Grid>
-        <FormControlLabelStyle type='number' label="Pileta"  control={<Checkbox name="pileta" value={pileta} onChange={onInputChange} color="secondary" />} color="secondary"/>
       </Grid>
-
+      <Grid container direction='row' alignItems='center' gap={2}>
+        <InputLabel>Pileta:</InputLabel> 
+        <FormControlLabelStyle type='number' control={<Checkbox name="pileta" value={pileta} onChange={onInputChange} color="secondary" />}/>
+      </Grid>
     </>
   )
 }
