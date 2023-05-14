@@ -7,7 +7,7 @@ export const GET_ALL_INMUEBLES = "GET_ALL_INMUEBLES"
 export const CREAR_INMUEBLE = "CREAR_INMUEBLE"
 export const GET_ALL_USUARIOS = "GET_ALL_USUARIOS"
 export const DELETE_USER = "DELETE_USER"
-
+export const SET_STATE = "SET_STATE"
 
 
 
@@ -63,18 +63,18 @@ export function getAllInmueblesAdmin() {
 //         ##################       CREAR_INMUEBLE         #################
 
 export function createInmueble(body) {
-
-  // console.log('action', body)
-  
   return async function (dispatch) {
-    try {
-      await axios.post(`${baseURL}/inmuebles/`, body);
-      return dispatch({
-        type: "CREAR_INMUEBLE"
+    axios.post(`${baseURL}/inmuebles/`, body)
+      .then(response => {
+        console.log(response.data)
+        dispatch({
+          type: 'CREAR_INMUEBLE',
+          payload: response.data
+        });
       })
-    } catch (error) {
-      console.log("crear inmueble", error)
-    }
+    .catch(error => {
+      console.log("crear inmueble",error)
+    })
   }
 }
 
@@ -100,6 +100,22 @@ export function uploadImage(
   };
 }
 
+
+
+
+//         ##################       DELETE_INMUEBLE         #################
+
+export function deleteInmueble(id) {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`${baseURL}/inmuebles/${id}`);
+      dispatch(getAllInmueblesAdmin())
+      dispatch(getAllCategorias())
+    } catch (error) {
+      console.log("delete inmueble", error)
+    }
+  }
+}
 
 
 
@@ -151,5 +167,14 @@ export function deleteUser(uid) {
       .catch((error) => {
         console.log("deleteUser", error);
       });
+  };
+}
+
+
+
+// ######## SET_STATE ##############
+export function setstate(msg) {
+  return (dispatch) => {
+    dispatch({ type: "SET_STATE", payload: msg });
   };
 }

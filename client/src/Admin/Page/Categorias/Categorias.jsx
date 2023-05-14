@@ -5,7 +5,6 @@ import { Container, Grid, Paper, Typography, useTheme } from "@mui/material";
 
 
 
-
 const Categorias = () => {
 
   const theme = useTheme()

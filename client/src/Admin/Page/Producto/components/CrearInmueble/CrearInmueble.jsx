@@ -1,14 +1,12 @@
+import { useState } from "react";
 import { Link as LinkRouter, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { createInmueble } from "~/redux/actions/admin";
+import { useDispatch, useSelector } from "react-redux";
+import { createInmueble, setstate } from "~/redux/actions/admin";
 import { AdminLayOut } from "~/Admin/layout"
 import { validacionFormularioInmueble } from "../../../../functions/validacionFormularioInmueble";
 import { useForm } from "../../../../Hook/useForm";
-import { Container, Paper, Button, Typography, Stack, Alert, Link, useTheme, Select, FormControlLabel, Checkbox, InputLabel, MenuItem, IconButton } from "@mui/material";
-import PrimeraParteFormulario from "./PrimeraParteFormulario";
-import SegundaParteFormulario from "./SegundaParteFormulario";
-import TerceraParteFormulario from "./TerceraParteFormulario";
-import { useState } from "react";
+import { CategoriasForm, ImagenForm, PrimeraParteFormulario } from "./PartesDelForm";
+import { Container, Paper, Button, Typography, Stack, Alert, Link, useTheme } from "@mui/material";
 
 
 
@@ -27,66 +25,55 @@ let data = {
   pileta: "false",
   cochera: 0,
   imagen: [],
-  idCategoria: [],
+  idCategoria: "",
 }
-
 
 
 
 const CrearInmueble = () => {
 
-  const theme = useTheme()
-  const dispatch = useDispatch()
   const [imagen, setimagen] = useState("")
-  // const navigate = useNavigate()
+  const { status } = useSelector( state => state.admin )
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const theme = useTheme()
 
-
-  const { nombre , descripcion, precio, moneda, fechaPublicacion, direccion, destacado, dormitorios, antiguedad, m2, baños, pileta, cochera, idCategoria, 
-    onInputChange, onResetForm, formState, setFormState } = useForm(data, validacionFormularioInmueble)
-
-
+  const { nombre , descripcion, precio, moneda, fechaPublicacion, direccion, destacado, dormitorios, antiguedad, m2, baños, pileta, cochera, idCategoria, onInputChange, onResetForm, formState, setFormState } = useForm(data, validacionFormularioInmueble)
 
   const onSubmit = (event) => {
-    console.log('submit', formState)
-    console.log('submit-imagen', imagen)
-
     event.preventDefault();
-    dispatch(createInmueble({nombre , descripcion, precio, moneda, fechaPublicacion, direccion, destacado, dormitorios, antiguedad, m2, baños, pileta, cochera, imagen}));
+    dispatch(createInmueble({nombre , descripcion, precio, moneda, fechaPublicacion, direccion, destacado, dormitorios, antiguedad, m2, baños, pileta, cochera, imagen, idCategoria}));
     onResetForm();
+    setTimeout(() => {
+      navigate('/dashboard/admin/inmuebles')
+      dispatch(setstate({}))
+    }, 2500);
   }
-
   
-  console.log('imagen', imagen)
 
-  return (
+return (
   <AdminLayOut>
   <Container maxWidth="md">
-  
   <Stack>
   <Paper sx={{ p: 2, display: "flex", flexDirection: "column", backgroundColor: theme.palette.background.dark }}>
 
     <Link component={LinkRouter} to='/dashboard/admin/inmuebles/' sx={{color: theme.palette.text.main, fontSize:'12px', textDecoration:'underline'}}>Volver a Inmuebles</Link>
 
     <Typography variant='h4' textAlign='center' color='secondary' mt={4} mb={5}>CREAR INMUEBLE</Typography>
-       
+
     <form style={{p: 2, display: "flex", flexDirection: "column", justifyContent:'center',  gap:'1rem'}} onSubmit={onSubmit}>
-
       <PrimeraParteFormulario formState={formState} onInputChange={onInputChange}/>
-
-      <SegundaParteFormulario idCategoria={idCategoria} destacado={destacado} onInputChange={onInputChange}/>
-
-      <TerceraParteFormulario imagen={imagen} setimagen={setimagen} />
-
-
+      <CategoriasForm onInputChange={onInputChange}/>
+      <ImagenForm imagen={imagen} setimagen={setimagen} />
       <Button variant="contained" type="submit" color="secondary">SIGUIENTE</Button>
+      { status !== null && <Alert severity={status.ok === true ? "success" : "error"}>{status.status}</Alert> } 
     </form>
 
   </Paper>
   </Stack> 
-
   </Container>
   </AdminLayOut>
-  )
+)
 }
 
 export default CrearInmueble;

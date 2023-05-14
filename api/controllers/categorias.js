@@ -200,9 +200,9 @@ exports.deleteCategoria = async(req, res) => {
 
 exports.postCategoria = async(req, res) => {
 
-    const { codigo } = req.params
+    const { codigo } = req.params //codigo inmueble
 
-    const { id } = req.body
+    const { id } = req.body //id cateogria
 
     try {
 

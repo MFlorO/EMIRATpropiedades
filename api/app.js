@@ -9,10 +9,8 @@ const morgan = require('morgan');
 
 const routes = require('./routes/index');
 
-
 //Cear el servidor express
 const app = express()
-
 
 
 //Cors y otros
@@ -25,14 +23,8 @@ app.use(morgan('dev'));
 //Lectura y parseo del body
 app.use(express.json()); 
 
-
-
-
-
 //Rutas
 app.use('/', routes);
-
-
 
 
 module.exports = app;// -> se utiliza en index.js para hacer la conexion de express al puerto

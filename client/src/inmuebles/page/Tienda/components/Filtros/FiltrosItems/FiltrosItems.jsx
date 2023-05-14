@@ -17,7 +17,7 @@ const FiltrosItems = () => {
 
     <Grid container gap={2}>
 
-     { c === 'todos' && <FiltrosPorCategoria />}
+     { (c !== 'alquiler' && c !=='venta') && <FiltrosPorCategoria />}
 
      <FiltrosPorHabitaciones />
 

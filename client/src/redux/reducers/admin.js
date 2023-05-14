@@ -1,9 +1,10 @@
-import { GET_ALL_INMUEBLES, GET_All_CATEGORIAS, GET_ALL_USUARIOS, DELETE_USER } from "../actions/admin.js"
+import { GET_ALL_INMUEBLES, CREAR_INMUEBLE, GET_All_CATEGORIAS, GET_ALL_USUARIOS, DELETE_USER, SET_STATE } from "../actions/admin.js"
 
 
 
 
 const initialState = {
+  status: null,
   inmueblesTotales: [],
   inmueblesCopia: [],
   categorias: [],
@@ -21,6 +22,18 @@ const initialState = {
             ...state,
             categorias: action.payload
         }
+      
+      case CREAR_INMUEBLE:
+        return{
+          ...state,
+          status: action.payload
+        }
+
+      case SET_STATE:
+        return{
+          ...state,
+          status: null
+        }
 
       case GET_ALL_INMUEBLES:
         return {
@@ -34,7 +47,6 @@ const initialState = {
           ...state,
           usuarios: action.payload
         }
-
 
       case DELETE_USER:
         const usuariosSinElEliminado = state.usuarios.filter( user => user.uid !== action.payload );
